@@ -2,9 +2,9 @@
   "name": "k8",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/express.js",
   "scripts": {
-    "start": "nodemon express.js",
+    "start": "nodemon server/express.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
