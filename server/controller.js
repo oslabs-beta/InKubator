@@ -63,8 +63,10 @@ controller.expose = async function(req, res, next) {
   const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
   // console.log(doc.metadata.name);
   const clusterName = doc.metadata.name;
+  const targetPort = doc.spec.template.spec.containers[0].ports[0].containerPort;
+  console.log('TARGET PORT', targetPort);
   
-  exec(`kubectl expose deployment ${clusterName} --type LoadBalancer --port=80 --target-port 8080`, 
+  exec(`kubectl expose deployment ${clusterName} --type LoadBalancer --port=80 --target-port ${targetPort}`, 
   (err, stdout, stderr) => {
       if (err) {
         return next({
@@ -108,6 +110,7 @@ controller.getPods = function(req, res, next) {
         }
     })
 };
+
 
 
 

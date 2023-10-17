@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const router = require('./router.js')
+const router = require('./router.js');
+const googleRouter = require('./googleRouter.js');
 const PORT = 3001;
 
 const { exec } = require('child_process');
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use('/', express.static(path.resolve(__dirname, '../')));
 
 app.use('/api', router);
+app.use('/google', googleRouter);
 
 // app.use('/deploy', (req, res, next) => {
 //     exec('kubectl apply -f ./to-do-list-deployment.yaml', (err, stdout, stderr) => {
