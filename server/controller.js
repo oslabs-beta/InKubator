@@ -8,6 +8,9 @@ controller.deploymentYaml = async function(req, res, next) {
   try {
     const { clusterName, replicas, image, port, label } = req.body;
     // separate labels later??
+
+    console.log(req.body);
+    console.log(clusterName, replicas, image, port, label);
       
     const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
     console.log('DOC', doc.metadata.labels);
