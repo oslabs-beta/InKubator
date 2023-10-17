@@ -64,7 +64,7 @@ controller.expose = async function(req, res, next) {
   // console.log(doc.metadata.name);
   const clusterName = doc.metadata.name;
   
-  exec(`kubectl expose deployment ${clusterName} --type LoadBalancer --port=80 --target-port 8080`, 
+  exec(`kubectl expose deployment ${clusterName} --type LoadBalancer --port=80 --target-port=8080`,
   (err, stdout, stderr) => {
       if (err) {
         return next({
