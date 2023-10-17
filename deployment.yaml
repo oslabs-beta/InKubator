@@ -3,11 +3,11 @@ kind: Deployment
 metadata:
   name: testing123
   labels:
-    app: label-testing
+    app: label--testing
 spec:
   selector:
     matchLabels:
-      app: label-testing
+      app: label--testing
   template:
     metadata:
       labels:
