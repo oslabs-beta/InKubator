@@ -8,15 +8,26 @@ controller.deploymentYaml = async function(req, res, next) {
   try {
     const { clusterName, replicas, image, port, label } = req.body;
     // separate labels later??
+    clusterName = 'sadfasf'
+    image = undefined;
       
     const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
     console.log('DOC', doc.metadata.labels);
 
+    // REQUIRED
     doc.metadata.name = `${clusterName}`;
     doc.spec.replicas = replicas;
-    doc.spec.template.spec.containers.image = image;
-    doc.spec.template.spec.containers[0].ports[0].containerPort = port;
-
+    
+    // OPTIONAL
+    if (image) {
+      doc.spec.template.spec.containers.image = image;
+    }
+    if (port) {
+      doc.spec.template.spec.containers[0].ports[0].containerPort = port;
+    } else {
+      doc.spec.template.spec.containers[0].ports[0].containerPort = 3000;
+    }
+    
     // app and name labels, all use the same label
     doc.metadata.labels.app = label;
     doc.spec.selector.matchLabels.app = label;

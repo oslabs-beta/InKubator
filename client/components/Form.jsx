@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 
 const Form = () => {
-
     const [deploymentName, setDeploymentName] = useState('');
     const [numReplicas, setNumReplicas] = useState('');
     const [clusterLabel, setClusterLabel] = useState('');
@@ -14,9 +13,7 @@ const Form = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
     }
-
 
     return (
         <form id="minikube-form">

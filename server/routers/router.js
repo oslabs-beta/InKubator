@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('./controller.js');
+const controller = require('../controllers/controller.js');
 
 router.use('/yaml', controller.deploymentYaml, (req, res, next) => {
     

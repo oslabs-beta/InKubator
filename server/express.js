@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const router = require('./router.js');
-const googleRouter = require('./googleRouter.js');
+const router = require('./routers/router.js');
+const googleRouter = require('./routers/googleRouter.js');
 const PORT = 3001;
 
 const { exec } = require('child_process');
