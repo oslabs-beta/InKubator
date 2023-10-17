@@ -3,19 +3,19 @@ kind: Deployment
 metadata:
   name: testing123
   labels:
-    app: labeltesting
+    app: label-testing
 spec:
   replicas: 5
   selector:
     matchLabels:
-      app: labeltesting
+      app: label-testing
   template:
     metadata:
       labels:
-        app: labeltesting
+        app: label-testing
     spec:
       containers:
-        - name: labeltesting
+        - name: label-testing
           image: margaritabizhan/getting-started
           ports:
             - containerPort: 3000
