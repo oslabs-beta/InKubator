@@ -130,17 +130,17 @@ const Form = () => {
             type="number"
             defaultValue="Hello World"
             variant="outlined"
-            onChange={(e) => handleInputChange(e, setContainerPort)}
+            onChange={(e) => handleInputChange(e, setContainerPort, true)}
           />
   
           <p>Number of replicas</p>
           <p>The desired number of Pod resources is set in the Replicas field.</p>
-          <TextField id="numReplicas" label="Number of replicas" type="number" variant="outlined" onChange={(e) => handleInputChange(e, setNumReplicas)}/>
+          <TextField id="numReplicas" label="Number of replicas" type="number" variant="outlined" onChange={(e) => handleInputChange(e, setNumReplicas, true)}/>
         </div>
   
         {/* FOOTER */}
         <div class="form-footer">
-          <Button id="btnMinikube" variant="contained" onClick={(e) => {handleSubmit(e)}}>Deploy</Button>
+          <Button id="btnMinikube" variant="contained" onClick={(e) => {handlePostYaml(e)}}>Create YAML</Button>
         </div>
       </div>
     )

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: test
+  name: another-test111
   labels:
     app: hello-node
 spec:
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - ports:
-            - containerPort: 
+            - containerPort: 3001
           image: margaritabizhan/getting-started
           name: hello-node
   replicas: 3
