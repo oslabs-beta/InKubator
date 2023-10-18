@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body {
+    display: flex;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+    background-color: #eef2fa;
+}
+
+#coming-soon {
+    display: flex;
+    justify-content: center;
+    margin: 70px;
+    padding: 50px;
+    max-width: 1000px;
+    min-width: 700px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+
+.form-questions {
+    display: flex;
+    /* padding: 40px; */
+    flex-direction: column;
+}
+
+#deployment-button {
+    width: 100px;
+    max-width: 50%;
+    justify-content: right;
+    align-items: right;
+}
+
+#test-form {
+    /* CSS GRID */
+    display: grid;
+    grid-template-columns: 0.5fr 1.5fr; 
+    grid-template-rows: 0.1fr 0.8fr 0.8fr 0.1fr; 
+    grid-template-areas: 
+        "form-header form-header ."
+        "form-div1 form-div2 ."
+        "form-div3 form-div4 ."
+        "form-footer form-footer .";
+    /* LAYOUT */
+    padding: 20px;
+    margin-top: 20px;
+    min-width: 700px;
+    max-width: 1000px;
+    /* PRETTY COLOR THINGS */
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.form-header { 
+    grid-area: form-header; 
+    margin-top: 20px;
+    margin-bottom: 10px;
+    height: 30px;
+    justify-self: center;
+}
+
+.form-section-header {
+    padding: 10px;
+}
+
+/* FORM SECTION HEADERS BY ID */
+#form-div1 { grid-area: form-div1; }
+#form-div3 { grid-area: form-div3; }
+
+/* FORM QUESTION SECTIONS BY ID */
+.form-div2 { grid-area: form-div2; border: bl;}
+.form-div4 { grid-area: form-div4; }
+
+.form-footer { 
+    grid-area: form-footer; 
+    margin-top: 20px;
+    justify-self: center;
+}
+
+#minikube-form {
+    display: grid; 
+    grid-template-columns: 0.7fr 1.3fr; 
+    grid-template-rows: 1fr 1fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+        "form-header1 form-questions1"
+        "form-header2 form-questions2"; 
+    min-width: 700px;
+    max-width: 900px;
+    padding: 30px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#form-header1 { grid-area: form-header1; }
+#form-header2 { grid-area: form-header2; }
+#form-questions1 { grid-area: form-questions1; }
+#form-questions2 { grid-area: form-questions2; }

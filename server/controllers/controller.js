@@ -23,7 +23,7 @@ controller.deploymentYaml = async function(req, res, next) {
     doc.spec.template.spec.containers[0].name = label;
 
     // OPTIONAL
-      doc.spec.template.spec.containers[0].image = image;
+    doc.spec.template.spec.containers[0].image = image;
 
     if (port) {
       doc.spec.template.spec.containers[0].ports[0].containerPort = port;

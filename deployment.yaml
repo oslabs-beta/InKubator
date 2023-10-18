@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongo-express-deployment
+  name: another-test111
   labels:
-    app: mongo-express
+    app: hello-node
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mongo-express
+      app: hello-node
   template:
     metadata:
       labels:
-        app: mongo-express
+        app: hello-node
     spec:
       containers:
       - name: mongo-express
