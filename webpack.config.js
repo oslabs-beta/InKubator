@@ -27,7 +27,10 @@ module.exports = {
         },
         hot: true,
         proxy: {
-            '/api': 'http://localhost:3000'
+            '/api/**': {
+                target: 'http://localhost:3001/',
+                secure: false,
+              },
         }
     },
     module: {

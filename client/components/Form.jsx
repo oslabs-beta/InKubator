@@ -18,20 +18,51 @@ const deploymentKinds = [
 ];
 
 const Form = () => {
-
     const [deploymentName, setDeploymentName] = useState('');
-    const [numReplicas, setNumReplicas] = useState('');
+    const [numReplicas, setNumReplicas] = useState(0);
     const [clusterLabel, setClusterLabel] = useState('');
     const [dockerImage, setDockerImage] = useState('');
-    const [containerPort, setContainerPort] = useState('');
+    const [containerPort, setContainerPort] = useState(0);
 
-    const handleInputChange = (e, setter) => {
+    const handleInputChange = (e, setter, isNum = false) => {
+        if (isNum) {
+            setter(parseInt(e.target.value));
+            console.log(typeof e.target.value);
+        } else {
         setter(e.target.value);
+        console.log(e.target.value);
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const yamlObj = {
+            clusterName: deploymentName,
+            replicas: numReplicas,
+            image: dockerImage,
+            port: containerPort,
+            label: clusterLabel
+        };
+        console.log(yamlObj);
+
+        try {
+
+            const postYaml = await fetch('/api/yaml', {
+                method: "POST",
+                mode: "cors",
+                headers: {"Content-Type": "application/json",},
+                body: JSON.stringify(yamlObj)
+            });
+
+            const jsonRes = await postYaml.json();
+            console.log(jsonRes);
+        } catch(err) {
+            console.log(`ERROR : ${err}`);
+        }
+
     };
+
 
     return (
         <div id="minikube-form">
@@ -114,7 +145,7 @@ const Form = () => {
             {/* <label for="containerPort">Port Number:</label> */}
             {/* <p>The Port number is required and must be a number between 1 and 65535.</p> */}
 
-            <button id="btnMinikube" variant="contained">Deploy</button>
+            <button id="btnMinikube" variant="contained" onClick={(e) => {handleSubmit(e)}}>Deploy</button>
             <br/>
 
         </form>
