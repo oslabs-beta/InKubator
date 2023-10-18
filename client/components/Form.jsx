@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Form = () => {
     const [deploymentName, setDeploymentName] = useState('');
-    const [numReplicas, setNumReplicas] = useState(0);
-    const [clusterLabel, setClusterLabel] = useState('');
-    const [dockerImage, setDockerImage] = useState('');
-    const [containerPort, setContainerPort] = useState(0);
+    const [numReplicas, setNumReplicas] = useState(1);
+    const [clusterLabel, setClusterLabel] = useState('hello-node');
+    const [dockerImage, setDockerImage] = useState('registry.k8s.io/e2e-test-images/agnhost:2.39');
+    const [containerPort, setContainerPort] = useState(8080);
 
-    //hanleInputChange collects user input from form fields
+
+    //handleInputChange collects user input from form fields
     const handleInputChange = (e, setter, isNum = false) => {
         if (isNum) {
             setter(parseInt(e.target.value));
-            console.log(typeof e.target.value);
+            console.log(e.target.value);
         } else {
         setter(e.target.value);
         console.log(e.target.value);
@@ -21,10 +22,6 @@ const Form = () => {
     //handlePostYaml POSTs user input to YAML file
     const handlePostYaml = async (e) => {
         e.preventDefault();
-
-        if (clusterLabel.length === 0) setClusterLabel('minikube-test');
-        if (dockerImage.length === 0) setDockerImage('registry.k8s.io/e2e-test-images/agnhost:2.39');
-        if (containerPort.length === 0) setContainerPort(8080);
 
         const yamlObj = {
             clusterName: deploymentName,
