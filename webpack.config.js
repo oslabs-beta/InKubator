@@ -47,16 +47,15 @@ module.exports = {
                 }
             },
             {
-                test: /\.scss$/,
+                test: /\.css$/,
                 exclude: /node_modules/,
                 use: [
                     // creates style nodes from JS strings - ORDER MATTERS!
                     // these loaders are used in backwards order
                     'style-loader',
                     'css-loader',
-                    'sass-loader'
                 ]
-            }
+            },
         ]
     },
 };
