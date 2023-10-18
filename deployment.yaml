@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: test
+  name: one-click
   labels:
-    app: test-label
+    app: final-test-of-doom
 spec:
   selector:
     matchLabels:
-      app: test-label
+      app: final-test-of-doom
   template:
     metadata:
       labels:
-        app: test-label
+        app: final-test-of-doom
     spec:
       containers:
-        - image: margaritabizhan/getting-started
-          ports:
+        - ports:
             - containerPort: 3000
-          name: test-label
-  replicas: 2
+          name: final-test-of-doom
+          image: tbensalem/getting-started
+  replicas: 3

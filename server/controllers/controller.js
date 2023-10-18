@@ -6,11 +6,10 @@ const controller = {};
 
 controller.deploymentYaml = async function(req, res, next) {
   try {
-    const { clusterName, replicas, image, port, label } = req.body;
+    let { clusterName, replicas, image, port, label } = req.body;
     // separate labels later??
-    clusterName = 'sadfasf'
-    image = undefined;
-      
+
+    console.log('IMAGE', image)
     const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
     console.log('DOC', doc.metadata.labels);
 
@@ -19,9 +18,8 @@ controller.deploymentYaml = async function(req, res, next) {
     doc.spec.replicas = replicas;
     
     // OPTIONAL
-    if (image) {
-      doc.spec.template.spec.containers.image = image;
-    }
+      doc.spec.template.spec.containers[0].image = image;
+
     if (port) {
       doc.spec.template.spec.containers[0].ports[0].containerPort = port;
     } else {
@@ -35,6 +33,7 @@ controller.deploymentYaml = async function(req, res, next) {
     doc.spec.template.spec.containers[0].name = label;
     
     console.log('DOC AFTER', doc);
+    console.log('DOC IMAGE AFTER', doc.spec.template.spec.containers[0].image);
     
     const newDoc = yaml.dump(doc);
     console.log('NEW DOC', newDoc);
@@ -60,7 +59,7 @@ controller.deploy = function(req, res, next) {
     if (err) {
       return next({
           log: 'Couldn\'t Deploy YAML file',
-          message: { err: 'Error occurred in controller.deploy' + err },
+          message: { err: 'Error occurred in controller.deploy ' + err },
       });
     } else {
       console.log(`THE DEPLOY OUTPUT ${stdout}`);
@@ -70,6 +69,18 @@ controller.deploy = function(req, res, next) {
   });
 };
 
+controller.tunnel = function(req, res, next) {
+  exec('minikube tunnel', (err, stdout, stderr) => {
+    if (err) {
+      next({
+        log: 'Could not create tunnel',
+        message: `Error in creating tunnel: ${err}`,
+      });
+    }
+    return next();
+  })
+};
+
 controller.expose = async function(req, res, next) {
   const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
   // console.log(doc.metadata.name);
@@ -77,7 +88,7 @@ controller.expose = async function(req, res, next) {
   const targetPort = doc.spec.template.spec.containers[0].ports[0].containerPort;
   console.log('TARGET PORT', targetPort);
   
-  exec(`kubectl expose deployment ${clusterName} --type LoadBalancer --port=80 --target-port ${targetPort}`, 
+  exec(`kubectl expose deployment ${clusterName} --type LoadBalancer --port=9000 --target-port ${targetPort}`, 
   (err, stdout, stderr) => {
       if (err) {
         return next({
@@ -91,38 +102,5 @@ controller.expose = async function(req, res, next) {
       };
   });
 };
-
-controller.getDeployment = function(req, res, next) {
-    exec('kubectl get deployments', (err, stdout, stderr) => {
-        if (err) {
-            return next({
-                log: 'Couldn\'t get deployments',
-                message: { err: 'Error occurred when getting deplyoments:' + err },
-            });
-        } else {
-            console.log(`THE GET DEPLOYMENT OUTPUT ${stdout}`);
-            res.locals.getDeploymentOutput = stdout;
-            return next();
-        }
-    })
-};
-
-controller.getPods = function(req, res, next) {
-    exec('kubectl get pods', (err, stdout, stderr) => {
-        if (err) {
-            return next({
-                log: 'Couldn\'t get pods',
-                message: { err: 'Error occurred when getting pods:' + err },
-            });
-        } else {
-            console.log(`THE GET PODS OUTPUT ${stdout}`);
-            res.locals.getPodsOutput = stdout;
-            return next();
-        }
-    })
-};
-
-
-
 
 module.exports = controller;
