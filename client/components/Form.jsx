@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 const Form = () => {
-
     const [deploymentName, setDeploymentName] = useState('');
     const [numReplicas, setNumReplicas] = useState(0);
     const [clusterLabel, setClusterLabel] = useState('');

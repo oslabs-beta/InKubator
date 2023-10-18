@@ -23,7 +23,7 @@ googleController.createCluster = (req, res, next) => {
 
 googleController.getCredentials = (req, res, next) => {
     const { clusterName } = req.body;
-    
+    // TIES YOUR 'KUBECTL' COMMAND TO THE GOOGLE CLOUD
     exec(`gcloud container clusters get-credentials ${clusterName} \
     --location us-central1`, (err, stdout, stderr) => {
         if (err) {
