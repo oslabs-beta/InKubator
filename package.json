@@ -4,7 +4,7 @@
   "description": "",
   "main": "server/express.js",
   "scripts": {
-    "dev": "concurrently \"webpack-dev-server\" \"nodemon server/server.js\"",
+    "dev": "webpack-dev-server & nodemon server/server.js",
     "start": "nodemon server/express.js"
   },
   "keywords": [],

@@ -51,7 +51,7 @@ const Form = () => {
         <form id="minikube-form">
 
             <br />
-            <label htmlFor="deploymentName">Deployment name:</label>
+            <label htmlFor="deploymentName">Yeff Deployment name:</label>
             <input type="text" id="deploymentName" onChange={(e) => handleInputChange(e, setDeploymentName)} />
             <p className="info">Each Deployment resource requires a unique Deployment Name. Kubernetes resources are identified by their names.</p>
  
