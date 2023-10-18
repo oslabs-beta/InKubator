@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: one-click
+  name: mongo-express-deployment
   labels:
-    app: final-test-of-doom
+    app: mongo-express
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: final-test-of-doom
+      app: mongo-express
   template:
     metadata:
       labels:
-        app: final-test-of-doom
+        app: mongo-express
     spec:
       containers:
-        - ports:
-            - containerPort: 3000
-          name: final-test-of-doom
-          image: tbensalem/getting-started
-  replicas: 3
+      - name: mongo-express
+        image: mongo-express
+        ports:
+          - containerPort: 8081

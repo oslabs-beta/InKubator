@@ -9,14 +9,19 @@ controller.deploymentYaml = async function(req, res, next) {
     let { clusterName, replicas, image, port, label } = req.body;
     // separate labels later??
 
-    console.log('IMAGE', image)
-    const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
+    const doc = await yaml.load(fs.readFileSync('./deployment-template.yaml', 'utf8'));
     console.log('DOC', doc.metadata.labels);
 
     // REQUIRED
     doc.metadata.name = `${clusterName}`;
     doc.spec.replicas = replicas;
     
+    // app and name labels, all use the same label
+    doc.metadata.labels.app = label;
+    doc.spec.selector.matchLabels.app = label;
+    doc.spec.template.metadata.labels.app = label;
+    doc.spec.template.spec.containers[0].name = label;
+
     // OPTIONAL
       doc.spec.template.spec.containers[0].image = image;
 
@@ -26,14 +31,7 @@ controller.deploymentYaml = async function(req, res, next) {
       doc.spec.template.spec.containers[0].ports[0].containerPort = 3000;
     }
     
-    // app and name labels, all use the same label
-    doc.metadata.labels.app = label;
-    doc.spec.selector.matchLabels.app = label;
-    doc.spec.template.metadata.labels.app = label;
-    doc.spec.template.spec.containers[0].name = label;
-    
     console.log('DOC AFTER', doc);
-    console.log('DOC IMAGE AFTER', doc.spec.template.spec.containers[0].image);
     
     const newDoc = yaml.dump(doc);
     console.log('NEW DOC', newDoc);
@@ -76,9 +74,9 @@ controller.tunnel = function(req, res, next) {
         log: 'Could not create tunnel',
         message: `Error in creating tunnel: ${err}`,
       });
-    }
+    };
     return next();
-  })
+  });
 };
 
 controller.expose = async function(req, res, next) {
