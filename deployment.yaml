@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: another-test111
+  name: cristina111
   labels:
-    app: hello-node
+    app: rita
 spec:
   selector:
     matchLabels:
-      app: hello-node
+      app: rita
   template:
     metadata:
       labels:
-        app: hello-node
+        app: rita
     spec:
       containers:
         - ports:
-            - containerPort: 3001
+            - containerPort: 3000
           image: margaritabizhan/getting-started
-          name: hello-node
-  replicas: 3
+          name: rita
+  replicas: 2

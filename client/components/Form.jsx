@@ -20,23 +20,20 @@ const deploymentKinds = [
 const Form = () => {
     const [deploymentName, setDeploymentName] = useState('');
     const [numReplicas, setNumReplicas] = useState(1);
-    const [clusterLabel, setClusterLabel] = useState('hello-node');
+    const [clusterLabel, setClusterLabel] = useState('test-label');
     const [dockerImage, setDockerImage] = useState('registry.k8s.io/e2e-test-images/agnhost:2.39');
     const [containerPort, setContainerPort] = useState(8080);
 
-
-    //handleInputChange collects user input from form fields
     const handleInputChange = (e, setter, isNum = false) => {
         if (isNum) {
             setter(parseInt(e.target.value));
-            console.log(e.target.value);
+            console.log(typeof e.target.value);
         } else {
         setter(e.target.value);
         console.log(e.target.value);
         }
     };
 
-    //handlePostYaml POSTs user input to YAML file
     const handlePostYaml = async (e) => {
         e.preventDefault();
 
@@ -69,8 +66,8 @@ const Form = () => {
         
         try {
             const deployYaml = await fetch('api/deploy')
-            const resDeploy = deployYaml.json();
-            console.log(resDeploy);
+            const resDeploy = await deployYaml.json();
+            console.log('DEPLOY RESULTS', resDeploy);
         } catch(err) {
             console.log(`ERROR: ${err}`);
         }
@@ -98,7 +95,7 @@ const Form = () => {
         </div>
         
         <div class="form-div2">
-          <p>Deployment kind: </p>
+          <p>Deployment kind</p>
           <TextField id="outlined-select-deployment-kind" select label="Select" defaultValue="Deployment">
             {deploymentKinds.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
@@ -107,22 +104,26 @@ const Form = () => {
             ))}
           </TextField>
   
-          <p>Deployment name:</p>
+          <p>Deployment name</p>
           <p>Each Deployment resource requires a unique Deployment Name.</p> 
           <p>Kubernetes resources are identified by their names.</p>
           <TextField id="deploymentName" label="Deployment name" variant="outlined" onChange={(e) => handleInputChange(e, setDeploymentName)}/>
           
-          <p></p>
+          <p>Labels</p>
+          <p>Labels are custom key/value pairs that are assigned to Kubernetes resources. The labels defined in the Deployment section are applied to the Deployment, Pod, Service, Ingress, ConfigMap and Secret resources.
+            The labels are optional, as we will automatically add the tags required to manage the Kubernetes resources.</p> 
+          <TextField id="deploymentName" label="Deployment name" variant="outlined" onChange={(e) => handleInputChange(e, setClusterLabel)}/>
         </div>
         
         <div id="form-div3" class="form-section-header">Pods details</div>
         
         <div class="form-div4">
-          <p>Docker image: </p>
+          <p>Docker image</p>
+          <p>If you don't have a containerized app, let us deploy a sample app for you. You can leave this field empty.</p>
           <TextField id="dockerImage" label="Docker image" variant="outlined" onChange={(e) => handleInputChange(e, setDockerImage)}/>
           
-          <p>Port number:</p>
-          <p>The port number is required and must be a number between 1 and 65535.</p>
+          <p>Port number</p>
+          <p>The port number must be a number between 1 and 65535. NOTE: The port MUST match the port defined in your Docker image. If you don't have a Docker image leave this field empty.</p>
           <TextField
             required
             id="containerPort"
@@ -140,7 +141,9 @@ const Form = () => {
   
         {/* FOOTER */}
         <div class="form-footer">
-          <Button id="btnMinikube" variant="contained" onClick={(e) => {handlePostYaml(e)}}>Create YAML</Button>
+          <Button id="yaml-button" variant="outlined" onClick={(e) => {handlePostYaml(e)}}>Generate YAML</Button>
+          <Button id="deploy-button" variant="contained" onClick={(e) => {handleDeploy(e)}}>Deploy</Button>
+          <Button id="expose-button" variant="outlined" onClick={(e) => {handleExpose(e)}}>Expose</Button>
         </div>
       </div>
     )
