@@ -5,6 +5,10 @@ import App from './App';
 import './styles.css'; // If the styles need to be imported, use the correct path
 
 
+// saving past dev server
+
+// "dev": "concurrently \"webpack-dev-server --hot\" \"nodemon server/server.js\" --hot",
+
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(<App />)

@@ -16,12 +16,12 @@ const App = () => {
 
   return (
     <React.Fragment>
-      <Tabs value={currentTab} onChange={handleTabChange}>
-        <Tab label='Deploy with Minikube' />
-        <Tab label='Deploy with Cloud' />
+      <Tabs value={currentTab} onChange={handleTabChange} centered>
+        <Tab label='Minikube' />
+        <Tab label='Cloud' />
       </Tabs>
-      {currentTab === 0 && (<TestForm/>)}
-      {currentTab === 1 && (<Form/>)}
+      {currentTab === 0 && (<Form/>)}
+      {currentTab === 1 && (<TestForm/>)}
     </React.Fragment>
     // {/* <Form /> */}
   );

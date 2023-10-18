@@ -4,7 +4,7 @@
   "description": "",
   "main": "server/express.js",
   "scripts": {
-    "dev": "concurrently \"webpack-dev-server\" \"nodemon server/server.js\" --hot",
+    "dev": "webpack-dev-server --open & nodemon server/express.js",
     "start": "nodemon server/express.js"
   },
   "keywords": [],
@@ -19,7 +19,8 @@
     "child_process": "^1.0.2",
     "express": "^4.18.2",
     "js-yaml": "^4.1.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "nodemon": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.23.2",
