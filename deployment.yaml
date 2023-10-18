@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: another-test111
+  name: cristina111
   labels:
-    app: hello-node
+    app: rita
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello-node
+      app: rita
   template:
     metadata:
       labels:
-        app: hello-node
+        app: rita
     spec:
       containers:
       - name: mongo-express
