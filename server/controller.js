@@ -9,7 +9,7 @@ controller.deploymentYaml = async function(req, res, next) {
     const { clusterName, replicas, image, port, label } = req.body;
     // separate labels later??
 
-    console.log(req.body);
+    // console.log(req.body);
     console.log(clusterName, replicas, image, port, label);
       
     const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
@@ -17,7 +17,7 @@ controller.deploymentYaml = async function(req, res, next) {
 
     doc.metadata.name = `${clusterName}`;
     doc.spec.replicas = replicas;
-    doc.spec.template.spec.containers.image = image;
+    doc.spec.template.spec.containers[0].image = image;
     doc.spec.template.spec.containers[0].ports[0].containerPort = port;
 
     // app and name labels, all use the same label
@@ -26,7 +26,7 @@ controller.deploymentYaml = async function(req, res, next) {
     doc.spec.template.metadata.labels.app = label;
     doc.spec.template.spec.containers[0].name = label;
     
-    console.log('DOC AFTER', doc);
+    console.log('DOC AFTER', doc.spec.template);
     
     const newDoc = yaml.dump(doc);
     console.log('NEW DOC', newDoc);

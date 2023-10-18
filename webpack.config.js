@@ -20,7 +20,7 @@ module.exports = {
     mode: 'development',
     devServer: {
         host: 'localhost',
-        port: 8080,
+        port: 8090,
         static: {
             directory: path.join(__dirname, '/dist'),
             publicPath: '/build/bundle.js'

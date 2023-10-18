@@ -8,6 +8,7 @@ const Form = () => {
     const [dockerImage, setDockerImage] = useState('');
     const [containerPort, setContainerPort] = useState(0);
 
+    //hanleInputChange collects user input from form fields
     const handleInputChange = (e, setter, isNum = false) => {
         if (isNum) {
             setter(parseInt(e.target.value));
@@ -18,8 +19,13 @@ const Form = () => {
         }
     };
 
-    const handleSubmit = async (e) => {
+    //handlePostYaml POSTs user input to YAML file
+    const handlePostYaml = async (e) => {
         e.preventDefault();
+
+        if (clusterLabel.length === 0) setClusterLabel('minikube-test');
+        if (dockerImage.length === 0) setDockerImage('registry.k8s.io/e2e-test-images/agnhost:2.39');
+        if (containerPort.length === 0) setContainerPort(8080);
 
         const yamlObj = {
             clusterName: deploymentName,
@@ -44,8 +50,28 @@ const Form = () => {
         } catch(err) {
             console.log(`ERROR : ${err}`);
         }
-
     };
+
+    const handleDeploy = async (e) => {
+        
+        try {
+            const deployYaml = await fetch('api/deploy')
+            const resDeploy = deployYaml.json();
+            console.log(resDeploy);
+        } catch(err) {
+            console.log(`ERROR: ${err}`);
+        }
+    };
+
+    const handleExpose = async (e) => {
+        
+        try {
+            const exposeYaml = await fetch('api/expose')
+            const resExpose = exposeYaml.json();
+        } catch(err) {
+            console.log(`ERROR: ${err}`);
+        }
+    }
 
 
     return (
@@ -75,7 +101,9 @@ const Form = () => {
             <p>The Port number is required and must be a number between 1 and 65535.</p>
     
 
-            <button id="btnMinikube" onClick={(e) => {handleSubmit(e)}}>Deploy</button>
+            <button id="btnGenerateYAML" onClick={(e) => {handlePostYaml(e)}}>Generate YAML</button>
+            <button id="btnDeploy" onClick={(e) => {handleDeploy(e)}}>Deploy</button>
+            <button id="btnExposeDepl" onClick={(e) => {handleExpose(e)}}>Expose?</button>
 
         </form>
     )

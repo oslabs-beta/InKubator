@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: test
+  name: hello-node
   labels:
-    app: test-label
+    app: hello-node
 spec:
   selector:
     matchLabels:
-      app: test-label
+      app: hello-node
   template:
     metadata:
       labels:
-        app: test-label
+        app: hello-node
     spec:
       containers:
-        - image: margaritabizhan/getting-started
+        - image: registry.k8s.io/e2e-test-images/agnhost:2.39
           ports:
-            - containerPort: 3000
-          name: test-label
-  replicas: 2
+            - containerPort: 8080
+          name: hello-node
+  replicas: 3
