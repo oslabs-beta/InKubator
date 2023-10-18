@@ -1,4 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { Button, MenuItem, Tab, Tabs, TextField, Typography } from '@mui/material';
+
+
+const deploymentKinds = [
+    {
+        value: 'Deployment',
+        label: 'Deployment',
+    },
+    {
+        value: 'DaemonSet',
+        label: 'DaemonSet',
+    },
+    {
+        value: 'StatefulSet',
+        label: 'StatefulSet',
+    },
+];
 
 const Form = () => {
     const [deploymentName, setDeploymentName] = useState('');
@@ -71,37 +88,61 @@ const Form = () => {
 
 
     return (
-        <form id="minikube-form">
+      <div id="test-form">
 
-            <br />
-            <label htmlFor="deploymentName">Deployment name:</label>
-            <input type="text" id="deploymentName" onChange={(e) => handleInputChange(e, setDeploymentName)} />
-            <p className="info">Each Deployment resource requires a unique Deployment Name. Kubernetes resources are identified by their names.</p>
- 
-            <label htmlFor="numReplicas">Number of replicas:</label>
-            <input type="number" id="numReplicas" onChange={(e) => handleInputChange(e, setNumReplicas, true)} />
-            <p className="info">The desired number of Pod resources is set in the Replicas field.</p>
-
-            <label htmlFor="clusterLabel">Cluster label:</label>
-            <input type="text" id="clusterLabel" onChange={(e) => handleInputChange(e, setClusterLabel)} />
-            <p className="info">Labels are custom key/value pairs that are assigned to Kubernetes resources.</p>
-            
-
-            <label htmlFor="dockerImage">Docker Image:</label>
-            <input type="text" id="dockerImage" onChange={(e) => handleInputChange(e, setDockerImage)} />
-            <p>Optional: reference a container image from a Docker feed. </p>
-            
-
-            <label htmlFor="containerPort">Port Number:</label>
-            <input type="number" id="containerPort" onChange={(e) => handleInputChange(e, setContainerPort, true)} />
-            <p>The Port number is required and must be a number between 1 and 65535.</p>
-    
-
-            <button id="btnGenerateYAML" onClick={(e) => {handlePostYaml(e)}}>Generate YAML</button>
-            <button id="btnDeploy" onClick={(e) => {handleDeploy(e)}}>Deploy</button>
-            <button id="btnExposeDepl" onClick={(e) => {handleExpose(e)}}>Expose?</button>
-
-        </form>
+        {/* HEADER */}
+        <div class="form-header">Launch Kubernetes with Minikube</div>
+       
+        <div id="form-div1" class="form-section-header">
+          Deployment details
+        </div>
+        
+        <div class="form-div2">
+          <p>Deployment kind: </p>
+          <TextField id="outlined-select-deployment-kind" select label="Select" defaultValue="Deployment">
+            {deploymentKinds.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                </MenuItem>
+            ))}
+          </TextField>
+  
+          <p>Deployment name:</p>
+          <p>Each Deployment resource requires a unique Deployment Name.</p> 
+          <p>Kubernetes resources are identified by their names.</p>
+          <TextField id="deploymentName" label="Deployment name" variant="outlined" onChange={(e) => handleInputChange(e, setDeploymentName)}/>
+          
+          <p></p>
+        </div>
+        
+        <div id="form-div3" class="form-section-header">Pods details</div>
+        
+        <div class="form-div4">
+          <p>Docker image: </p>
+          <TextField id="dockerImage" label="Docker image" variant="outlined" onChange={(e) => handleInputChange(e, setDockerImage)}/>
+          
+          <p>Port number:</p>
+          <p>The port number is required and must be a number between 1 and 65535.</p>
+          <TextField
+            required
+            id="containerPort"
+            label="Required"
+            type="number"
+            defaultValue="Hello World"
+            variant="outlined"
+            onChange={(e) => handleInputChange(e, setContainerPort)}
+          />
+  
+          <p>Number of replicas</p>
+          <p>The desired number of Pod resources is set in the Replicas field.</p>
+          <TextField id="numReplicas" label="Number of replicas" type="number" variant="outlined" onChange={(e) => handleInputChange(e, setNumReplicas)}/>
+        </div>
+  
+        {/* FOOTER */}
+        <div class="form-footer">
+          <Button id="btnMinikube" variant="contained" onClick={(e) => {handleSubmit(e)}}>Deploy</Button>
+        </div>
+      </div>
     )
 }
 
