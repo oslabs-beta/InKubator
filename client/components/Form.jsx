@@ -19,22 +19,25 @@ const deploymentKinds = [
 
 const Form = () => {
     const [deploymentName, setDeploymentName] = useState('');
-    const [numReplicas, setNumReplicas] = useState(0);
-    const [clusterLabel, setClusterLabel] = useState('');
-    const [dockerImage, setDockerImage] = useState('');
-    const [containerPort, setContainerPort] = useState(0);
+    const [numReplicas, setNumReplicas] = useState(1);
+    const [clusterLabel, setClusterLabel] = useState('hello-node');
+    const [dockerImage, setDockerImage] = useState('registry.k8s.io/e2e-test-images/agnhost:2.39');
+    const [containerPort, setContainerPort] = useState(8080);
 
+
+    //handleInputChange collects user input from form fields
     const handleInputChange = (e, setter, isNum = false) => {
         if (isNum) {
             setter(parseInt(e.target.value));
-            console.log(typeof e.target.value);
+            console.log(e.target.value);
         } else {
         setter(e.target.value);
         console.log(e.target.value);
         }
     };
 
-    const handleSubmit = async (e) => {
+    //handlePostYaml POSTs user input to YAML file
+    const handlePostYaml = async (e) => {
         e.preventDefault();
 
         const yamlObj = {
@@ -60,8 +63,28 @@ const Form = () => {
         } catch(err) {
             console.log(`ERROR : ${err}`);
         }
-
     };
+
+    const handleDeploy = async (e) => {
+        
+        try {
+            const deployYaml = await fetch('api/deploy')
+            const resDeploy = deployYaml.json();
+            console.log(resDeploy);
+        } catch(err) {
+            console.log(`ERROR: ${err}`);
+        }
+    };
+
+    const handleExpose = async (e) => {
+        
+        try {
+            const exposeYaml = await fetch('api/expose')
+            const resExpose = exposeYaml.json();
+        } catch(err) {
+            console.log(`ERROR: ${err}`);
+        }
+    }
 
 
     return (
@@ -107,17 +130,17 @@ const Form = () => {
             type="number"
             defaultValue="Hello World"
             variant="outlined"
-            onChange={(e) => handleInputChange(e, setContainerPort)}
+            onChange={(e) => handleInputChange(e, setContainerPort, true)}
           />
   
           <p>Number of replicas</p>
           <p>The desired number of Pod resources is set in the Replicas field.</p>
-          <TextField id="numReplicas" label="Number of replicas" type="number" variant="outlined" onChange={(e) => handleInputChange(e, setNumReplicas)}/>
+          <TextField id="numReplicas" label="Number of replicas" type="number" variant="outlined" onChange={(e) => handleInputChange(e, setNumReplicas, true)}/>
         </div>
   
         {/* FOOTER */}
         <div class="form-footer">
-          <Button id="btnMinikube" variant="contained" onClick={(e) => {handleSubmit(e)}}>Deploy</Button>
+          <Button id="btnMinikube" variant="contained" onClick={(e) => {handlePostYaml(e)}}>Create YAML</Button>
         </div>
       </div>
     )

@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ''
+  name: another-test111
   labels:
-    app: ''
+    app: hello-node
 spec:
   selector:
     matchLabels:
-      app: ''
+      app: hello-node
   template:
     metadata:
       labels:
-        app: ''
+        app: hello-node
     spec:
       containers:
         - ports:
-            - containerPort: 3000
-          name: ''
-          image: ''
-  replicas: 0
+            - containerPort: 3001
+          image: margaritabizhan/getting-started
+          name: hello-node
+  replicas: 3
