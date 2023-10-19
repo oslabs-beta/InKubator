@@ -5,15 +5,22 @@ body {
     justify-content: center;
     font-family: 'Roboto', sans-serif;
     background-color: #eef2fa;
+    color: #2c2f30;
 }
 
 #coming-soon {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    margin: 70px;
-    padding: 50px;
-    max-width: 700;
+    align-items: center;
+    text-align: center;
+    max-width: 700px;
     min-width: 700px;
+    height: 400px;
+    margin-top: 20px;
+    margin: 30px;
+    padding: 20px;
+    border-radius: 5px;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
@@ -47,6 +54,7 @@ body {
     margin-top: 20px;
     min-width: 500px;
     max-width: 700px;
+    border-radius: 5px;
     /* PRETTY COLOR THINGS */
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -66,15 +74,18 @@ body {
 }
 
 /* FORM SECTION HEADERS BY ID */
-#form-div1 { grid-area: form-div1; }
-#form-div3 { grid-area: form-div3; }
+#form-div1 { grid-area: form-div1; margin-top: 8px;}
+#form-div3 { grid-area: form-div3; margin-top: 8px;}
 
 /* FORM QUESTION SECTIONS BY ID */
-.form-div2 { grid-area: form-div2; }
-.form-div4 { grid-area: form-div4; }
+.form-div2 { grid-area: form-div2; margin-right: 30px; padding: 10px;}
+.form-div4 { grid-area: form-div4; margin-right: 30px; padding: 10px;}
 
 .form-footer { 
     grid-area: form-footer; 
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
     margin-top: 20px;
     justify-self: center;
 }

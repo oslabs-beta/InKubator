@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cristina111
+  name: ''
   labels:
-    app: rita
+    app: test-label
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rita
+      app: test-label
   template:
     metadata:
       labels:
-        app: rita
+        app: test-label
     spec:
       containers:
       - name: mongo-express
