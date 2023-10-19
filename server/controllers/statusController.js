@@ -51,4 +51,38 @@ statusController.getPods = (req, res, next) => {
   });
 };
 
+
+statusController.deleteDeployment = (req, res, next) => {
+  const { clusterName } = req.body;
+  
+  exec(`kubectl delete deployment ${clusterName}`, (err, stdout, stderr) => {
+      if (err) {
+          return next({
+              log: 'Couldn\'t delete Google Cloud Deployment',
+              message: { err: 'Error occurred in statusController.deleteDeployment' + err },
+          });
+      } else {
+          res.locals.deleteDeployment = stdout;
+      }
+      return next();
+  });
+};
+
+statusController.deleteService = (req, res, next) => {
+  const { clusterName } = req.body;
+  
+  exec(`kubectl delete service ${clusterName}`, (err, stdout, stderr) => {
+      if (err) {
+          return next({
+              log: 'Couldn\'t delete Deployment',
+              message: { err: 'Error occurred in statusController.deleteDeployment' + err },
+          });
+      } else {
+          res.locals.deleteService = stdout;
+      }
+      return next();
+  });
+};
+
+
 module.exports = statusController;

@@ -15,7 +15,7 @@ googleController.createCluster = (req, res, next) => {
                 message: { err: 'Error occurred in googleController.createCluster' + err },
             });
         } else {
-            res.locals.googleOutput = stdout;
+            res.locals.googleCreateClusterOutput = stdout;
         }
         return next();
     });
@@ -23,7 +23,7 @@ googleController.createCluster = (req, res, next) => {
 
 googleController.getCredentials = (req, res, next) => {
     const { clusterName } = req.body;
-    // TIES YOUR 'KUBECTL' COMMAND TO THE GOOGLE CLOUD
+    // TIES YOUR 'KUBECTL' COMMAND TO THE GOOGLE CLOUD CLUSTER
     exec(`gcloud container clusters get-credentials ${clusterName} \
     --location us-central1`, (err, stdout, stderr) => {
         if (err) {
@@ -32,7 +32,7 @@ googleController.getCredentials = (req, res, next) => {
                 message: { err: 'Error occurred in googleController.getCredentials' + err },
             });
         } else {
-            res.locals.googleOutput = stdout;
+            res.locals.googleGetCredentialsOutput = stdout;
         };
         return next();
     });
@@ -49,11 +49,10 @@ googleController.deploy = (req, res, next) => {
                 message: { err: 'Error occurred in googleController.deploy' + err },
             });
         } else {
-            res.locals.googleOutput = stdout;
+            res.locals.googleDeploy = stdout;
         }
         return next();
     });
 };
-
 
 module.exports = googleController;
