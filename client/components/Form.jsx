@@ -26,11 +26,11 @@ const Form = () => {
 
     const handleInputChange = (e, setter, isNum = false) => {
         if (isNum) {
-            setter(parseInt(e.target.value));
-            console.log(typeof e.target.value);
+          setter(parseInt(e.target.value));
+          console.log(typeof e.target.value);
         } else {
-        setter(e.target.value);
-        console.log(e.target.value);
+          setter(e.target.value);
+          console.log(e.target.value);
         }
     };
 
@@ -88,15 +88,22 @@ const Form = () => {
       <div id="test-form">
 
         {/* HEADER */}
-        <div class="form-header">Launch Kubernetes with Minikube</div>
+        <div class="form-header">
+            <strong>Launch Kubernetes with Minikube</strong>
+        </div>
        
         <div id="form-div1" class="form-section-header">
-          Deployment details
+          <strong>Deployment details</strong>
         </div>
         
         <div class="form-div2">
           <p>Deployment kind</p>
-          <TextField id="outlined-select-deployment-kind" select label="Select" defaultValue="Deployment">
+          <TextField 
+            id="outlined-select-deployment-kind" 
+            select 
+            label="Select" 
+            defaultValue="Deployment"
+          >
             {deploymentKinds.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                     {option.label}
@@ -105,22 +112,38 @@ const Form = () => {
           </TextField>
   
           <p>Deployment name</p>
-          <p>Each Deployment resource requires a unique Deployment Name.</p> 
-          <p>Kubernetes resources are identified by their names.</p>
-          <TextField id="deploymentName" label="Deployment name" variant="outlined" onChange={(e) => handleInputChange(e, setDeploymentName)}/>
+          <p>Each Deployment resource requires a unique Deployment Name. Kubernetes resources are identified by their names.</p>     
+          <TextField 
+            id="deploymentName" 
+            label="Deployment name" 
+            variant="outlined" 
+            onChange={(e) => handleInputChange(e, setDeploymentName)}
+          />
           
           <p>Labels</p>
           <p>Labels are custom key/value pairs that are assigned to Kubernetes resources. The labels defined in the Deployment section are applied to the Deployment, Pod, Service, Ingress, ConfigMap and Secret resources.
             The labels are optional, as we will automatically add the tags required to manage the Kubernetes resources.</p> 
-          <TextField id="deploymentName" label="Deployment name" variant="outlined" onChange={(e) => handleInputChange(e, setClusterLabel)}/>
+          <TextField 
+            id="deploymentName" 
+            label="Deployment name" 
+            variant="outlined" 
+            onChange={(e) => handleInputChange(e, setClusterLabel)}
+          />
         </div>
         
-        <div id="form-div3" class="form-section-header">Pods details</div>
+        <div id="form-div3" class="form-section-header">
+            <strong>Pod details</strong>
+        </div>
         
         <div class="form-div4">
           <p>Docker image</p>
           <p>If you don't have a containerized app, let us deploy a sample app for you. You can leave this field empty.</p>
-          <TextField id="dockerImage" label="Docker image" variant="outlined" onChange={(e) => handleInputChange(e, setDockerImage)}/>
+          <TextField 
+            id="dockerImage" 
+            label="Docker image" 
+            variant="outlined" 
+            onChange={(e) => handleInputChange(e, setDockerImage)
+          }/>
           
           <p>Port number</p>
           <p>The port number must be a number between 1 and 65535. NOTE: The port MUST match the port defined in your Docker image. If you don't have a Docker image leave this field empty.</p>
@@ -136,14 +159,20 @@ const Form = () => {
   
           <p>Number of replicas</p>
           <p>The desired number of Pod resources is set in the Replicas field.</p>
-          <TextField id="numReplicas" label="Number of replicas" type="number" variant="outlined" onChange={(e) => handleInputChange(e, setNumReplicas, true)}/>
+          <TextField 
+            id="numReplicas" 
+            label="Number of replicas" 
+            type="number" 
+            variant="outlined" 
+            onChange={(e) => handleInputChange(e, setNumReplicas, true)}
+          />
         </div>
   
         {/* FOOTER */}
         <div class="form-footer">
           <Button id="yaml-button" variant="outlined" onClick={(e) => {handlePostYaml(e)}}>Generate YAML</Button>
-          <Button id="deploy-button" variant="contained" onClick={(e) => {handleDeploy(e)}}>Deploy</Button>
           <Button id="expose-button" variant="outlined" onClick={(e) => {handleExpose(e)}}>Expose</Button>
+          <Button id="deploy-button" variant="contained" onClick={(e) => {handleDeploy(e)}}>Deploy</Button>
         </div>
       </div>
     )
