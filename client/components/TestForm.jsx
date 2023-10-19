@@ -1,11 +1,28 @@
 import React from 'react';
-import { Button, MenuItem, Tab, Tabs, TextField, Typography } from '@mui/material';
+import { Box, Button, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
 
 
 const TestForm = () => {
   return (
     <div id="coming-soon">
-      COMING SOON
+      <Typography variant="h2" component="h2">
+        Coming Soon
+      </Typography>
+      {/* <Typography variant='h6'>
+        In the very near future, we'll be launching deployment on the cloud. Be the first to know when we officially launch.
+      </Typography>
+      <Box m={1}>
+        <TextField
+          label="TextField"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Button>Submit</Button>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Box> */}
     </div>
   )
 }
