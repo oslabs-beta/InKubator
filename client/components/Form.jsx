@@ -85,7 +85,7 @@ const Form = () => {
 
 
     return (
-      <div id="test-form">
+      <div id="test-form" className="section form">
 
         {/* HEADER */}
         <div class="form-header">
@@ -125,7 +125,7 @@ const Form = () => {
             The labels are optional, as we will automatically add the tags required to manage the Kubernetes resources.</p> 
           <TextField 
             id="deploymentName" 
-            label="Deployment name" 
+            label="Label" 
             variant="outlined" 
             onChange={(e) => handleInputChange(e, setClusterLabel)}
           />

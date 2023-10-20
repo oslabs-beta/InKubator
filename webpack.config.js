@@ -16,6 +16,7 @@ module.exports = {
     resolve: {
         // Enable importing JS / JSX files without specifying their extension
         extensions: ['.js', '.jsx'],
+        modules: [path.resolve(__dirname, 'client'), 'node_modules'],
       },
     mode: 'development',
     devServer: {
@@ -57,6 +58,18 @@ module.exports = {
                     // these loaders are used in backwards order
                     'style-loader',
                     'css-loader'
+                ]
+            },
+            {
+                test: /\.(png|jpe?g|gif|svg)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'assets/',
+                        }
+                    }
                 ]
             }
         ]

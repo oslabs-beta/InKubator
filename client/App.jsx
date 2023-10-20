@@ -1,28 +1,50 @@
 import React, { useState } from 'react'
-import Form from './components/form';
 import { Tabs, Tab } from '@mui/material';
-import TestForm from './components/TestForm';
-// import minikube_logo from './assets/minikube_logo.png';
+import { Link } from 'react-scroll';
+import LandingPage from './components/LandingPage';
+import MinikubeSetup from './components/MinikubeSetup';
+import Form from './components/Form';
+// import TestForm from './components/TestForm';
+import { Navigation } from '@mui/icons-material';
 
 const App = () => {
 
-  const [currentTab, setCurrentTab] = useState(0);
+  const sections = ['Landing', 'Setup', 'Form'];
+  const [activeSection, setActiveSection] = useState('Landing');
 
-  const handleTabChange = (e, tabIndex) => {
-    console.log(e)
-    console.log(tabIndex);
-    setCurrentTab(tabIndex);
+  const handleSectionChange = (section) => {
+    setActiveSection(section);
   };
 
   return (
-    <React.Fragment>
-      <Tabs value={currentTab} onChange={handleTabChange} centered>
-        <Tab label='Minikube' />
-        <Tab label='Cloud' />
-      </Tabs>
-      {currentTab === 0 && (<Form/>)}
-      {currentTab === 1 && (<TestForm/>)}
-    </React.Fragment>
+    <div>
+      <Navigation sections={sections} activeSection={activeSection} handleSectionChange={handleSectionChange} />
+      <LandingPage/>
+      <MinikubeSetup/>
+      <Form/>
+
+      {/* Link component comes from react-scroll library */}
+      {sections.map((section, index) => {
+        <Link
+          to={section} // elements in the sections array
+          key={index} // corresponding index for that element
+          spy={true}
+          smooth={true}
+          offset={-70}
+          duration={500}
+        />
+      })}
+    </div>
+    // <LandingPage />
+    // <MinikubeSetup />
+    // <React.Fragment>
+    //   <Tabs value={currentTab} onChange={handleTabChange} centered>
+    //     <Tab label='Minikube' />
+    //     <Tab label='Cloud' />
+    //   </Tabs>
+    //   {currentTab === 0 && (<Form/>)}
+    //   {currentTab === 1 && (<TestForm/>)}
+    // </React.Fragment>
     // {/* <Form /> */}
   );
 };

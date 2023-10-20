@@ -1,13 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+/* GLOBAL FORMATTING */
 body {
     display: flex;
     justify-content: center;
     font-family: 'Roboto', sans-serif;
-    background-color: #eef2fa;
+    background-color: #e7f0fc;
     color: #2c2f30;
 }
 
+/* FORM */
 #coming-soon {
     display: flex;
     flex-direction: column;
@@ -24,7 +26,6 @@ body {
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-
 
 .form-questions {
     display: flex;
@@ -104,3 +105,66 @@ body {
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+
+/* LANDING PAGE */
+#landing-page-main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 40px;
+}
+
+#landing-page-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.landing-page-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing-page-button {
+    background-color: #e7f0fc;
+    border: 0;
+    transition: all .2s ease-in-out; 
+}
+
+.landing-page-button:hover {
+    transform: scale(1.2);
+}
+
+/* SETUP PAGE */
+.code-snippet {
+    display: flex;
+    flex-direction: row;
+}
+
+/* FORMATTING FOR NAVIGATION */
+.section {
+    transition: transform 0.5s ease-in-out;
+    transform: translateY(100%);
+}
+
+.section.landing {
+    background-color: #E57373;
+  }
+  
+.section.minikube-setup {
+    background-color: #81C784;
+}
+  
+.section.form {
+    background-color: #64B5F6;
+}
+
+.section.active {
+    transform: translateY(0);
+  }
