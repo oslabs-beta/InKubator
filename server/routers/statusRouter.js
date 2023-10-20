@@ -17,4 +17,15 @@ statusRouter.use('/getPods', statusController.getPods, (req, res, next) => {
     return res.status(200).json(`Pods: ${res.locals.getPodsOutput}`);
 });
 
+statusRouter.use('/deleteDeployment', statusController.deleteDeployment, (req, res, next) => {
+
+    return res.status(200).json(`Deployment deleted: ${res.locals.deleteDeployment}`);
+});
+
+statusRouter.use('/deleteService', statusController.deleteDeployment, (req, res, next) => {
+
+    return res.status(200).json(`Service Deleted: ${res.locals.deleteService}`);
+});
+
+
 module.exports = statusRouter;
