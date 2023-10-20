@@ -1,25 +1,26 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const router = require('./router.js');
-const googleRouter = require('./googleRouter.js');
-const PORT = 3001;
 
-const { exec } = require('child_process');
-const yaml = require('js-yaml');
-const fs = require('fs');
+const router = require('./routers/router.js');
+const googleRouter = require('./routers/googleRouter.js');
+const statusRouter = require('./routers/statusRouter.js');
 
 app.use(express.json());
 
 app.use('/', express.static(path.resolve(__dirname, '../')));
 
+// Routers
 app.use('/api', router);
 app.use('/google', googleRouter);
+app.use('/status', statusRouter);
 
+// 404 Error Handler
 app.use('*', (req,res) => {
     res.status(404).send('Page not found.');
 });
 
+// Global Erorr Handler
 app.use((err, req, res, next) => {
     const defaultErr = {
         log: 'Express default error handler',
@@ -31,6 +32,9 @@ app.use((err, req, res, next) => {
 
     return res.status(errorObj.status).json(errorObj.message);
 });
+
+
+const PORT = 3001;
 
 app.listen(PORT, () => {
     console.log(`App is listening on`, PORT);

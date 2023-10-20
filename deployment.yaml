@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: testing123
+  name:
   labels:
-    app: label-testing
+    app:
 spec:
   selector:
     matchLabels:
-      app: label-testing
+      app:
   template:
     metadata:
       labels:
-        app: label-testing
+        app:
     spec:
       containers:
-        - image: margaritabizhan/getting-started
-          ports:
+        - ports:
             - containerPort: 3000
-          name: label-testing
-  replicas: 5
+          name:
+          image:
+  replicas: 3

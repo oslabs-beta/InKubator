@@ -6,17 +6,26 @@ const controller = {};
 
 controller.deploymentYaml = async function(req, res, next) {
   try {
-    const { clusterName, replicas, image, port, label } = req.body;
+    let { clusterName, replicas, image, port, label } = req.body;
     // separate labels later??
-      
-    const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
-    console.log('DOC', doc.metadata.labels);
 
+    // console.log('IMAGE', image)
+    const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
+    // console.log('DOC', doc.metadata.labels);
+
+    // REQUIRED
     doc.metadata.name = `${clusterName}`;
     doc.spec.replicas = replicas;
-    doc.spec.template.spec.containers.image = image;
-    doc.spec.template.spec.containers[0].ports[0].containerPort = port;
+    
+    // OPTIONAL
+    doc.spec.template.spec.containers[0].image = image;
 
+    if (port) {
+      doc.spec.template.spec.containers[0].ports[0].containerPort = port;
+    } else {
+      doc.spec.template.spec.containers[0].ports[0].containerPort = 3000;
+    }
+    
     // app and name labels, all use the same label
     doc.metadata.labels.app = label;
     doc.spec.selector.matchLabels.app = label;
@@ -24,6 +33,7 @@ controller.deploymentYaml = async function(req, res, next) {
     doc.spec.template.spec.containers[0].name = label;
     
     console.log('DOC AFTER', doc);
+    // console.log('DOC IMAGE AFTER', doc.spec.template.spec.containers[0].image);
     
     const newDoc = yaml.dump(doc);
     console.log('NEW DOC', newDoc);
@@ -36,7 +46,7 @@ controller.deploymentYaml = async function(req, res, next) {
     return next();
   } catch (err) {
     return next({
-      log: 'Couldn\'t update Deplyoment YAML file',
+      log: 'Couldn\'t update Deployment YAML file',
       message: { err: 'Error occurred in controller.deploymentYaml' + err },
     });
   };
@@ -49,7 +59,7 @@ controller.deploy = function(req, res, next) {
     if (err) {
       return next({
           log: 'Couldn\'t Deploy YAML file',
-          message: { err: 'Error occurred in controller.deploy' + err },
+          message: { err: 'Error occurred in controller.deploy ' + err },
       });
     } else {
       console.log(`THE DEPLOY OUTPUT ${stdout}`);
@@ -59,6 +69,18 @@ controller.deploy = function(req, res, next) {
   });
 };
 
+controller.tunnel = function(req, res, next) {
+  exec('minikube tunnel', (err, stdout, stderr) => {
+    if (err) {
+      next({
+        log: 'Could not create tunnel',
+        message: `Error in creating tunnel: ${err}`,
+      });
+    }
+    return next();
+  })
+};
+
 controller.expose = async function(req, res, next) {
   const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
   // console.log(doc.metadata.name);
@@ -66,7 +88,7 @@ controller.expose = async function(req, res, next) {
   const targetPort = doc.spec.template.spec.containers[0].ports[0].containerPort;
   console.log('TARGET PORT', targetPort);
   
-  exec(`kubectl expose deployment ${clusterName} --type LoadBalancer --port=80 --target-port ${targetPort}`, 
+  exec(`kubectl expose deployment ${clusterName} --type LoadBalancer --port=9000 --target-port ${targetPort}`, 
   (err, stdout, stderr) => {
       if (err) {
         return next({
@@ -80,38 +102,5 @@ controller.expose = async function(req, res, next) {
       };
   });
 };
-
-controller.getDeployment = function(req, res, next) {
-    exec('kubectl get deployments', (err, stdout, stderr) => {
-        if (err) {
-            return next({
-                log: 'Couldn\'t get deployments',
-                message: { err: 'Error occurred when getting deplyoments:' + err },
-            });
-        } else {
-            console.log(`THE GET DEPLOYMENT OUTPUT ${stdout}`);
-            res.locals.getDeploymentOutput = stdout;
-            return next();
-        }
-    })
-};
-
-controller.getPods = function(req, res, next) {
-    exec('kubectl get pods', (err, stdout, stderr) => {
-        if (err) {
-            return next({
-                log: 'Couldn\'t get pods',
-                message: { err: 'Error occurred when getting pods:' + err },
-            });
-        } else {
-            console.log(`THE GET PODS OUTPUT ${stdout}`);
-            res.locals.getPodsOutput = stdout;
-            return next();
-        }
-    })
-};
-
-
-
 
 module.exports = controller;

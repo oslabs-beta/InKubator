@@ -20,14 +20,17 @@ module.exports = {
     mode: 'development',
     devServer: {
         host: 'localhost',
-        port: 8080,
+        port: 8090,
         static: {
             directory: path.join(__dirname, '/dist'),
             publicPath: '/build/bundle.js'
         },
         hot: true,
         proxy: {
-            '/api': 'http://localhost:3000'
+            '/api/**': {
+                target: 'http://localhost:3001/',
+                secure: false,
+              },
         }
     },
     module: {
@@ -47,14 +50,13 @@ module.exports = {
                 }
             },
             {
-                test: /\.scss$/,
+                test: /\.css$/,
                 exclude: /node_modules/,
                 use: [
                     // creates style nodes from JS strings - ORDER MATTERS!
                     // these loaders are used in backwards order
                     'style-loader',
-                    'css-loader',
-                    'sass-loader'
+                    'css-loader'
                 ]
             }
         ]
