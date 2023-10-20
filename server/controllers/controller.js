@@ -9,9 +9,9 @@ controller.deploymentYaml = async function(req, res, next) {
     let { clusterName, replicas, image, port, label } = req.body;
     // separate labels later??
 
-    console.log('IMAGE', image)
+    // console.log('IMAGE', image)
     const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
-    console.log('DOC', doc.metadata.labels);
+    // console.log('DOC', doc.metadata.labels);
 
     // REQUIRED
     doc.metadata.name = `${clusterName}`;
@@ -33,7 +33,7 @@ controller.deploymentYaml = async function(req, res, next) {
     doc.spec.template.spec.containers[0].name = label;
     
     console.log('DOC AFTER', doc);
-    console.log('DOC IMAGE AFTER', doc.spec.template.spec.containers[0].image);
+    // console.log('DOC IMAGE AFTER', doc.spec.template.spec.containers[0].image);
     
     const newDoc = yaml.dump(doc);
     console.log('NEW DOC', newDoc);
@@ -46,7 +46,7 @@ controller.deploymentYaml = async function(req, res, next) {
     return next();
   } catch (err) {
     return next({
-      log: 'Couldn\'t update Deplyoment YAML file',
+      log: 'Couldn\'t update Deployment YAML file',
       message: { err: 'Error occurred in controller.deploymentYaml' + err },
     });
   };
