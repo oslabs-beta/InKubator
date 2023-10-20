@@ -2,16 +2,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: a-a
+  name: my-test-app
   labels:
     app: a-a
+    app: gcloud-deployment
 spec:
   selector:
     matchLabels:
       app: a-a
+      app: gcloud-deployment
   template:
     metadata:
       labels:
         app: a-a
+        app: gcloud-deployment
     spec:
       containers:
         - ports:
@@ -19,3 +23,7 @@ spec:
           image: registry.k8s.io/e2e-test-images/agnhost:2.39
           name: a-a
   replicas: 2
+            - containerPort: 3000
+          name: gcloud-deployment
+          image: tbensalem/getting-started
+  replicas: 3

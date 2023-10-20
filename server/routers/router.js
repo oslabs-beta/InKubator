@@ -7,7 +7,6 @@ router.use('oneClick', controller.deploymentYaml, controller.deploy, controller.
     return res.status(200).json('All Done')
 });
 
-
 router.use('/yaml', controller.deploymentYaml, (req, res, next) => {
     
     return res.status(200).json('Deployment YAML Created')
