@@ -5,12 +5,11 @@ import TestForm from './components/TestForm';
 // import minikube_logo from './assets/minikube_logo.png';
 
 const App = () => {
-
   const [currentTab, setCurrentTab] = useState(0);
 
   const handleTabChange = (e, tabIndex) => {
-    console.log(e)
-    console.log(tabIndex);
+    // console.log(e)
+    // console.log(tabIndex);
     setCurrentTab(tabIndex);
   };
 
