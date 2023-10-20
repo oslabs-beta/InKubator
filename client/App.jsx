@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Form from './components/form';
+import Form from './components/Form';
 import { Tabs, Tab } from '@mui/material';
 import TestForm from './components/TestForm';
 // import minikube_logo from './assets/minikube_logo.png';

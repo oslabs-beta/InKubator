@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-test-app
+  name: 
   labels:
-    app: gcloud-deployment
+    app: 
 spec:
   selector:
     matchLabels:
-      app: gcloud-deployment
+      app: 
   template:
     metadata:
       labels:
-        app: gcloud-deployment
+        app: 
     spec:
       containers:
         - ports:
             - containerPort: 3000
-          name: gcloud-deployment
-          image: tbensalem/getting-started
+          name: 
+          image: 
   replicas: 3
