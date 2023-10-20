@@ -12,7 +12,7 @@ statusController.getService = async (req, res, next) => {
     if (err) {
       return next({
         log: 'Couldn\'t Get Service',
-        message: { err: 'Error occurred in controller.getService' + err },
+        message: { err: 'Error occurred in controller.getService ' + err },
       });
     } else {
       res.locals.serviceOutput = stdout;
@@ -26,7 +26,7 @@ statusController.getDeployment = (req, res, next) => {
       if (err) {
           return next({
               log: 'Couldn\'t get deployments',
-              message: { err: 'Error occurred when getting deplyoments:' + err },
+              message: { err: 'Error occurred when getting deplyoments: ' + err },
           });
       } else {
           console.log(`THE GET DEPLOYMENT OUTPUT ${stdout}`);
@@ -41,7 +41,7 @@ statusController.getPods = (req, res, next) => {
       if (err) {
           return next({
               log: 'Couldn\'t get pods',
-              message: { err: 'Error occurred when getting pods:' + err },
+              message: { err: 'Error occurred when getting pods: ' + err },
           });
       } else {
           console.log(`THE GET PODS OUTPUT ${stdout}`);
@@ -59,7 +59,7 @@ statusController.deleteDeployment = (req, res, next) => {
       if (err) {
           return next({
               log: 'Couldn\'t delete Google Cloud Deployment',
-              message: { err: 'Error occurred in statusController.deleteDeployment' + err },
+              message: { err: 'Error occurred in statusController.deleteDeployment ' + err },
           });
       } else {
           res.locals.deleteDeployment = stdout;
@@ -75,7 +75,7 @@ statusController.deleteService = (req, res, next) => {
       if (err) {
           return next({
               log: 'Couldn\'t delete Deployment',
-              message: { err: 'Error occurred in statusController.deleteDeployment' + err },
+              message: { err: 'Error occurred in statusController.deleteDeployment ' + err },
           });
       } else {
           res.locals.deleteService = stdout;

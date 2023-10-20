@@ -45,7 +45,7 @@ controller.deploymentYaml = async function(req, res, next) {
   } catch (err) {
     return next({
       log: 'Couldn\'t update Deplyoment YAML file',
-      message: { err: 'Error occurred in controller.deploymentYaml' + err },
+      message: { err: 'Error occurred in controller.deploymentYaml ' + err },
     });
   };
 };
@@ -91,7 +91,7 @@ controller.expose = async function(req, res, next) {
       if (err) {
         return next({
           log: 'Couldn\'t Expose Deployment',
-          message: { err: 'Error occurred in controller.expose' + err },
+          message: { err: 'Error occurred in controller.expose ' + err },
         });
       } else {
         console.log(`Exposed ${stdout}`);

@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ''
+  name: my-test-app
   labels:
-    app: test-label
+    app: gcloud-deployment
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: test-label
+      app: gcloud-deployment
   template:
     metadata:
       labels:
-        app: test-label
+        app: gcloud-deployment
     spec:
       containers:
-      - name: mongo-express
-        image: mongo-express
-        ports:
-          - containerPort: 8081
+        - ports:
+            - containerPort: 3000
+          name: gcloud-deployment
+          image: tbensalem/getting-started
+  replicas: 3
