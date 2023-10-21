@@ -37,7 +37,7 @@ app.use((err, req, res, next) => {
 const PORT = 3001;
 
 app.listen(PORT, () => {
-    console.log(`App is listening on ${PORT}`);
+    console.log(`App is listening on`, PORT);
 });
 
 module.exports = app;
