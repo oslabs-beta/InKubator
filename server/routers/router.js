@@ -7,28 +7,41 @@ router.use('oneClick', controller.deploymentYaml, controller.deploy, controller.
     return res.status(200).json('All Done')
 });
 
-router.use('/yaml', controller.deploymentYaml, (req, res, next) => {
+router.use('/yaml', controller.deploymentYaml, (req, res) => {
     
     return res.status(200).json('Deployment YAML Created')
 });
 
-router.use('/service', controller.serviceYaml, (req, res, next) => {
+router.use('/service', controller.serviceYaml, (req, res) => {
     
     return res.status(200).json('Service YAML Created')
 });
 
-router.use('/tunnel', controller.tunnel, (req, res, next) => {
+router.use('/tunnel', controller.tunnel, (req, res) => {
     
-    return res.status(200).json(`Tunnel Created: ${res.locals.tunnelOutput}`)
+    return res.status(200).json(`Tunnel Created`)
 });
 
-router.use('/deploy', controller.deploy, (req, res, next) => {
+router.use('/killtunnel', controller.killTunnel, (req, res) => {
+
+    return res.status(200).json(`Tunnel Killed`)
+});
+
+router.use('/deploy', controller.deploy, (req, res) => {
 
     return res.status(200).json(`Cluster Deployed Status: ${res.locals.deployOutput}`)
 });
 
-router.use('/expose', controller.expose, (req, res, next) => {
+router.use('/tunnelexpose', controller.tunnel, controller.expose, (req, res, next) => {
     return res.status(200).json(`Exposure: ${res.locals.exposedOutput}`)
+});
+
+router.use('/expose', controller.expose, (req, res) => {
+    return res.status(200).json(`Exposure: ${res.locals.exposedOutput}`)
+});
+
+router.use('/delete', controller.deleteService, controller.deleteDeployment, controller.killTunnel, (req, res) => {
+    return res.status(200).json(res.locals)
 });
 
 module.exports = router;

@@ -102,7 +102,7 @@ const Form = () => {
             clusterName: newFormValues.deploymentName.value,
             replicas: Number(newFormValues.replicas.value),
             image: newFormValues.dockerImage.value,
-            port: newFormValues.portNumber.value,
+            port: Number(newFormValues.portNumber.value),
             label: newFormValues.labelNames.value
           };        
           // console.log(yamlObj);
@@ -142,7 +142,7 @@ const Form = () => {
 
     const handleExpose = async () => { 
       try {
-          const exposeYaml = await fetch('api/expose')
+          const exposeYaml = await fetch('api/tunnelexpose')
           const resExpose = exposeYaml.json();
           console.log('EXPOSURE RESULTS', resExpose);
       } catch(err) {
