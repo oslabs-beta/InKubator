@@ -23,9 +23,9 @@ app.use('*', (req,res) => {
 // Global Erorr Handler
 app.use((err, req, res, next) => {
     const defaultErr = {
-        log: 'Express default error handler',
-        status: 500,
-        message: {error: `An error occurred: ${err}`}
+      log: 'Express default error handler',
+      status: 500,
+      message: {error: `An error occurred: ${err}`}
     };
 
     const errorObj = Object.assign({}, defaultErr, err);

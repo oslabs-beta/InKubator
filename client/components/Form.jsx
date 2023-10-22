@@ -43,6 +43,12 @@ const Form = () => {
         error: false,
         errorMessage: "Invalid number of replicas"
       },
+    })    
+
+    // useState for (YAML, deploy, expose) button feedback rendered at the bottom
+    const [buttonFeedback, setButtonFeedback] = useState({
+      feedbackMessage: "",
+      feedbackStatus: "not pressed"
     })
 
     function handleChange(e) {
@@ -94,7 +100,7 @@ const Form = () => {
         // set form state to be newFormValues obj => update error status for fields
         setFormValues(newFormValues)
         
-        console.log(typeof newFormValues.replicas.value)
+        // console.log(typeof newFormValues.replicas.value)
 
         // don't make POST request if we have an error for any of the fields
         if(!errorThrown) {
@@ -116,7 +122,24 @@ const Form = () => {
             });
 
             const jsonRes = await postYaml.json();
-            console.log(jsonRes);
+            // console.log(postYaml.status);
+            // console.log(jsonRes);
+            
+            // make a copy of previous state for button feedback
+            const prevState = {...buttonFeedback};
+
+            // if successful YAML generation from a endpoint
+            // set rendered feedback message => YAML file generated successfully
+            if(postYaml.status === 200) {
+              prevState.feedbackMessage = "YAML file generated successfully" 
+              prevState.feedbackStatus = "success"
+            } else {
+              prevState.feedbackMessage = "YAML file NOT generated"
+              prevState.feedbackStatus = "failure"
+            }
+            // console.log(prevState)
+            setButtonFeedback(prevState);
+
             } catch(err) {
               console.log(`ERROR : ${err}`);
             }
@@ -134,7 +157,23 @@ const Form = () => {
       try {
           const deployYaml = await fetch('api/deploy')
           const resDeploy = await deployYaml.json();
-          console.log('DEPLOY RESULTS', resDeploy);
+          // console.log(deployYaml.status);
+          // console.log(resDeploy);
+
+          const prevState = {...buttonFeedback};
+          // handle button feedback here (based on status code)
+            // use setButtonPressed
+            // set button + buttonFeedback string
+          if(deployYaml.status === 200) {
+            prevState.feedbackMessage = "Cluster Deployed Successfully!"
+            prevState.feedbackStatus = "success"
+          } else {
+            prevState.feedbackMessage = "Failed Cluster Deployment"
+            prevState.feedbackStatus = "failure"
+          }
+          // console.log(prevState)
+          setButtonFeedback(prevState);
+
       } catch(err) {
           console.log(`ERROR: ${err}`);
       }
@@ -143,8 +182,24 @@ const Form = () => {
     const handleExpose = async () => { 
       try {
           const exposeYaml = await fetch('api/expose')
-          const resExpose = exposeYaml.json();
-          console.log('EXPOSURE RESULTS', resExpose);
+          const resExpose = await exposeYaml.json();
+          // console.log(exposeYaml.status)
+          // console.log(resExpose);
+
+          const prevState = {...buttonFeedback};
+          // handle button feedback here (based on status code)
+            // use setButtonPressed
+            // set button + buttonFeedback string
+          if(exposeYaml.status === 200) {
+            prevState.feedbackMessage = "Cluster Exposed Successfully!"
+            prevState.feedbackStatus = "success"
+          } else {
+            prevState.feedbackMessage = "Failed Cluster Exposure"
+            prevState.feedbackStatus = "failure"
+          }
+          // console.log(prevState)
+          setButtonFeedback(prevState);
+
       } catch(err) {
           console.log(`ERROR: ${err}`);
       }
@@ -268,6 +323,14 @@ const Form = () => {
             helperText={formValues.replicas.error && formValues.replicas.errorMessage}
             // onChange={(e) => handleInputChange(e, setNumReplicas, true)}
           />
+
+          
+          <br />
+          <p style={{ 
+            fontStyle: 'italic',
+            color: buttonFeedback.feedbackStatus === 'success' ? 'green' : 'red'
+          }}>
+            {buttonFeedback.feedbackMessage}</p>
         </div>
   
         {/* FOOTER */}
