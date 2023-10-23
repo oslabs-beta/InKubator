@@ -322,7 +322,6 @@ const Form = () => {
             helperText={formValues.replicas.error && formValues.replicas.errorMessage}
             // onChange={(e) => handleInputChange(e, setNumReplicas, true)}
           />
-
           
           <br />
           <p style={{ 
