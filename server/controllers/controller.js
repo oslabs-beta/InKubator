@@ -1,8 +1,32 @@
-const { exec } = require('child_process');
+const { exec, spawn, ChildProcess } = require('child_process');
 const yaml = require('js-yaml');
 const fs = require('fs');
 
+let tunnelProcess;
+let minikubeProcess;
+
 const controller = {};
+
+controller.startMinikube = function(req, res, next) {
+  if(!minikubeProcess) {
+    minikubeProcess = spawn('minikube', ['start']);
+      minikubeProcess.stdout.on('data', (data) => {
+        console.log(`Minikube start initiated. Message from minikube ${data}`);
+        return next();
+      });
+      minikubeProcess.on('error', (error) => {
+        console.log(`ERROR: ${error}`);
+        return next({
+          log: 'Could not start minikube',
+          message: `Error in starting minikube: ${error}`,
+        });
+      });
+
+  } else {
+    console.log('Minikube already started');
+    return next();
+  };
+};
 
 controller.deploymentYaml = async function(req, res, next) {
   try {
@@ -24,12 +48,7 @@ controller.deploymentYaml = async function(req, res, next) {
 
     // OPTIONAL
     doc.spec.template.spec.containers[0].image = image;
-
-    if (port) {
-      doc.spec.template.spec.containers[0].ports[0].containerPort = port;
-    } else {
-      doc.spec.template.spec.containers[0].ports[0].containerPort = 3000;
-    }
+    doc.spec.template.spec.containers[0].ports[0].containerPort = port;
     
     console.log('DOC AFTER', doc);
     
@@ -68,16 +87,34 @@ controller.deploy = function(req, res, next) {
 };
 
 controller.tunnel = function(req, res, next) {
-  exec('minikube tunnel', (err, stdout, stderr) => {
-    if (err) {
-      next({
-        log: 'Could not create tunnel',
-        message: `Error in creating tunnel: ${err}`,
+  if(!tunnelProcess) {
+    tunnelProcess = spawn('minikube', ['tunnel']);
+      tunnelProcess.stdout.on('data', (data) => {
+        console.log('STARTED TUNNEL');
+        return next();
       });
+      tunnelProcess.on('error', (error) => {
+        console.log(`ERROR: ${error}`);
+        return next({
+          log: 'Could not create tunnel',
+          message: `Error in creating tunnel: ${error}`,
+        });
+      });
+
+  } else {
+    console.log('TUNNEL already exists');
+    return next();
+  };
+};
+
+  controller.killTunnel = function(req, res, next) {
+    if(tunnelProcess) {
+      tunnelProcess.kill();
+      tunnelProcess = null;
+      console.log('Tunnel process is killed');
     };
     return next();
-  });
-};
+  };
 
 controller.expose = async function(req, res, next) {
   const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
@@ -98,6 +135,44 @@ controller.expose = async function(req, res, next) {
         res.locals.exposedOutput = stdout;
         return next();
       };
+  });
+};
+
+controller.deleteService = async function(req, res, next) {
+  const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
+  const deploymentName = doc.metadata.name;
+  console.log(deploymentName);
+
+  exec(`kubectl delete service ${deploymentName}`, (err, stdout, stderr) => {
+    if (err) {
+      return next({
+        log: 'Couldn\'t Delete Service',
+        message: { err: `Error occurred in controller.deleteService: ${err}` },
+      });
+    } else {
+      console.log(stdout);
+      res.locals.deleteService = stdout;
+      return next();
+    };
+  });
+};
+
+controller.deleteDeployment = async function(req, res, next) {
+  const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
+  const deploymentName = doc.metadata.name;
+  console.log(deploymentName);
+
+  exec(`kubectl delete deployment ${deploymentName}`, (err, stdout, stderr) => {
+    if (err) {
+      return next({
+        log: 'Couldn\'t Delete Deployment',
+        message: { err: `Error occurred in controller.deleteDeployment: ${err}` },
+      });
+    } else {
+      console.log(stdout);
+      res.locals.deleteDeployment = stdout;
+      return next();
+    };
   });
 };
 

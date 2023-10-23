@@ -181,9 +181,9 @@ const Form = () => {
 
     const handleExpose = async () => { 
       try {
-          const exposeYaml = await fetch('api/expose')
-          const resExpose = await exposeYaml.json();
-          // console.log(exposeYaml.status)
+          const exposeYaml = await fetch('api/tunnelexpose')
+          const resExpose = exposeYaml.json();
+          console.log('EXPOSURE RESULTS', resExpose);
           // console.log(resExpose);
 
           const prevState = {...buttonFeedback};
@@ -199,7 +199,6 @@ const Form = () => {
           }
           // console.log(prevState)
           setButtonFeedback(prevState);
-
       } catch(err) {
           console.log(`ERROR: ${err}`);
       }
