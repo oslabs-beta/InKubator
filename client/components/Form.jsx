@@ -133,15 +133,15 @@ const Form = () => {
     }
   };
 
-  const handleExpose = async () => { 
-    try {
-      const exposeYaml = await fetch('api/expose')
-      const resExpose = exposeYaml.json();
-      console.log('EXPOSURE RESULTS', resExpose);
-    } catch(err) {
-      console.log(`ERROR: ${err}`);
+    const handleExpose = async () => { 
+      try {
+          const exposeYaml = await fetch('api/tunnelexpose')
+          const resExpose = exposeYaml.json();
+          console.log('EXPOSURE RESULTS', resExpose);
+      } catch(err) {
+          console.log(`ERROR: ${err}`);
+      }
     }
-  }
 
   return (
     <div id='test-form' className='section form'>
