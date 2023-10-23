@@ -3,20 +3,21 @@ import { Button, IconButton } from '@mui/material';
 import { FileCopy, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import { Link, animateScroll as scroll } from 'react-scroll';
 
-const MinikubeSetup = () => {
+const CloudSetup = () => {
 
   // Code for copy to clipboard functionality
-  const minikubeStartCode = 'minikube start';
+  const cloudStartCode = 'cloud start';
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(minikubeStartCode)
+    navigator.clipboard.writeText(cloudStartCode)
       .then(() => {
         alert('Copied to clipboard!');
       });
   };
-
+  
   return (
     <div className='section minikube-setup'>
-      <Link class='nav-button'
+      <Link 
+        class='nav-button'
         to='landing'
         spy={true}
         smooth={true}
@@ -27,9 +28,7 @@ const MinikubeSetup = () => {
           <KeyboardArrowUp />
         </IconButton>
       </Link>
-      
-      {/* Add carrot here for scroll back up */}
-      <h1>Deploy Kubernetes cluster with Minikube</h1>
+      <h1>Deploy Kubernetes cluster with GOOGLE CLOUD</h1>
 
       <p>Before getting started, you'll need:</p>
         <ul>Minikube installed on your machine</ul>
@@ -44,27 +43,28 @@ const MinikubeSetup = () => {
       <h2>Start Minikube</h2>
         <p>Run this command in your terminal to get started.</p>
         <div class='code-snippet'>
-          <pre>{minikubeStartCode}</pre>
+          <pre>{cloudStartCode}</pre>
             <Button
               variant='outlined'
               onClick={copyToClipboard}
               startIcon={<FileCopy />} >
-            Copy
+              Copy
             </Button>
         </div>
+
       <Link class='nav-button'
         to='form'
         spy={true}
         smooth={true}
         offset={-20}
-        duration={900} 
-      >
+        duration={900} >
         <IconButton>
           <KeyboardArrowDown />
         </IconButton>
       </Link>
+    
     </div>
   )
 };
 
-export default MinikubeSetup;
+export default CloudSetup;

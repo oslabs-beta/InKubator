@@ -107,7 +107,7 @@ body {
 }
 
 /* LANDING PAGE */
-#landing-page-main-container {
+#landing {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -148,17 +148,24 @@ body {
 }
 
 /* FORMATTING FOR NAVIGATION */
+.nav-button {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
 .section {
     transition: transform 0.5s ease-in-out;
     transform: translateY(100%);
 }
 
-.section.landing {
-    background-color: #E57373;
+.section.landing-page {
+    /* background-color: #E57373; */
   }
   
-.section.minikube-setup {
-    background-color: #81C784;
+.section.setup {
+    /* background-color: white; */
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
   
 .section.form {
