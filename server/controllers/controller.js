@@ -3,8 +3,30 @@ const yaml = require('js-yaml');
 const fs = require('fs');
 
 let tunnelProcess;
+let minikubeProcess;
 
 const controller = {};
+
+controller.startMinikube = function(req, res, next) {
+  if(!minikubeProcess) {
+    minikubeProcess = spawn('minikube', ['start']);
+      minikubeProcess.stdout.on('data', (data) => {
+        console.log(`Minikube start initiated. Message from minikube ${data}`);
+        return next();
+      });
+      minikubeProcess.on('error', (error) => {
+        console.log(`ERROR: ${error}`);
+        return next({
+          log: 'Could not start minikube',
+          message: `Error in starting minikube: ${error}`,
+        });
+      });
+
+  } else {
+    console.log('Minikube already started');
+    return next();
+  };
+};
 
 controller.deploymentYaml = async function(req, res, next) {
   try {
