@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hihi
+  name: tarik
   labels:
-    app: hi
+    app: ff
 spec:
   selector:
     matchLabels:
-      app: hi
+      app: ff
   template:
     metadata:
       labels:
-        app: hi
+        app: ff
     spec:
       containers:
         - ports:
             - containerPort: 3000
-          name: hi
-          image: margaritabizhan/getting-started
+          name: ff
+          image: tbensalem/getting-started
   replicas: 2
