@@ -142,7 +142,7 @@ const Form = () => {
 
     const handleExpose = async () => { 
       try {
-          const exposeYaml = await fetch('api/expose')
+          const exposeYaml = await fetch('api/tunnelexpose')
           const resExpose = exposeYaml.json();
           console.log('EXPOSURE RESULTS', resExpose);
       } catch(err) {
