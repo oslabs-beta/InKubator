@@ -131,6 +131,12 @@ googleController.getCredentials = (req, res, next) => {
 
 googleController.deploy = (req, res, next) => {
     const { clusterName, image } = req.body;
+
+    // Why "kubectl create deployment" over kubectl apply? 
+      // => convenience...
+      // this generates a default YAML file for deployment (NOT a customized one)      
+    
+    
     
     exec(`kubectl create deployment ${clusterName} \
     --image=${image}`, (err, stdout, stderr) => {
