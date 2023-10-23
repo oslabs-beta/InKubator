@@ -108,7 +108,7 @@ const Form = () => {
             clusterName: newFormValues.deploymentName.value,
             replicas: Number(newFormValues.replicas.value),
             image: newFormValues.dockerImage.value,
-            port: newFormValues.portNumber.value,
+            port: Number(newFormValues.portNumber.value),
             label: newFormValues.labelNames.value
           };        
           // console.log(yamlObj);
