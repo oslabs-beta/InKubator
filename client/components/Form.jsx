@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Button, MenuItem, TextField } from '@mui/material';
+import React, { useState } from 'react';
+import { Alert, Button, MenuItem, TextField } from '@mui/material';
 
 const deploymentKinds = [
-    {
-        value: 'Deployment',
-        label: 'Deployment',
-    },
-    {
-        value: 'DaemonSet',
-        label: 'DaemonSet',
-    },
-    {
-        value: 'StatefulSet',
-        label: 'StatefulSet',
-    },
+  {
+    value: 'Deployment',
+    label: 'Deployment',
+  },
+  {
+    value: 'DaemonSet',
+    label: 'DaemonSet',
+  },
+  {
+    value: 'StatefulSet',
+    label: 'StatefulSet',
+  },
 ];
 
 const Form = () => {
@@ -51,51 +51,50 @@ const Form = () => {
       feedbackStatus: "not pressed"
     })
 
-    function handleChange(e) {
-      const {name, value} = e.target;
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    setFormValues({
+      ...formValues,
+      [name]:{
+        ...formValues[name], value
+      }
+    })
+  };
 
-      setFormValues({
-        ...formValues,
-        [name]:{
-          ...formValues[name], value
-        }
-      })
+  const handlePostYaml = async (e) => {
+    e.preventDefault();
+    let errorThrown = false;
+
+    // Perform form validation here
+    const yamlValidationString = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?$/;
+    let newFormValues = {...formValues};
+    
+    // Reset all fields error status back to false
+    for (let field in newFormValues) {
+        newFormValues[field].error = false;
     }
-
-    const handlePostYaml = async (e) => {
-        e.preventDefault();
-        let errorThrown = false
-
-        // perform form validation here
-        const yamlValidationString = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?$/
-        let newFormValues = {...formValues}
-      
-        // reset all fields error status back to false
-        for(let field in newFormValues) {
-          newFormValues[field].error = false
-        }
         
-        // FORM VALIDATION checking for correct data types for each field
-        if(!yamlValidationString.test(newFormValues.deploymentName.value) || newFormValues.deploymentName.value === '') {
-          newFormValues.deploymentName.error = true
-          errorThrown = true
-        } 
-        if(!yamlValidationString.test(newFormValues.labelNames.value) || newFormValues.labelNames.value === '') {
-          newFormValues.labelNames.error = true
-          errorThrown = true
-        }
-        if(typeof newFormValues.dockerImage.value !== 'string') {
-          newFormValues.portNumber.error = true
-          errorThrown = true
-        }
-        if(newFormValues.portNumber.value < 1 || newFormValues.portNumber.value > 65535) {
-          newFormValues.portNumber.error = true
-          errorThrown = true
-        }
-        if(newFormValues.replicas.value < 1) {
-          newFormValues.replicas.error = true
-          errorThrown = true
-        }
+    // FORM VALIDATION checking for correct data types for each field
+    if (!yamlValidationString.test(newFormValues.deploymentName.value) || newFormValues.deploymentName.value === '') {
+        newFormValues.deploymentName.error = true;
+        errorThrown = true;
+    } 
+    if (!yamlValidationString.test(newFormValues.labelNames.value) || newFormValues.labelNames.value === '') {
+        newFormValues.labelNames.error = true;
+        errorThrown = true;
+    }
+    if (typeof newFormValues.dockerImage.value !== 'string') {
+        newFormValues.portNumber.error = true;
+        errorThrown = true;
+    }
+    if (newFormValues.portNumber.value < 1 || newFormValues.portNumber.value > 65535) {
+        newFormValues.portNumber.error = true;
+        errorThrown = true;
+    }
+    if (newFormValues.replicas.value < 1) {
+        newFormValues.replicas.error = true;
+        errorThrown = true;
+    }
 
         // set form state to be newFormValues obj => update error status for fields
         setFormValues(newFormValues)
@@ -204,40 +203,40 @@ const Form = () => {
       }
     }
 
-    return (
-      <div id="test-form">
+  return (
+    <div id='test-form' className='section form'>
 
-        {/* HEADER */}
-        <div className="form-header">
-            <strong>Launch Kubernetes with Minikube</strong>
-        </div>
-       
-        <div id="form-div1" className="form-section-header">
-          <strong>Deployment details</strong>
-        </div>
+    {/* HEADER */}
+    <div className='form-header'>
+      <strong>Launch Kubernetes with Minikube</strong>
+    </div>
+    
+    <div id='form-div1' className='form-section-header'>
+      <strong>Deployment details</strong>
+    </div>
         
-        <div className="form-div2">
-          <p>Deployment kind</p>
-          <TextField
-            id="outlined-select-deployment-kind"
-            select 
-            label="Select" 
-            defaultValue="Deployment"
-          >
-            {deploymentKinds.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                </MenuItem>
-            ))}
-          </TextField>
+    <div className='form-div2'>
+      <p>Deployment kind</p>
+      <TextField
+        id='outlined-select-deployment-kind'
+        select 
+        label='Select'
+        defaultValue='Deployment'
+      >
+        {deploymentKinds.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+              {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
   
-          <p>Deployment name</p>
-          <p>Each Deployment resource requires a unique Deployment Name. Kubernetes resources are identified by their names.</p>     
+      <p>Deployment name</p>
+      <p>Each Deployment resource requires a unique Deployment Name. Kubernetes resources are identified by their names.</p>     
           <TextField 
-            id="deploymentName" 
-            label="Deployment name" 
-            name="deploymentName"
-            variant="outlined" 
+            id='deploymentName' 
+            label='Deployment name' 
+            name='deploymentName'
+            variant='outlined'
 
             onChange={handleChange}
             value={formValues.deploymentName.value}
@@ -250,11 +249,10 @@ const Form = () => {
           <p>Labels are custom key/value pairs that are assigned to Kubernetes resources. The labels defined in the Deployment section are applied to the Deployment, Pod, Service, Ingress, ConfigMap and Secret resources.
             The labels are optional, as we will automatically add the tags required to manage the Kubernetes resources.</p> 
           <TextField 
-            id="label"
-            label="Label"
-            name="labelNames"
-            variant="outlined"
-
+            id='deploymentName' 
+            label='Label'
+            variant='outlined' 
+            name='labelNames'
             onChange={handleChange}
             value={formValues.labelNames.value}
             error={formValues.labelNames.error}
@@ -263,18 +261,18 @@ const Form = () => {
           />
         </div>
         
-        <div id="form-div3" className="form-section-header">
+        <div id='form-div3' className='form-section-header'>
             <strong>Pod details</strong>
         </div>
         
-        <div className="form-div4">
+        <div className='form-div4'>
           <p>Docker image</p>
           <p>If you don't have a containerized app, let us deploy a sample app for you. You can leave this field empty.</p>
           <TextField 
-            id="dockerImage"
-            label="Docker image" 
-            name="dockerImage"
-            variant="outlined" 
+            id='dockerImage'
+            label='Docker image' 
+            name='dockerImage'
+            variant='outlined'
 
             onChange={handleChange}
             // value={formValues.dockerImage.value}
@@ -286,12 +284,11 @@ const Form = () => {
           <p>Port number</p>
           <p>The port number must be a number between 1 and 65535. NOTE: The port MUST match the port defined in your Docker image. If you don't have a Docker image leave this field empty. Port number will default to 8080 if left blank.</p>
           <TextField
-            id="containerPort"
-            label="Port Number"
-            name="portNumber"
-            variant="outlined"
-            type="number"
-            // defaultValue="Hello World"
+            id='containerPort'
+            label='Port Number'
+            name='portNumber'
+            variant='outlined'
+            type='number'
             InputProps={{
               inputProps: { min: 1, max: 65535 },
             }}
@@ -307,11 +304,11 @@ const Form = () => {
           <p>Number of replicas</p>
           <p>The desired number of Pod resources is set in the Replicas field.</p>
           <TextField
-            id="numReplicas" 
-            label="Number of replicas" 
-            name="replicas"
-            variant="outlined"
-            type="number" 
+            id='numReplicas' 
+            label='Number of replicas'
+            name='replicas'
+            variant='outlined'
+            type='number'
             InputProps={{
               inputProps: { min: 1 },
             }}
@@ -331,14 +328,19 @@ const Form = () => {
             {buttonFeedback.feedbackMessage}</p>
         </div>
   
-        {/* FOOTER */}
-        <div className="form-footer">
-          <Button id="yaml-button" variant="outlined" onClick={(e) => {handlePostYaml(e)}}>Generate YAML</Button>
-          <Button id="expose-button" variant="outlined" onClick={(e) => {handleExpose(e)}}>Expose</Button>
-          <Button id="deploy-button" variant="contained" onClick={(e) => {handleDeploy(e)}}>Deploy</Button>
-        </div>
+      {/* FOOTER */}
+      <div className='form-footer'>
+        <Button id='yaml-button' variant='outlined' onClick={(e) => {handlePostYaml(e)}}>Generate YAML</Button>
+        <Button id='expose-button' variant='outlined' onClick={(e) => {handleExpose(e)}}>Expose</Button>
+        <Button id='deploy-button' variant='contained' onClick={(e) => {handleDeploy(e)}}>Deploy</Button>
       </div>
-    )
+
+      <Alert severity="error">This is an error alert — check it out!</Alert>
+      <Alert severity="warning">This is a warning alert — check it out!</Alert>
+      <Alert severity="info">This is an info alert — check it out!</Alert>
+      <Alert severity="success">This is a success alert — check it out!</Alert>
+    </div>
+  )
 }
 
 export default Form;
