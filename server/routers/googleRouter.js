@@ -13,8 +13,8 @@ googleRouter.use('/getClusters', googleController.getClusters, (req, res, next) 
 });
 
 googleRouter.use('/getCredentials', googleController.getCredentials, (req, res, next) => {
-    console.log('Made it past getCredentials middleware');
-    return res.status(200);
+    console.log('Made it past getCredentials middleware', res.locals.getCreds);
+    return res.status(200).json(res.locals.getCreds);
 });
 
 googleRouter.use('/deploy', googleController.deploy, (req, res, next) => {
