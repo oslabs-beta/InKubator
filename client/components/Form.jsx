@@ -90,19 +90,21 @@ const Form = () => {
         errorThrown = true;
     }
 
-    // Set form state to be newFormValues obj => update error status for fields
-    setFormValues(newFormValues);
-    console.log(typeof newFormValues.replicas.value);
+        // set form state to be newFormValues obj => update error status for fields
+        setFormValues(newFormValues)
+        
+        console.log(typeof newFormValues.replicas.value)
 
-    // Don't make POST request if we have an error for any of the fields
-    if (!errorThrown) {
-      const yamlObj = {
-        clusterName: newFormValues.deploymentName.value,
-        replicas: Number(newFormValues.replicas.value),
-        image: newFormValues.dockerImage.value,
-        port: newFormValues.portNumber.value,
-        label: newFormValues.labelNames.value
-      };        
+        // don't make POST request if we have an error for any of the fields
+        if(!errorThrown) {
+          const yamlObj = {
+            clusterName: newFormValues.deploymentName.value,
+            replicas: Number(newFormValues.replicas.value),
+            image: newFormValues.dockerImage.value,
+            port: Number(newFormValues.portNumber.value),
+            label: newFormValues.labelNames.value
+          };        
+          // console.log(yamlObj);
 
       try {
         const postYaml = await fetch('/api/yaml', {
