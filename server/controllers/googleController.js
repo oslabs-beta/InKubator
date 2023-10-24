@@ -104,19 +104,16 @@ googleController.getClusters = (req, res, next) => {
             });
         } else {
             const { NAME, LOCATION, STATUS} = outputToObj(stdout);
-            // console.log('GRABBED DATA', outputToObj(stdout));
             res.locals.getClusters = outputToObj(stdout);
         }
         return next();
     });
 };
 
-googleController.getCredentials = (req, res, next) => {
-    console.log('MADE IT TO GET CREDS')
+googleController.getCredentials = async (req, res, next) => {
     const { clusterName } = req.body;
-    console.log('clusterName', clusterName)
     // TIES YOUR 'KUBECTL' COMMAND TO THE GOOGLE CLOUD CLUSTER
-    exec(`gcloud container clusters get-credentials ${clusterName} --location us-central1`, (err, stdout, stderr) => {
+     await exec(`gcloud container clusters get-credentials ${clusterName} --location us-central1`, (err, stderr, stdout) => {
         if (err) {
             return next({
                 log: 'Couldn\'t get Google Credentials',

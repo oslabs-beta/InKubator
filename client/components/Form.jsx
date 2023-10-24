@@ -72,32 +72,32 @@ const Form = () => {
     // Reset all fields error status back to false
     for (let field in newFormValues) {
         newFormValues[field].error = false;
-    }
-        
+    };
+
     // FORM VALIDATION checking for correct data types for each field
     if (!yamlValidationString.test(newFormValues.deploymentName.value) || newFormValues.deploymentName.value === '') {
         newFormValues.deploymentName.error = true;
         errorThrown = true;
-    } 
+    };
     if (!yamlValidationString.test(newFormValues.labelNames.value) || newFormValues.labelNames.value === '') {
         newFormValues.labelNames.error = true;
         errorThrown = true;
-    }
+    };
     if (typeof newFormValues.dockerImage.value !== 'string') {
         newFormValues.portNumber.error = true;
         errorThrown = true;
-    }
+    };
     if (newFormValues.portNumber.value < 1 || newFormValues.portNumber.value > 65535) {
         newFormValues.portNumber.error = true;
         errorThrown = true;
-    }
+    };
     if (newFormValues.replicas.value < 1) {
         newFormValues.replicas.error = true;
         errorThrown = true;
-    }
+    };
 
         // set form state to be newFormValues obj => update error status for fields
-        setFormValues(newFormValues)
+        setFormValues(newFormValues);
         
         // console.log(typeof newFormValues.replicas.value)
 
@@ -135,17 +135,17 @@ const Form = () => {
             } else {
               prevState.feedbackMessage = "YAML file NOT generated"
               prevState.feedbackStatus = "failure"
-            }
+            };
             // console.log(prevState)
             setButtonFeedback(prevState);
 
             } catch(err) {
               console.log(`ERROR : ${err}`);
-            }
+            };
             
         } else {
-          console.log("POST request NOT made")
-        }
+          console.log("POST request NOT made");
+        };
     };
 
     // useEffect(() => {
@@ -154,7 +154,7 @@ const Form = () => {
 
     const handleDeploy = async () => {
       try {
-          const deployYaml = await fetch('api/deploy')
+          const deployYaml = await fetch('api/deploy');
           const resDeploy = await deployYaml.json();
           // console.log(deployYaml.status);
           // console.log(resDeploy);
@@ -169,18 +169,18 @@ const Form = () => {
           } else {
             prevState.feedbackMessage = "Failed Cluster Deployment"
             prevState.feedbackStatus = "failure"
-          }
+          };
           // console.log(prevState)
           setButtonFeedback(prevState);
 
       } catch(err) {
           console.log(`ERROR: ${err}`);
-      }
+      };
     };
 
     const handleExpose = async () => { 
       try {
-          const exposeYaml = await fetch('api/tunnelexpose')
+          const exposeYaml = await fetch('api/tunnelexpose');
           const resExpose = exposeYaml.json();
           console.log('EXPOSURE RESULTS', resExpose);
           // console.log(resExpose);
@@ -195,13 +195,13 @@ const Form = () => {
           } else {
             prevState.feedbackMessage = "Failed Cluster Exposure"
             prevState.feedbackStatus = "failure"
-          }
+          };
           // console.log(prevState)
           setButtonFeedback(prevState);
       } catch(err) {
           console.log(`ERROR: ${err}`);
-      }
-    }
+      };
+    };
 
   return (
     <div id='test-form' className='section form'>
