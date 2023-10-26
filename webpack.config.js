@@ -32,7 +32,8 @@ module.exports = {
                 target: 'http://localhost:3001/',
                 secure: false,
               },
-        }
+        },
+        historyApiFallback: true,
     },
     module: {
         // rules and properties for how to deal with our files

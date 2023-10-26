@@ -4,7 +4,11 @@ const fs = require('fs');
 
 const statusController = {};
 
-statusController.getDeployment = (req, res, next) => {
+statusController.getDeployment = async (req, res, next) => {
+  const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
+    const imageName = doc.spec.template.spec.containers[0].image;
+    console.log(imageName);
+
   exec('kubectl get deployments', (err, stdout, stderr) => {
       if (err) {
           return next({
@@ -13,7 +17,7 @@ statusController.getDeployment = (req, res, next) => {
           });
       } else {
           console.log(`THE GET DEPLOYMENT OUTPUT ${stdout}`);
-          res.locals.getDeploymentOutput = stdout;
+          res.locals.getDeploymentOutput = stdout.concat(imageName);
           return next();
       };
   });
