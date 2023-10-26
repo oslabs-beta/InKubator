@@ -113,8 +113,12 @@ googleController.getClusters = (req, res, next) => {
 
 googleController.getCredentials = async (req, res, next) => {
     const { clusterName } = req.body;
+    
+    // console.log(req.body);
+    console.log("inside of getCredentials SERVER SIDE", clusterName);
+
     // TIES YOUR 'KUBECTL' COMMAND TO THE GOOGLE CLOUD CLUSTER
-     await exec(`gcloud container clusters get-credentials ${clusterName} --location us-central1`, (err, stderr, stdout) => {
+     await exec(`gcloud container clusters get-credentials ${clusterName} --location us-east1-b`, (err, stderr, stdout) => {
         if (err) {
             return next({
                 log: 'Couldn\'t get Google Credentials',
@@ -130,11 +134,9 @@ googleController.getCredentials = async (req, res, next) => {
 googleController.deploy = (req, res, next) => {
     const { clusterName, image } = req.body;
 
-    // Why "kubectl create deployment" over kubectl apply? 
+    // Why "kubectl create deployment" over kubectl apply?
       // => convenience...
-      // this generates a default YAML file for deployment (NOT a customized one)      
-    
-    
+      // this generates a default YAML file for deployment (NOT a customized one)
     
     exec(`kubectl create deployment ${clusterName} \
     --image=${image}`, (err, stdout, stderr) => {

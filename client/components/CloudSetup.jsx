@@ -5,6 +5,8 @@ import { Element, Link, animateScroll as scroll } from 'react-scroll';
 import Clusters from './Clusters'
 import Form from './Form';
 
+import { Link as RouterLink } from 'react-router-dom';
+
 const CloudSetup = () => {
   const [clusters, setClusters] = useState();
   const [clusterName, setClusterName] = useState(null);
@@ -94,7 +96,7 @@ const handleGetCredentials = async (e) => {
 
         <h3> Ready to go? Select your cluster to begin: </h3>
 
-        <div 
+        {/* <div 
         // className="section cluster"
         >
 
@@ -114,7 +116,7 @@ const handleGetCredentials = async (e) => {
               ) : null}
         </div>
 
-        {getCreds ? (<Form/>) : null}
+        {getCreds ? (<Form/>) : null} */}
 
         <Link class='nav-button'
           to='form'
@@ -126,7 +128,8 @@ const handleGetCredentials = async (e) => {
             <KeyboardArrowDown />
           </IconButton>
         </Link>
-      
+        
+        <Button><RouterLink to='/form'>Continune to Form Page</RouterLink></Button>
       </div>
 
   );

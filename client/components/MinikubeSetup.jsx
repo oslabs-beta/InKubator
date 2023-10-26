@@ -3,6 +3,8 @@ import { Button, IconButton } from '@mui/material';
 import { FileCopy, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import { Element, Link, animateScroll as scroll } from 'react-scroll';
 
+import { Link as RouterLink } from 'react-router-dom';
+
 const MinikubeSetup = () => {
 
   // Code for copy to clipboard functionality
@@ -64,6 +66,9 @@ const MinikubeSetup = () => {
             <KeyboardArrowDown />
           </IconButton>
         </Link>
+
+        
+        <Button><RouterLink to='/form'>Continue to Form Page</RouterLink></Button>
       </div>
   )
 };
