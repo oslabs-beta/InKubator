@@ -1,49 +1,32 @@
-import React, { useState } from 'react'
-import { Navigation } from '@mui/icons-material';
-import { Link, animateScroll as scroll } from 'react-scroll';
-import EnvironmentSetupContainer from './components/EnvironmentSetupContainer';
-import Form from './components/Form.jsx';
+import React, { useState } from 'react';
 import LandingPage from './components/LandingPage';
+import CloudSetup from './components/CloudSetup';
+import MinikubeSetup from './components/MinikubeSetup';
+
+import HomePage from './pages/HomePage';
+import FormPage from './pages/FormPage';
+import DeploymentPage from './pages/DeploymentPage';
+
+import { Routes, Route, Switch } from 'react-router-dom';
 
 const App = () => {
-
-  const sections = ['landing', 'setup', 'test-form'];
-  const [activeSection, setActiveSection] = useState('landing');
   const [deploymentEnvironment, setDeploymentEnvironment] = useState('cloud');
+  // potentially have deploymentEnvironment as useState in here
 
-  // Handle changes based on scroll, passed down to Navigation
-  const handleSectionChange = (section) => {
-    setActiveSection(section);
-  };
+  // use setState inside of HomePage => LandingPage
 
-  // Handle click on Minikube vs. Cloud button, passed down to Landing Page (which renders those buttons)
-  const handleDeploymentEnvironment = (environment) => {
-    setDeploymentEnvironment(environment);
-  }
+  // prop drill deploymentEnvironment down into FormPage
+    // FormPage will have conditionally rendered CloudClusters
+    // and also Form
 
   return (
-    <div>
-      {/* Renders tabs */}
-      <Navigation sections={sections} activeSection={activeSection} handleSectionChange={handleSectionChange} />
-
-      {/* Renders sections inside each tab */}
-      <LandingPage handleDeploymentEnvironment={handleDeploymentEnvironment} />
-      <EnvironmentSetupContainer deploymentEnvironment={deploymentEnvironment} />
-      <Form />
-
-      {/* Not sure what this does */}
-      {sections.map((section, index) => {
-        <Link
-          to={section}  // The target you will scroll to
-          key={index}   // Corresponding index for that element
-          spy={true}    // Make Link selected when scroll is at its target's position
-          smooth={true} // Animates the scrolling
-          offset={-70}  // To scroll additional px -- like padding
-          duration={500} // Time of the scroll animation
-        />
-      })}
-
-    </div>
+    <>
+    <Routes>
+      <Route path='/' element={<HomePage setDeploymentEnvironment={setDeploymentEnvironment} deploymentEnvironment={deploymentEnvironment} />}/>
+      <Route path='/form' element={<FormPage deploymentEnvironment={deploymentEnvironment} />}/>
+      <Route path='/deploymentlist' element={<DeploymentPage />}/>
+    </Routes>
+    </>
   );
 };
 
