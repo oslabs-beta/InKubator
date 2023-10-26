@@ -182,13 +182,8 @@ const Form = () => {
 
     const handleExpose = async () => { 
       try {
-<<<<<<< HEAD
           const exposeYaml = await fetch('api/tunnelexpose')
           const resExpose = await exposeYaml.json();
-=======
-          const exposeYaml = await fetch('api/tunnelexpose');
-          const resExpose = exposeYaml.json();
->>>>>>> dev
           console.log('EXPOSURE RESULTS', resExpose);
 
           const prevState = {...buttonFeedback};
