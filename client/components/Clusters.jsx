@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Item, Button, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
+import { Box, Grid, Button, Paper, Typography } from '@mui/material';
 
 
 const Clusters = (props) => {
-    console.log('PROPS.CLUSTERS', props.clusters)
-    console.log('Props.clusterName', props.clusterName)
     const resArr = [];
     let tempArr = [];
 
@@ -20,18 +18,19 @@ const Clusters = (props) => {
                 if (keys === 'NAME') {
                     button = <Button onClick={handleSelectCluster} key={prop[keys]} id={prop[keys]}> Select {prop[keys]} </Button>
                 }
-                tempArr.push(<Typography xs={10}> {keys} : {prop[keys]} </Typography>)
+                tempArr.push(<Typography xs={10} m={1}> {keys} : {prop[keys]} </Typography>)
             }
-            resArr.push(<Grid xs={'auto'}> {tempArr} {button} </Grid>)
+            resArr.push(<Paper variant="outlined" style={{ margin: '10px' }} elevation={12} square={false}> <Grid xs={'auto'}> {tempArr} {button} </Grid> </Paper>)
             tempArr = [];
             console.log('resArr', resArr)
         })
     }
 
     return (
-        <Grid container
-        rowSpacing={0.2}
-        columnSpacing={1}
+        <Grid 
+        container
+        // rowSpacing={10}
+        // columnSpacing={10}
         justifyContent="center"
         alignItems="center">
         {resArr}

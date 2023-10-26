@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Box, Grid, Button, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
+import { Element, Link, animateScroll as scroll } from 'react-scroll';
 import Clusters from './Clusters'
+import Form from './Form';
+import { get } from "jquery";
 
-const TestForm = () => {
+const CloudForm = () => {
   const [clusters, setClusters] = useState();
   const [clusterName, setClusterName] = useState(null);
-  const [getCreds, setGetCreds] = useState();
+  const [clusterLocation, setClusterLocation] = useState(null);
+  const [getCreds, setGetCreds] = useState(false);
 
   const fetchRequest = async (endpoint, method, card) => {
     // If no "method" is passed, it uses this default header
@@ -19,7 +23,6 @@ const TestForm = () => {
         // if a method is is passed, it updates the default header
     let header = Object.assign({}, defaultHeader, method);
 
-    // console.log('YOU HAVE HIT THE FETCH REQUEST', header)
     const result = await fetch(`${endpoint}`, header)
         .then((data) => data.json())
         // .then((data) => console.log('DATA', data))
@@ -28,27 +31,29 @@ const TestForm = () => {
 }
 
   const handleGetClusters = async (e) => {
-    // console.log('GET CLUSTER WHOLE EVENT', e);
-    // console.log('GET CLUSTER EVENT.TARGET', e.target);
-
     const allClusters = await (fetchRequest('http://localhost:3001/google/getClusters',{method: "POST"}));
     await setClusters(allClusters)
   }
 
-
   const handleGetCredentials = async (e) => {
-    // console.log('clusterName', clusterName)
-    const credsAreTied = await (fetchRequest('http://localhost:3001/google/getCredentials', {method: "POST", mode:"no-cors"}, {"clusterName": clusterName}))
-    // await console.log('CREDS ARE TIED?', credsAreTied)
+    const credsAreTied = await (fetchRequest('http://localhost:3001/google/getCredentials', {method: "POST"}, {"clusterName": clusterName}))
     await setGetCreds(credsAreTied)
-    // await console.log(getCreds)
-}
+  }
+
+  useEffect(() => {
+
+    console.log('CLUSTERS', clusters)
+    console.log('CLUSTER NAME', clusterName)
+    console.log('CLUSTER LOCATION', clusterLocation)
+    console.log('CREDENTIALS', getCreds)
+
+  },[clusters, clusterName, getCreds])
 
   return (
-    <div id="coming-soon">
-      <Typography> Current Cluster: {clusterName}</Typography>
-      <Typography variant="h2" component="h2">
-        Coming Soon
+    <>
+    <div id="cluster">
+      <Typography variant="h2" component="h2"> 
+      Current Cluster:{clusterName}
         <button onClick={handleGetClusters}> Get Clusters </button>
       </Typography>
 
@@ -59,29 +64,16 @@ const TestForm = () => {
       </Clusters>
 
       {clusterName ? (
-                <Button onClick={handleGetCredentials}>
-                YOU MADE IT 
-                {/* {getCreds} */}
-                </Button>
-            ) : null}
-
-      {/* <Typography variant='h6'>
-        In the very near future, we'll be launching deployment on the cloud. Be the first to know when we officially launch.
-      </Typography>
-      <Box m={1}>
-        <TextField
-          label="TextField"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <Button>Submit</Button>
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Box> */}
+        <Button onClick={handleGetCredentials}>
+        Proceed with {clusterName}
+        </Button>
+      ) : null}
+      
+      {getCreds ? (<Form/>) : null}
+      
     </div>
+    </>
   )
 }
 
-export default TestForm;
+export default CloudForm;
