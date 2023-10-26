@@ -112,13 +112,13 @@ googleController.getClusters = (req, res, next) => {
 };
 
 googleController.getCredentials = async (req, res, next) => {
-    const { clusterName } = req.body;
+    const { clusterName, location } = req.body;
     
     // console.log(req.body);
     console.log("inside of getCredentials SERVER SIDE", clusterName);
 
     // TIES YOUR 'KUBECTL' COMMAND TO THE GOOGLE CLOUD CLUSTER
-     await exec(`gcloud container clusters get-credentials ${clusterName} --location us-east1-b`, (err, stderr, stdout) => {
+     await exec(`gcloud container clusters get-credentials ${clusterName} --location ${location}`, (err, stderr, stdout) => {
         if (err) {
             return next({
                 log: 'Couldn\'t get Google Credentials',

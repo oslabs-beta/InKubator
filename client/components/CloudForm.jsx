@@ -3,12 +3,12 @@ import { Box, Grid, Button, IconButton, InputAdornment, TextField, Typography } 
 import { Element, Link, animateScroll as scroll } from 'react-scroll';
 import Clusters from './Clusters'
 import Form from './Form';
-import { get } from "jquery";
 
 const CloudForm = () => {
   const [clusters, setClusters] = useState();
   const [clusterName, setClusterName] = useState(null);
-  const [clusterLocation, setClusterLocation] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [status, setStatus] = useState(null);
   const [getCreds, setGetCreds] = useState(false);
 
   const fetchRequest = async (endpoint, method, card) => {
@@ -36,7 +36,7 @@ const CloudForm = () => {
   }
 
   const handleGetCredentials = async (e) => {
-    const credsAreTied = await (fetchRequest('http://localhost:3001/google/getCredentials', {method: "POST"}, {"clusterName": clusterName}))
+    const credsAreTied = await (fetchRequest('http://localhost:3001/google/getCredentials', {method: "POST"}, {"clusterName": clusterName, "location": location}))
     await setGetCreds(credsAreTied)
   }
 
@@ -44,7 +44,6 @@ const CloudForm = () => {
 
     console.log('CLUSTERS', clusters)
     console.log('CLUSTER NAME', clusterName)
-    console.log('CLUSTER LOCATION', clusterLocation)
     console.log('CREDENTIALS', getCreds)
 
   },[clusters, clusterName, getCreds])
@@ -60,14 +59,20 @@ const CloudForm = () => {
       <Clusters
       clusters={clusters}
       clusterName={clusterName}
-      setClusterName={setClusterName}>
+      setClusterName={setClusterName}
+      setLocation={setLocation}
+      setStatus={setStatus}
+      >
       </Clusters>
 
       {clusterName ? (
         <Button onClick={handleGetCredentials}>
         Proceed with {clusterName}
+        Current Status: {status}
+        Current Location: {location}
         </Button>
       ) : null}
+
       
       {getCreds ? (<Form/>) : null}
       
