@@ -15,6 +15,8 @@ const Clusters = (props) => {
             let button;
             console.log('PROP', prop, idx)
             for (let keys in prop) {
+                if (keys === 'LOCATION') props.setLocation(prop[keys])
+                if (keys === 'STATUS') props.setStatus(prop[keys])
                 if (keys === 'NAME') {
                     button = <Button onClick={handleSelectCluster} key={prop[keys]} id={prop[keys]}> Select {prop[keys]} </Button>
                 }
