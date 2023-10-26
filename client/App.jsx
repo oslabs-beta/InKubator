@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Navigation } from '@mui/icons-material';
 import { Link, animateScroll as scroll } from 'react-scroll';
 import EnvironmentSetupContainer from './components/EnvironmentSetupContainer';
-import Form from './components/form';
+import Form from './components/Form';
 import LandingPage from './components/LandingPage';
 
 const App = () => {

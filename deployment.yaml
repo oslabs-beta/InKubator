@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: a-a
+  name: ri
   labels:
-    app: a-a
+    app: rita
 spec:
   selector:
     matchLabels:
-      app: a-a
+      app: rita
   template:
     metadata:
       labels:
-        app: a-a
+        app: rita
     spec:
       containers:
         - ports:
-            - containerPort: 8080
-          name: a-a
-          image: registry.k8s.io/e2e-test-images/agnhost:2.39
+            - containerPort: 2998
+          name: rita
+          image: margaritabizhan/getting-started
   replicas: 3

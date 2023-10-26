@@ -181,9 +181,8 @@ const Form = () => {
     const handleExpose = async () => { 
       try {
           const exposeYaml = await fetch('api/tunnelexpose')
-          const resExpose = exposeYaml.json();
+          const resExpose = await exposeYaml.json();
           console.log('EXPOSURE RESULTS', resExpose);
-          // console.log(resExpose);
 
           const prevState = {...buttonFeedback};
           // handle button feedback here (based on status code)
@@ -246,8 +245,7 @@ const Form = () => {
           />
           
           <p>Labels</p>
-          <p>Labels are custom key/value pairs that are assigned to Kubernetes resources. The labels defined in the Deployment section are applied to the Deployment, Pod, Service, Ingress, ConfigMap and Secret resources.
-            The labels are optional, as we will automatically add the tags required to manage the Kubernetes resources.</p> 
+          <p>Labels are custom key/value pairs that are assigned to Kubernetes resources. The labels defined in the Deployment section are applied to the Deployment, Pod, Service, Ingress, ConfigMap and Secret resources.</p> 
           <TextField 
             id='deploymentName' 
             label='Label'
