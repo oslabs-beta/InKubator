@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Alert, Button, MenuItem, TextField } from '@mui/material';
 
+import { Link as RouterLink } from 'react-router-dom';
+
 const deploymentKinds = [
   {
     value: 'Deployment',
@@ -339,6 +341,8 @@ const Form = () => {
       <Alert severity="warning">This is a warning alert — check it out!</Alert>
       <Alert severity="info">This is an info alert — check it out!</Alert>
       <Alert severity="success">This is a success alert — check it out!</Alert>
+
+      <Button><RouterLink to='/deploymentlist'>See Deployments</RouterLink></Button>
     </div>
   )
 }
