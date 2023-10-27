@@ -6,8 +6,7 @@ const statusController = {};
 
 statusController.getDeployment = async (req, res, next) => {
   const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
-    const imageName = doc.spec.template.spec.containers[0].image;
-    console.log(imageName);
+  const imageName = doc.spec.template.spec.containers[0].image;
 
   exec('kubectl get deployments', (err, stdout, stderr) => {
       if (err) {
