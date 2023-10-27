@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { Box, Grid, Button, Paper, Typography } from '@mui/material';
 
 const DeploymentPage = () => {
 
@@ -67,25 +67,34 @@ const DeploymentPage = () => {
     const fetchPods = await fetch('http://localhost:3001/status/getPods');
     const podsInfo = await fetchPods.json();
     helperPodsObject(podsInfo);
-    // console.log(deplObjConstruct);
+
+    setDeploymentStats(deplObjConstruct);
   };
 
   useEffect(() => {
     getStats();
-    setDeploymentStats(deplObjConstruct);
   }, [])
 
-  console.log(deploymentStats);
 
-  let deplArr = []
-  for (let keyDepl in deplObjConstruct.deployment) {
-    
+  let deplInfoRender = [];
+  for (let keyDepl in deploymentStats.deployment) {
+    console.log(deploymentStats.deployment[keyDepl]);
+    deplInfoRender.push(<Typography variant="body1" key={keyDepl}>{keyDepl.toUpperCase()}: {deploymentStats.deployment[keyDepl]}</Typography>)
   }
 
   return (
     <>
       <h1>Cluster Status</h1>
-
+        <Box sx= {{ flexGrow: 1 }}>
+          <Grid container direction="column" alignItems="center">
+            <Grid item xs={4}>
+              <Typography variant="h6">DEPLOYMENT</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              {deplInfoRender}
+            </Grid>
+          </Grid>
+        </Box>
     </>
   )
 }
