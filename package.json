@@ -5,7 +5,8 @@
   "main": "server/express.js",
   "scripts": {
     "dev": "webpack-dev-server --open & nodemon server/express.js",
-    "start": "nodemon server/express.js"
+    "start": "nodemon server/express.js",
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",

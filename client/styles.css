@@ -53,8 +53,8 @@ body {
     /* LAYOUT */
     padding: 20px;
     margin-top: 20px;
-    /* min-width: 500px;
-    max-width: 700px; */
+    min-width: 500px;
+    max-width: 700px;
     border-radius: 5px;
     /* PRETTY COLOR THINGS */
     background-color: white;
@@ -99,8 +99,8 @@ body {
     grid-template-areas: 
         "form-header1 form-questions1"
         "form-header2 form-questions2"; 
-    /* min-width: 700px;
-    max-width: 900px; */
+    min-width: 700px;
+    max-width: 900px;
     padding: 30px;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -113,7 +113,8 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin: 40px;
+    /* margin: 40px; */
+    background-color: #E57373;
 }
 
 #landing-page-button-container {
@@ -158,10 +159,6 @@ body {
     transition: transform 0.5s ease-in-out;
     transform: translateY(100%);
 }
-
-/* .section.landing {
-    background-color: #E57373;
-} */
 
 .section.cloud {
     background-color: #E57373;

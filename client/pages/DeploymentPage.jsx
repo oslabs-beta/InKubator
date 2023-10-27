@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Button, Paper, Typography } from '@mui/material';
+import { Box, Grid, Button, Paper, Typography, Link, Breadcrumbs } from '@mui/material';
 
 const DeploymentPage = () => {
 
@@ -106,6 +106,15 @@ const DeploymentPage = () => {
 
   return (
     <>
+    <Breadcrumbs aria-label="breadcrumb">
+      <Link underline="hover" href="/">
+        Landing
+      </Link>
+      <Link href="/form">
+        Form
+      </Link>
+      <Typography> Deployment Page </Typography>
+    </Breadcrumbs>
       <h3>Cluster Status</h3>
         <Paper variant="outlined" style={{ margin: '10px' }} elevation={12} square={false}>
           <Grid container direction="column" alignItems="center">

@@ -15,19 +15,19 @@ const CloudForm = () => {
   const fetchRequest = async (endpoint, method, card) => {
     // If no "method" is passed, it uses this default header
     let defaultHeader = {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(card)
-        };
-        // if a method is is passed, it updates the default header
+      method: "GET",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify(card)
+      };
+    // If a method is is passed, it updates the default header
     let header = Object.assign({}, defaultHeader, method);
 
     const result = await fetch(`${endpoint}`, header)
-        .then((data) => data.json())
-        // .then((data) => console.log('DATA', data))
-        .catch((err) => console.error(err))
+      .then((data) => data.json())
+      // .then((data) => console.log('DATA', data))
+      .catch((err) => console.error(err))
     return result;
 }
 
@@ -41,43 +41,33 @@ const CloudForm = () => {
     await setGetCreds(credsAreTied)
   }
 
-  useEffect(() => {
-
-    console.log('CLUSTERS', clusters)
-    console.log('CLUSTER NAME', clusterName)
-    console.log('CREDENTIALS', getCreds)
-
-  },[clusters, clusterName, getCreds])
-
   return (
     <>
     <div id="cluster">
-      <Typography variant="h2" component="h2"> 
-      Current Cluster:{clusterName}
-        <button onClick={handleGetClusters}> Get Clusters </button>
+      <Typography variant="h4" component="h4"> 
+        Current Cluster:{clusterName}
+        <Button onClick={handleGetClusters}> Get Clusters </Button>
       </Typography>
 
       <Clusters
-      clusters={clusters}
-      clusterName={clusterName}
-      setClusterName={setClusterName}
-      setLocation={setLocation}
-      setStatus={setStatus}
-      >
-      </Clusters>
+        clusters={clusters}
+        clusterName={clusterName}
+        setClusterName={setClusterName}
+        setLocation={setLocation}
+        setStatus={setStatus}
+      />
 
       {clusterName ? (
         <Button onClick={handleGetCredentials}>
-        Proceed with {clusterName}
-        Current Status: {status}
-        Current Location: {location}
+          Proceed with {clusterName} <Typography> Status: {status} </Typography>
+          <Link
+            to="form">
+          </Link>
         </Button>
       ) : null}
 
-      
-      {getCreds ? (<Form/>) : null}
-      
     </div>
+      {getCreds ? (<Form/>) : null}
     </>
   )
 }
