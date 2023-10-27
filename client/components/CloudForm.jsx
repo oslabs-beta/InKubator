@@ -3,6 +3,7 @@ import { Box, Grid, Button, IconButton, InputAdornment, TextField, Typography } 
 import { Element, Link, animateScroll as scroll } from 'react-scroll';
 import Clusters from './Clusters'
 import Form from './Form';
+// import { get } from "jquery";
 
 const CloudForm = () => {
   const [clusters, setClusters] = useState();
