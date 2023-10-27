@@ -54,83 +54,61 @@ const handleGetCredentials = async (e) => {
   };
   
   return (
-      <div className="section cloud">
-        <Link 
-          to='landing'
-          class='nav-button'
-          spy={true}
-          smooth={true}
-          // offset={-20}
-          duration={900} 
-          >
-          <IconButton>
-            <KeyboardArrowUp />
-          </IconButton>
-        </Link>
-        <h1>Deploy Kubernetes cluster with GOOGLE CLOUD</h1>
+    <div className="cloud">
+      <Link 
+        to='landing'
+        class='nav-button'
+        spy={true}
+        smooth={true}
+        // offset={-20}
+        duration={900} 
+      >
+        <IconButton>
+          <KeyboardArrowUp />
+        </IconButton>
+      </Link>
+      <h1>Deploy Kubernetes cluster with GOOGLE CLOUD</h1>
 
-        <h2>Before getting started, you will need:</h2>
-          <li>Google Cloud CLI installed on your Computer</li>
-          <li>Google Cloud authentication plugin</li>
-          <li>A containerized application</li>
+      <h2>Before getting started, you will need:</h2>
+        <li>Google Cloud CLI installed on your Computer</li>
+        <li>Google Cloud authentication plugin</li>
+        <li>A containerized application</li>
 
-        <h3>Install Google Cloud CLI</h3>
-          <a href='https://cloud.google.com/sdk/docs/install'>Click here for instructions on how to install.</a>
+      <h3>Install Google Cloud CLI</h3>
+        <a href='https://cloud.google.com/sdk/docs/install'>Click here for instructions on how to install.</a>
 
-        <h3>Install the Authentication Plugin</h3>
-          <p>Run this command in your terminal to get started.</p>
-          <div class='code-snippet'>
-            <pre>{cloudStartCode}</pre>
-              <Button
-                variant='outlined'
-                onClick={copyToClipboard}
-                startIcon={<FileCopy />} >
-                Copy
-              </Button>
-          </div>
-
-        <h3>A Containerized Application</h3>
-          <p>Have the link to your containerized application ready</p>
-          <p>We support Dockerhub, Google Container Registry, etc.</p>
-          <p>To containerize your application, you can use something like <a href='https://docs.docker.com/get-docker/'> Docker </a></p>
-
-        <h3> Ready to go? Select your cluster to begin: </h3>
-
-        {/* <div 
-        // className="section cluster"
-        >
-
-        <Typography variant="h5"> Current Cluster: {clusterName}</Typography>
-        <button onClick={handleGetClusters}> Get Clusters </button>
-
-        <Clusters
-        clusters={clusters}
-        clusterName={clusterName}
-        setClusterName={setClusterName}>
-        </Clusters>
-
-        {clusterName ? (
-                  <Button onClick={handleGetCredentials}>
-                  Proceed with {clusterName}
-                  </Button>
-              ) : null}
+      <h3>Install the Authentication Plugin</h3>
+        <p>Run this command in your terminal to get started.</p>
+        <div class='code-snippet'>
+          <pre>{cloudStartCode}</pre>
+            <Button
+              variant='outlined'
+              onClick={copyToClipboard}
+              startIcon={<FileCopy />} >
+              Copy
+            </Button>
         </div>
 
-        {getCreds ? (<Form/>) : null} */}
+      <h3>A Containerized Application</h3>
+        <p>Have the link to your containerized application ready</p>
+        <p>We support Dockerhub, Google Container Registry, etc.</p>
+        <p>To containerize your application, you can use something like <a href='https://docs.docker.com/get-docker/'> Docker </a></p>
 
-        <Link class='nav-button'
-          to='form'
-          spy={true}
-          smooth={true}
-          offset={-20}
-          duration={900} >
-          <IconButton>
-            <KeyboardArrowDown />
-          </IconButton>
-        </Link>
-        
-        <Button><RouterLink to='/form'>Continune to Form Page</RouterLink></Button>
-      </div>
+      <h3> Ready to go? Select your cluster to begin: </h3>
+
+      <Link class='nav-button'
+        to='form'
+        spy={true}
+        smooth={true}
+        offset={-20}
+        duration={900} >
+        <IconButton>
+          <KeyboardArrowDown />
+        </IconButton>
+      </Link>
+      
+      <Button><RouterLink to='/form'>Continune to Form Page</RouterLink></Button>
+    </div>
 
   );
 };
