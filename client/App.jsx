@@ -19,19 +19,16 @@ const App = () => {
     // FormPage will have conditionally rendered CloudClusters
     // and also Form
 
-  // return (
-  //   <>
-  //   <Routes>
-  //     <Route path='/' element={<HomePage setDeploymentEnvironment={setDeploymentEnvironment} deploymentEnvironment={deploymentEnvironment} />}/>
-  //     <Route path='/form' element={<FormPage deploymentEnvironment={deploymentEnvironment} />}/>
-  //     <Route path='/deploymentlist' element={<DeploymentPage />}/>
-  //   </Routes>
-  //   </>
-  // );
-
   return (
-    <DeploymentPage />
-  )
+    <>
+    <Routes>
+      <Route path='/' element={<HomePage setDeploymentEnvironment={setDeploymentEnvironment} deploymentEnvironment={deploymentEnvironment} />}/>
+      <Route path='/form' element={<FormPage deploymentEnvironment={deploymentEnvironment} />}/>
+      <Route path='/deploymentlist' element={<DeploymentPage />}/>
+    </Routes>
+    </>
+  );
+
 };
 
 export default App;

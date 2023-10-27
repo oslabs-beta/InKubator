@@ -75,26 +75,70 @@ const DeploymentPage = () => {
     getStats();
   }, [])
 
+  console.log('DEPLOYMENT STATS: ', deploymentStats);
 
   let deplInfoRender = [];
   for (let keyDepl in deploymentStats.deployment) {
-    console.log(deploymentStats.deployment[keyDepl]);
-    deplInfoRender.push(<Typography variant="body1" key={keyDepl}>{keyDepl.toUpperCase()}: {deploymentStats.deployment[keyDepl]}</Typography>)
-  }
+    deplInfoRender.push(<Typography variant="body1" key={keyDepl}>{keyDepl.toUpperCase()}: {deploymentStats.deployment[keyDepl]}</Typography>);
+  };
+
+  let replicaInfoRender = [];
+  for (let keyRepl in deploymentStats.replicas){
+    replicaInfoRender.push(<Typography variant="body1" key={keyRepl}>{keyRepl.toUpperCase()}: {deploymentStats.deployment[keyRepl]}</Typography>);
+  };
+
+  let podsInfoRender = deploymentStats.pods && Array.isArray(deploymentStats.pods)
+  ? deploymentStats.pods.map((pod, index) => (
+      <Grid container spacing={2} key={index}>
+        <Grid item xs={12}>
+          <Typography variant="h7">Pod {index + 1}</Typography>
+        </Grid>
+          {Object.keys(pod).map((key, innerIndex) => (
+            <Grid item xs={3} key={innerIndex}>
+            <Typography variant="body1">
+              {key.toUpperCase()}: {pod[key]}
+            </Typography>
+        </Grid>
+        ))}
+      </Grid>
+    ))
+  : null;
 
   return (
     <>
-      <h1>Cluster Status</h1>
-        <Box sx= {{ flexGrow: 1 }}>
+      <h3>Cluster Status</h3>
+        <Paper variant="outlined" style={{ margin: '10px' }} elevation={12} square={false}>
           <Grid container direction="column" alignItems="center">
-            <Grid item xs={4}>
-              <Typography variant="h6">DEPLOYMENT</Typography>
+            <Grid item xs={8}>
+              <Typography variant="h7">DEPLOYMENT</Typography>
             </Grid>
             <Grid item xs={6}>
               {deplInfoRender}
             </Grid>
           </Grid>
-        </Box>
+          </Paper>
+
+          <Paper variant="outlined" style={{ margin: '10px' }} elevation={12} square={false}>
+          <Grid container direction="column" alignItems="center">
+            <Grid item xs={8}>
+              <Typography variant="h7">REPLICAS</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              {replicaInfoRender}
+            </Grid>
+          </Grid>
+          </Paper>
+
+          <Paper variant="outlined" style={{ margin: '10px' }} elevation={12} square={false}>
+          <Grid container direction="column" alignItems="center">
+            <Grid item xs={8}>
+              <Typography variant="h7">PODS</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              {podsInfoRender}
+            </Grid>
+          </Grid>
+          </Paper>
     </>
   )
 }
