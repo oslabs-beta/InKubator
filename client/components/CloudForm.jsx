@@ -3,6 +3,7 @@ import { Box, Grid, Button, IconButton, Fab, Typography } from '@mui/material';
 import { Link, animateScroll as scroll } from 'react-scroll';
 import Clusters from './Clusters'
 import Form from './Form';
+// import { get } from "jquery";
 
 const CloudForm = () => {
   const [clusters, setClusters] = useState();
