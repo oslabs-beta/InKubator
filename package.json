@@ -5,7 +5,8 @@
   "main": "server/express.js",
   "scripts": {
     "dev": "webpack-dev-server --open & nodemon server/express.js",
-    "start": "nodemon server/express.js"
+    "start": "nodemon server/express.js",
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,7 @@
     "js-yaml": "^4.1.0",
     "nodemon": "^3.0.1",
     "path": "^0.12.7",
+    "react-router-dom": "^6.17.0",
     "react-scroll": "^1.9.0"
   },
   "devDependencies": {

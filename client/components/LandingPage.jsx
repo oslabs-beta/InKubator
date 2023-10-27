@@ -4,64 +4,68 @@ import { Link, animateScroll as scroll } from 'react-scroll';
 import googleCloudLogo from '../assets/google_cloud_logo.png'
 import minikubeLogo from '../assets/minikube_logo.png';
 
-const LandingPage = ({ handleDeploymentEnvironment }) => {
-  return (
-    <div className='section landing'>
+const LandingPage = ({ setDeploymentEnvironment }) => {
+  return ( 
+      <div className='landing'>
 
-      <div id='landing-page-header-container'>
-        <p>Welcome to Kuberneggies</p>
-        <p>A developer tool that simplifies Kubernetes cluster deployment.</p>
-      </div>
+        <div id='landing-page-header-container'>
+          <p>Welcome to Kuberneggies</p>
+          <p>A developer tool that simplifies Kubernetes cluster deployment.</p>
+        </div>
 
-      <div id='landing-page-body-container'>
-        <p>Where are you deploying?</p>
+        <div id='landing-page-body-container'>
+          <p>Where are you deploying?</p>
+        </div>
 
         <div id='landing-page-button-container'>
 
           {/* MINIKUBE CONTAINER */}
-          <div id='landing-page-minikube' class='landing-page-buttons'>
-            <Link 
-              activeClass="active"
-              to="setup"
-              spy={true}
-              smooth={true}
-              offset={-20}
-              duration={900} 
-            >
-              <Button class='landing-page-button'>
-                <img 
-                  src={minikubeLogo} 
-                  alt="minikube-logo" 
-                  height="100" 
-                  onClick={() => handleDeploymentEnvironment('minikube')} />
-              </Button>
-            </Link>
-            <p>Smth ab Minikube!</p>
+          <div class='landing-page-buttons'>
+          <Link 
+            to="minikube"
+            activeClass="active"
+            spy={true}
+            smooth={true}
+            // offset={-2000}
+            duration={900} 
+          >
+          <Button class='landing-page-button'>
+            <img 
+              src={minikubeLogo}
+              alt="minikube-logo"
+              height="100"
+              onClick={() => setDeploymentEnvironment('minikube')} />
+          </Button>
+          </Link>
+            <p>Deploy to Minikube!</p>
           </div>
 
           {/* CLOUD CONTAINER */}
-          <div id='landing-page-cloud' class='landing-page-buttons'>
+          <div class='landing-page-buttons'>
             <Link 
+              to="cloud"
               activeClass="active"
-              to="setup"
               spy={true}
               smooth={true}
-              offset={-20}
+              // offset={-2000}
               duration={900} 
             >
               <Button class='landing-page-button'>
                 <img 
                   src={googleCloudLogo} 
-                  alt="minikube-logo" 
-                  height="100" 
-                  onClick={() => handleDeploymentEnvironment('cloud')}/>
+                  alt="gcloud-logo" 
+                  height="100"
+                  onClick={() => setDeploymentEnvironment('cloud')}/>
               </Button>
             </Link>
-            <p>Smth ab Cloud!</p>
+
+            <p>Deploy to Google Cloud!</p>
+            
           </div>
+
         </div>
+
       </div>
-    </div>
   )
 };
 

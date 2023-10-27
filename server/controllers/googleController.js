@@ -34,6 +34,7 @@ const outputToObj = (string) => {
     for (let i = endOfRow + 1; i < finalArr.length; i++) {
         const ele = finalArr[i];
         const rowHead = rowArr[tally];
+        console.log('ele', ele, 'rowhead', rowHead)
 
         // Logic to make sure that MASTER_IP and NUM_NODES fields aren't empty
         if(rowHead === 'MASTER_IP') {
@@ -46,7 +47,7 @@ const outputToObj = (string) => {
                 tally++;
             };
         } else if(rowHead === 'NUM_NODES') {
-            if (nums[ele[0]]) {
+            if (ele.length < 3) {
                 finalObj[rowHead] = ele;
             } else {
                 finalObj[rowHead] = 'undefined';
@@ -104,19 +105,20 @@ googleController.getClusters = (req, res, next) => {
             });
         } else {
             const { NAME, LOCATION, STATUS} = outputToObj(stdout);
-            // console.log('GRABBED DATA', outputToObj(stdout));
             res.locals.getClusters = outputToObj(stdout);
         }
         return next();
     });
 };
 
-googleController.getCredentials = (req, res, next) => {
-    console.log('MADE IT TO GET CREDS')
-    const { clusterName } = req.body;
-    console.log('clusterName', clusterName)
+googleController.getCredentials = async (req, res, next) => {
+    const { clusterName, location } = req.body;
+    
+    // console.log(req.body);
+    console.log("inside of getCredentials SERVER SIDE", clusterName);
+
     // TIES YOUR 'KUBECTL' COMMAND TO THE GOOGLE CLOUD CLUSTER
-    exec(`gcloud container clusters get-credentials ${clusterName} --location us-central1`, (err, stdout, stderr) => {
+     await exec(`gcloud container clusters get-credentials ${clusterName} --location ${location}`, (err, stderr, stdout) => {
         if (err) {
             return next({
                 log: 'Couldn\'t get Google Credentials',
@@ -132,11 +134,9 @@ googleController.getCredentials = (req, res, next) => {
 googleController.deploy = (req, res, next) => {
     const { clusterName, image } = req.body;
 
-    // Why "kubectl create deployment" over kubectl apply? 
+    // Why "kubectl create deployment" over kubectl apply?
       // => convenience...
-      // this generates a default YAML file for deployment (NOT a customized one)      
-    
-    
+      // this generates a default YAML file for deployment (NOT a customized one)
     
     exec(`kubectl create deployment ${clusterName} \
     --image=${image}`, (err, stdout, stderr) => {
