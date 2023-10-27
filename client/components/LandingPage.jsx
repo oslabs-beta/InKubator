@@ -1,12 +1,12 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import { Link, animateScroll as scroll } from 'react-scroll';
-import minikubeLogo from '../assets/minikube_logo.png';
 import googleCloudLogo from '../assets/google_cloud_logo.png'
+import minikubeLogo from '../assets/minikube_logo.png';
 
 const LandingPage = ({ handleDeploymentEnvironment }) => {
   return (
-    <div id='landing' className='section landing-page'>
+    <div className='section landing'>
 
       <div id='landing-page-header-container'>
         <p>Welcome to Kuberneggies</p>
