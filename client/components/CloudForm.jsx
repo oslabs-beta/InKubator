@@ -40,12 +40,6 @@ const CloudForm = () => {
     await setGetCreds(credsAreTied)
   }
 
-  useEffect(() => {
-    console.log('CLUSTERS', clusters)
-    console.log('CLUSTER NAME', clusterName)
-    console.log('CREDENTIALS', getCreds)
-  },[clusters, clusterName, getCreds])
-
   return (
     <>
     <div id="cluster">

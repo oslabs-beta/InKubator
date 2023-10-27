@@ -11,13 +11,6 @@ import { Routes, Route, Switch } from 'react-router-dom';
 
 const App = () => {
   const [deploymentEnvironment, setDeploymentEnvironment] = useState('cloud');
-  // potentially have deploymentEnvironment as useState in here
-
-  // use setState inside of HomePage => LandingPage
-
-  // prop drill deploymentEnvironment down into FormPage
-    // FormPage will have conditionally rendered CloudClusters
-    // and also Form
 
   return (
     <>
