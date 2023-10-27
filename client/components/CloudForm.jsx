@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Button, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
-import { Element, Link, animateScroll as scroll } from 'react-scroll';
+import { Box, Grid, Button, IconButton, Fab, Typography } from '@mui/material';
+import { Link, animateScroll as scroll } from 'react-scroll';
 import Clusters from './Clusters'
 import Form from './Form';
 
@@ -42,11 +42,7 @@ const CloudForm = () => {
 
   return (
     <>
-    <div id="cluster">
-      <Typography variant="h4" component="h4"> 
-        Current Cluster:{clusterName}
-        <Button onClick={handleGetClusters}> Get Clusters </Button>
-      </Typography>
+    <Box id="cluster">
 
       <Clusters
         clusters={clusters}
@@ -54,19 +50,31 @@ const CloudForm = () => {
         setClusterName={setClusterName}
         setLocation={setLocation}
         setStatus={setStatus}
+        handleGetClusters={handleGetClusters}
+        
       />
 
       {clusterName ? (
-        <Button onClick={handleGetCredentials}>
-          Proceed with {clusterName} <Typography> Status: {status} </Typography>
-          <Link
-            to="form">
-          </Link>
-        </Button>
+        <div >
+          <Typography variant="h6" component="h6" style={{justifyContent: 'center'}}> 
+            Current Cluster: {clusterName}
+          </Typography>
+          <Typography>
+            Status: {status.toLowerCase()}
+          </Typography>
+
+          <Button onClick={handleGetCredentials} size="large">
+          <Typography> <Fab variant="extended"> Proceed </Fab>   </Typography>  
+            <Link
+              to="form">
+            </Link>
+          </Button>
+           </div>
+
       ) : null}
 
-    </div>
       {getCreds ? (<Form/>) : null}
+    </Box>
     </>
   )
 }
