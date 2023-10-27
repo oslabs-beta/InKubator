@@ -17,7 +17,7 @@ const MinikubeSetup = () => {
   };
 
   return (
-      <div className='section minikube'>
+      <div className='minikube'>
         {/* Scroll to landing page button */}
         <Link class='nav-button'
           to='landing'

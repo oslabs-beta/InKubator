@@ -6,7 +6,7 @@ import googleCloudLogo from '../assets/google_cloud_logo.png'
 
 const LandingPage = ({ setDeploymentEnvironment }) => {
   return ( 
-      <div className='section landing'>
+      <div className='landing'>
 
         <div id='landing-page-header-container'>
           <p>Welcome to Kuberneggies</p>
@@ -22,7 +22,7 @@ const LandingPage = ({ setDeploymentEnvironment }) => {
           {/* MINIKUBE CONTAINER */}
           <div class='landing-page-buttons'>
           <Link 
-            to="section minikube"
+            to="minikube"
             activeClass="active"
             spy={true}
             smooth={true}
