@@ -105,7 +105,7 @@ const DeploymentPage = () => {
 
   return (
     <>
-      <Breadcrumbs aria-label="breadcrumb">
+      <Breadcrumbs aria-label="breadcrumb" style={{paddingBottom:'12px'}}>
         <Link underline="hover" href="/">
           Landing
         </Link>

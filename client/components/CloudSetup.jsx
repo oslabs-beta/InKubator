@@ -8,42 +8,6 @@ import Form from './Form';
 import { Link as RouterLink } from 'react-router-dom';
 
 const CloudSetup = () => {
-  const [clusters, setClusters] = useState();
-  const [clusterName, setClusterName] = useState(null);
-  const [clusterStatus, setClusterStatus] = useState();
-  const [getCreds, setGetCreds] = useState(false);
-
-  // Reusable Fetch request function
-  const fetchRequest = async (endpoint, method, card) => {
-    // If no "method" is passed, it uses this default header
-    let defaultHeader = {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(card)
-        };
-        // if a method is is passed, it updates the default header
-    let header = Object.assign({}, defaultHeader, method);
-
-    const result = await fetch(`${endpoint}`, header)
-        .then((data) => data.json())
-        // .then((data) => console.log('DATA', data))
-        .catch((err) => console.error(err))
-    return result;
-}
-
-// Handle Clicks for Getting Clusters, and tying credentials to KubeCTL
-const handleGetClusters = async (e) => {
-  const allClusters = await (fetchRequest('http://localhost:3001/google/getClusters',{method: "POST"}));
-  await console.log('allClusters', allClusters)
-  await setClusters(allClusters)
-}
-
-const handleGetCredentials = async (e) => {
-  const credsAreTied = await (fetchRequest('http://localhost:3001/google/getCredentials', {method: "POST"}, {"clusterName": clusterName}))
-  await setGetCreds(credsAreTied)
-}
   // Code for copy to clipboard functionality
   const cloudStartCode = 'gcloud components install gke-gcloud-auth-plugin';
   const copyToClipboard = () => {
