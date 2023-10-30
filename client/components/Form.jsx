@@ -3,6 +3,7 @@ import { Alert, Box, Grid, Button, MenuItem, IconButton, Fab, TextField, Typogra
 
 
 import { Link as RouterLink } from 'react-router-dom';
+import YamlGenerator from './YamlGenerator';
 
 const deploymentKinds = [
   {
@@ -20,39 +21,39 @@ const deploymentKinds = [
 ];
 
 const Form = () => {
-    const [formValues, setFormValues] = useState({
-      deploymentName: {
-        value: "",
-        error: false,
-        errorMessage: "Deployment name is either blank or invalid"
-      },
-      labelNames: {
-        value: "",
-        error: false,
-        errorMessage: "Label name is either blank or invalid"
-      },
-      dockerImage: {
-        value: "registry.k8s.io/e2e-test-images/agnhost:2.39",
-        error: false,
-        errorMessage: "Docker image is invalid"
-      },
-      portNumber: {
-        value: 8080,
-        error: false,
-        errorMessage: "Invalid port number"
-      },
-      replicas: {
-        value: 1,
-        error: false,
-        errorMessage: "Invalid number of replicas"
-      },
-    })    
+  const [formValues, setFormValues] = useState({
+    deploymentName: {
+      value: "",
+      error: false,
+      errorMessage: "Deployment name is either blank or invalid"
+    },
+    labelNames: {
+      value: "",
+      error: false,
+      errorMessage: "Label name is either blank or invalid"
+    },
+    dockerImage: {
+      value: "registry.k8s.io/e2e-test-images/agnhost:2.39",
+      error: false,
+      errorMessage: "Docker image is invalid"
+    },
+    portNumber: {
+      value: 8080,
+      error: false,
+      errorMessage: "Invalid port number"
+    },
+    replicas: {
+      value: 1,
+      error: false,
+      errorMessage: "Invalid number of replicas"
+    },
+  })    
 
-    // useState for (YAML, deploy, expose) button feedback rendered at the bottom
-    const [buttonFeedback, setButtonFeedback] = useState({
-      feedbackMessage: "",
-      feedbackStatus: "not pressed"
-    })
+  // useState for (YAML, deploy, expose) button feedback rendered at the bottom
+  const [buttonFeedback, setButtonFeedback] = useState({
+    feedbackMessage: "",
+    feedbackStatus: "not pressed"
+  })
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -62,7 +63,14 @@ const Form = () => {
         ...formValues[name], value
       }
     })
+
+    console.log(formValues);
   };
+
+  // put the state inside a use effect
+  // execute code... to update yaml
+  // it's updating state... take that state and give it to the yaml
+  // dependency is state value
 
   const handlePostYaml = async (e) => {
     e.preventDefault();
@@ -151,31 +159,31 @@ const Form = () => {
         };
     };
 
-    const handleDeploy = async () => {
-      try {
-          const deployYaml = await fetch('api/deploy');
-          const resDeploy = await deployYaml.json();
-          // console.log(deployYaml.status);
-          // console.log(resDeploy);
+  const handleDeploy = async () => {
+    try {
+        const deployYaml = await fetch('api/deploy');
+        const resDeploy = await deployYaml.json();
+        // console.log(deployYaml.status);
+        // console.log(resDeploy);
 
-          const prevState = {...buttonFeedback};
-          // handle button feedback here (based on status code)
-            // use setButtonPressed
-            // set button + buttonFeedback string
-          if(deployYaml.status === 200) {
-            prevState.feedbackMessage = "Cluster Deployed Successfully!"
-            prevState.feedbackStatus = "success"
-          } else {
-            prevState.feedbackMessage = "Failed Cluster Deployment"
-            prevState.feedbackStatus = "failure"
-          };
-          // console.log(prevState)
-          setButtonFeedback(prevState);
+        const prevState = {...buttonFeedback};
+        // handle button feedback here (based on status code)
+          // use setButtonPressed
+          // set button + buttonFeedback string
+        if(deployYaml.status === 200) {
+          prevState.feedbackMessage = "Cluster Deployed Successfully!"
+          prevState.feedbackStatus = "success"
+        } else {
+          prevState.feedbackMessage = "Failed Cluster Deployment"
+          prevState.feedbackStatus = "failure"
+        };
+        // console.log(prevState)
+        setButtonFeedback(prevState);
 
-      } catch(err) {
-          console.log(`ERROR: ${err}`);
-      };
+    } catch(err) {
+        console.log(`ERROR: ${err}`);
     };
+  };
 
     const handleExpose = async () => { 
       try {
@@ -183,23 +191,23 @@ const Form = () => {
           const resExpose = await exposeYaml.json();
           console.log('EXPOSURE RESULTS', resExpose);
 
-          const prevState = {...buttonFeedback};
-          // handle button feedback here (based on status code)
-            // use setButtonPressed
-            // set button + buttonFeedback string
-          if(exposeYaml.status === 200) {
-            prevState.feedbackMessage = "Cluster Exposed Successfully!"
-            prevState.feedbackStatus = "success"
-          } else {
-            prevState.feedbackMessage = "Failed Cluster Exposure"
-            prevState.feedbackStatus = "failure"
-          };
-          // console.log(prevState)
-          setButtonFeedback(prevState);
-      } catch(err) {
-          console.log(`ERROR: ${err}`);
-      };
+        const prevState = {...buttonFeedback};
+        // handle button feedback here (based on status code)
+          // use setButtonPressed
+          // set button + buttonFeedback string
+        if(exposeYaml.status === 200) {
+          prevState.feedbackMessage = "Cluster Exposed Successfully!"
+          prevState.feedbackStatus = "success"
+        } else {
+          prevState.feedbackMessage = "Failed Cluster Exposure"
+          prevState.feedbackStatus = "failure"
+        };
+        // console.log(prevState)
+        setButtonFeedback(prevState);
+    } catch(err) {
+        console.log(`ERROR: ${err}`);
     };
+  };
 
   return (
     <Box id='test-form' className='form'>
@@ -332,6 +340,7 @@ const Form = () => {
         <Button id='deploy-button' variant='contained' onClick={(e) => {handleDeploy(e)}}>Deploy</Button>
       </div>
 
+      {/* <Alert severity="error">This is an error alert — check it out!</Alert>
       {/* <Alert severity="error">This is an error alert — check it out!</Alert>
       <Alert severity="warning">This is a warning alert — check it out!</Alert>
       <Alert severity="info">This is an info alert — check it out!</Alert>

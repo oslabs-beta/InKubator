@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, IconButton, Typography } from '@mui/material';
+import { Box, Button, Chip, Grid, IconButton, Paper, Typography } from '@mui/material';
 import { FileCopy, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import { Element, Link, animateScroll as scroll } from 'react-scroll';
 import Clusters from './Clusters'
@@ -54,60 +54,68 @@ const handleGetCredentials = async (e) => {
   };
   
   return (
-    <div className="cloud">
+    <div className='cloud' id='cloud-setup-instructions'>
       <Link 
         to='landing'
         class='nav-button'
         spy={true}
         smooth={true}
-        // offset={-20}
         duration={900} 
       >
         <IconButton>
           <KeyboardArrowUp />
         </IconButton>
       </Link>
-      <h1>Deploy Kubernetes cluster with GOOGLE CLOUD</h1>
+      <h1>Deployments with Google Cloud</h1>
+      
+      <div class='setup-requirements'>
+        <h3>Before getting started, you'll need:</h3>
+          <ol>
+            <li>Google Cloud CLI installed on your computer</li>
+            <li>Kubectl authentication for your Google Cloud account</li>
+            <li>A containerized application</li>
+          </ol>
+      </div>
 
-      <h2>Before getting started, you will need:</h2>
-        <li>Google Cloud CLI installed on your Computer</li>
-        <li>Google Cloud authentication plugin</li>
-        <li>A containerized application</li>
+      <Paper className='setup-paper' square={false} elevation={1} >
+        <h3><Chip label='1' />  Installing the Google Cloud CLI on your machine</h3>
+        <p>Visit the Google Cloud <a href='https://cloud.google.com/sdk/docs/install'>documentation</a> for installation instructions.</p>
+      </Paper>
 
-      <h3>Install Google Cloud CLI</h3>
-        <a href='https://cloud.google.com/sdk/docs/install'>Click here for instructions on how to install.</a>
-
-      <h3>Install the Authentication Plugin</h3>
-        <p>Run this command in your terminal to get started.</p>
-        <div class='code-snippet'>
-          <pre>{cloudStartCode}</pre>
+      <Paper className='setup-paper' square={false} elevation={1}>
+        <h3><Chip label='2' />  Installing the Kubectl authentication plugin</h3>
+          <p>Run this command in your terminal to get started:</p>
+          <div class='code-snippet'>
+            <pre>{cloudStartCode}</pre>
             <Button
               variant='outlined'
               onClick={copyToClipboard}
-              startIcon={<FileCopy />} >
-              Copy
+              startIcon={<FileCopy />} 
+              size='small'>
             </Button>
-        </div>
+          </div>
+          <p>Learn more about this command <a href='https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke'>here</a>!</p>
+      </Paper>
 
-      <h3>A Containerized Application</h3>
+      <Paper className='setup-paper' square={false} elevation={1}>
+        <h3><Chip label='3' /> Setting up your containerized application</h3>
         <p>Have the link to your containerized application ready</p>
         <p>We support Dockerhub, Google Container Registry, etc.</p>
         <p>To containerize your application, you can use something like <a href='https://docs.docker.com/get-docker/'> Docker </a></p>
+      </Paper>
 
-      <h3> Ready to go? Select your cluster to begin: </h3>
+      <div class='setup-footer'>
+        <h3> Ready to deploy?</h3>
+        {/* <Button variant='contained'>
+          <RouterLink to='/form'>Let's go!</RouterLink>
+        </Button> */}
+        <RouterLink to='/form'>
+          <Button variant='contained'>
+            Let's go!
+          </Button>
+        </RouterLink>
 
-      <Link class='nav-button'
-        to='form'
-        spy={true}
-        smooth={true}
-        offset={-20}
-        duration={900} >
-        <IconButton>
-          <KeyboardArrowDown />
-        </IconButton>
-      </Link>
-      
-      <Button><RouterLink to='/form'>Continune to Form Page</RouterLink></Button>
+      </div>
     </div>
 
   );

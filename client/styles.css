@@ -3,31 +3,16 @@
 /* GLOBAL FORMATTING */
 
 body {
-    /* display: flex; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     font-family: 'Roboto', sans-serif;
     background-color: #e7f0fc;
-    color: #2c2f30;
+    color: #252929;
 }
 
 /* FORM */
-/* #coming-soon {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    max-width: 700px;
-    min-width: 700px;
-    height: 400px;
-    margin-top: 20px;
-    margin: 30px;
-    padding: 20px;
-    border-radius: 5px;
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-} */
-
 .form-questions {
     display: flex;
     /* padding: 40px; */
@@ -107,15 +92,53 @@ body {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
+#the-code-block {
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
 /* LANDING PAGE */
-.section.landing {
+#homepage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.landing {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    /* margin: 40px; */
-    background-color: #E57373;
+    margin: 10px;
+    height: 92vh;
+    width: 95vw;
+    /* background-color: #E57373; */
+    /* background-image: url(https://images.unsplash.com/photo-1618172193763-c511deb635ca?auto=format&fit=crop&q=80&w=2864&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); */
+    /* background-image: url(https://images.unsplash.com/photo-1620121692029-d088224ddc74?auto=format&fit=crop&q=80&w=2832&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); */
+    background-image: url(https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&q=80&w=2874&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+    /* background-image: url('./assets/milad-fakurian-background.jpg'); */
+    background-size: cover;
+    border-radius: 30px;
+}
+
+#landing-header-container {
+    margin-bottom: 40px;
+}
+
+#landing-header-title {
+    font-weight: 500;
+    font-size: 80px;
+    margin: 0;
+    padding: 10px;
+}
+
+#landing-header-text {
+    font-weight: 400;
+    font-size: 33px;
+    margin: 0;
+    padding: 0;
 }
 
 #landing-page-button-container {
@@ -126,6 +149,11 @@ body {
     gap: 50px;
 }
 
+#landing-body-text {
+    font-size: 25px;
+    font-weight: 400;
+}
+
 .landing-page-buttons {
     display: flex;
     flex-direction: column;
@@ -134,19 +162,74 @@ body {
 }
 
 .landing-page-button {
-    background-color: #e7f0fc;
+    background-color: #e2e5fa;
     border: 0;
+    border-radius: 30px;
+    width: 420px;
+    height: 20vh;
+    box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.25);
     transition: all .2s ease-in-out; 
 }
 
 .landing-page-button:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 
 /* SETUP PAGE */
+#cloud-setup-instructions {
+    align-items: center;
+    max-width: 700px;
+    padding: 20px;
+
+}
+
+#minikube-setup-instructions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 92vh;
+    width: 95vw;
+    margin-top: 50px;
+}
+
+.setup-img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    border: red solid;
+    border-radius: 30px;
+}
+
+.setup-paper {
+    background-color: #f2f3f9;
+    border-radius: 30px;
+    padding: 1px 5px 5px 5px;
+    margin: 5px;
+}
+
+.setup-content {
+    margin: 30px;
+    padding: 30px;
+}
+
+.setup-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .code-snippet {
     display: flex;
     flex-direction: row;
+    background-color: #f6f6f6;
+    border: solid #ededed 1px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: auto;
+    justify-content: space-between;
 }
 
 /* FORMATTING FOR NAVIGATION */

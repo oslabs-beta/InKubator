@@ -1,7 +1,9 @@
 import React from 'react';
-import { Button, IconButton } from '@mui/material';
+import { Button, Chip, Grid, IconButton, Paper } from '@mui/material';
 import { FileCopy, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import { Element, Link, animateScroll as scroll } from 'react-scroll';
+import minikubeBlock from '../assets/mkube-floating.png';
+
 
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -17,59 +19,70 @@ const MinikubeSetup = () => {
   };
 
   return (
-      <div className='minikube'>
-        {/* Scroll to landing page button */}
+    <div className='minikube' id='minikube-setup-instructions'>
+      {/* Scroll to landing page button */}
+      <Grid>
         <Link class='nav-button'
           to='landing'
           spy={true}
           smooth={true}
-          // offset={-20}
           duration={900} 
         >
           <IconButton>
+            why won't this center
             <KeyboardArrowUp />
           </IconButton>
         </Link>
+      </Grid>
+      <Grid container direction='row' spacing={8} >
+        <Grid item md={5} >
+          <img src={minikubeBlock} className='setup-img'/>
+        </Grid>
+        <Grid item md={7} className='setup-content'>
+          <h1>Deploy Kubernetes cluster with Minikube</h1>
 
-        <h1>Deploy Kubernetes cluster with Minikube</h1>
+          <p>Before getting started, you'll need:</p>
+          <ol>
+            <li>A container or virtual machine manager</li>
+            <li>Minikube installed on your machine</li>
+          </ol>
+            <Grid className='setup-paper'>
+              <h3><Chip label='1' /> Set up your container</h3>
+              <p>We support Docker, Hyperkit, etc. All you'll need is the name of your container.</p>
+            </Grid>
 
-        <p>Before getting started, you'll need:</p>
-          <ul>Minikube installed on your machine</ul>
-          <ul>A container or virtual machine manager</ul>
+            <Grid className='setup-paper'>
+              <h3><Chip label='2' /> Install Minikube</h3>
+              <p>Click here for instructions on how to install.</p>
+            </Grid>
 
-        <h2>Set up your container</h2>
-          <p>We support Docker, Hyperkit, etc. All you'll need is the name of your container.</p>
+            <Grid className='setup-paper'>
+              <h3><Chip label='3' />Start Minikube</h3>
+              <p>Run this command in your terminal to get started.</p>
+              <div class='code-snippet'>
+                <pre>{minikubeStartCode}</pre>
+                  <Button
+                    variant='outlined'
+                    onClick={copyToClipboard}
+                    startIcon={<FileCopy />} >
+                  Copy
+                  </Button>
+              </div>
+            </Grid>
 
-        <h2>Install Minikube</h2>
-          <p>Click here for instructions on how to install.</p>
+        </Grid>
+      </Grid>
 
-        <h2>Start Minikube</h2>
-          <p>Run this command in your terminal to get started.</p>
-          <div class='code-snippet'>
-            <pre>{minikubeStartCode}</pre>
-              <Button
-                variant='outlined'
-                onClick={copyToClipboard}
-                startIcon={<FileCopy />} >
-              Copy
-              </Button>
-          </div>
-          {/* Scroll to form button */}
-        <Link class='nav-button'
-          to='form'
-          spy={true}
-          smooth={true}
-          // offset={-20}
-          duration={900} 
-        >
-          <IconButton>
-            <KeyboardArrowDown />
-          </IconButton>
-        </Link>
 
-        
-        <Button><RouterLink to='/form'>Continue to Form Page</RouterLink></Button>
+      <div class='setup-footer'>
+        <h3> Ready to deploy?</h3>
+        <RouterLink to='/form'>
+          <Button variant='contained'>
+            Let's go!
+          </Button>
+        </RouterLink>
       </div>
+    </div>
   )
 };
 

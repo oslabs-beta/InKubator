@@ -24,7 +24,8 @@
     "nodemon": "^3.0.1",
     "path": "^0.12.7",
     "react-router-dom": "^6.17.0",
-    "react-scroll": "^1.9.0"
+    "react-scroll": "^1.9.0",
+    "react-syntax-highlighter": "^15.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.23.2",
@@ -53,6 +54,7 @@
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1",
-    "webpack-hot-middleware": "^2.25.4"
+    "webpack-hot-middleware": "^2.25.4",
+    "yaml-loader": "^0.8.0"
   }
 }

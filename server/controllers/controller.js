@@ -41,7 +41,7 @@ controller.deploymentYaml = async function(req, res, next) {
   //Set number of replicas
     doc.spec.replicas = replicas;
     
-  // Set app and name labels, all use the same label
+    // App and name labels, all use the same label
     doc.metadata.labels.app = label;
     doc.spec.selector.matchLabels.app = label;
     doc.spec.template.metadata.labels.app = label;
