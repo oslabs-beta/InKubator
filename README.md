@@ -22,8 +22,13 @@ InKubator - Easy Kubernetes Deployment Tool
 <p>Kubernetes architecture can be intricate and the process of cluster deployment is not always straight-forward. InKubator - a developer tool that simplifies YAML generation and cluster deployment. InKubator offers cluster deployment locally opn your machine using minimube or Cloud deployment on Google Kubernetes Engine (EKG).
 </p>
 <h2>To Get Started</h2>
-This application requires you to have <a href="https://www.docker.com/products/docker-desktop/">Docker</a> installed on your machine. 
+InKubator requires you to have <a href="https://www.docker.com/products/docker-desktop/">Docker</a> installed on your machine. Please dowload and install version based on your operating system.
 <h4>Minikube</h4>
 <p>
-  If you are testing InKubator using minikube, have minikube installed on your machine. 
+  If you are testing InKubator using minikube, you'll need 2CPU or more, 2GB of free memory, 20GB of free disk space and Internet connection. Please install minikube on your machine. Alternatively you can install the latest minikube stable release on x86-64 macOS using binary download:
+  ```
+  curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+sudo install minikube-darwin-amd64 /usr/local/bin/minikube
+  ```
+  
 </p>
