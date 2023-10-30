@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Alert, Button, MenuItem, TextField } from '@mui/material';
+import { Alert, Box, Grid, Button, MenuItem, IconButton, Fab, TextField, Typography } from '@mui/material';
+
 
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -150,10 +151,6 @@ const Form = () => {
         };
     };
 
-    // useEffect(() => {
-    //   console.log(formValues)
-    // }, [formValues])
-
     const handleDeploy = async () => {
       try {
           const deployYaml = await fetch('api/deploy');
@@ -205,7 +202,7 @@ const Form = () => {
     };
 
   return (
-    <div id='test-form' className='form'>
+    <Box id='test-form' className='form'>
 
     {/* HEADER */}
     <div className='form-header'>
@@ -341,7 +338,7 @@ const Form = () => {
       <Alert severity="success">This is a success alert — check it out!</Alert> */}
 
       <Button><RouterLink to='/deploymentlist'>See Deployments</RouterLink></Button>
-    </div>
+    </Box>
   )
 }
 

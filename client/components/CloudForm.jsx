@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Button, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
-import { Element, Link, animateScroll as scroll } from 'react-scroll';
+import { Box, Grid, Button, Stack, Fab, Typography, Checkbox } from '@mui/material';
+import { Link, animateScroll as scroll } from 'react-scroll';
 import Clusters from './Clusters'
 import Form from './Form';
-// import { get } from "jquery";
 
 const CloudForm = () => {
   const [clusters, setClusters] = useState();
@@ -43,31 +42,42 @@ const CloudForm = () => {
 
   return (
     <>
-    <div id="cluster">
-      <Typography variant="h4" component="h4"> 
-        Current Cluster:{clusterName}
-        <Button onClick={handleGetClusters}> Get Clusters </Button>
-      </Typography>
+      <Box id="cluster">
 
-      <Clusters
-        clusters={clusters}
-        clusterName={clusterName}
-        setClusterName={setClusterName}
-        setLocation={setLocation}
-        setStatus={setStatus}
-      />
+        <Clusters
+          clusters={clusters}
+          clusterName={clusterName}
+          setClusterName={setClusterName}
+          setLocation={setLocation}
+          setStatus={setStatus}
+          handleGetClusters={handleGetClusters}
+        />
 
-      {clusterName ? (
-        <Button onClick={handleGetCredentials}>
-          Proceed with {clusterName} <Typography> Status: {status} </Typography>
-          <Link
-            to="form">
-          </Link>
-        </Button>
-      ) : null}
+        {clusterName ? (
+          <Stack justifyContent="center" alignItems="center">
+            <Typography variant="h6" component="h6"> 
+              Current Cluster: {clusterName}
+            </Typography>
 
-    </div>
-      {getCreds ? (<Form/>) : null}
+            <Typography>
+              Status: {status.toLowerCase()}
+            </Typography>
+
+            <Fab 
+              onClick={handleGetCredentials} color="primary" variant="extended"> 
+                Proceed 
+              <Link
+                to="form">
+              </Link>
+            </Fab> 
+
+          </Stack>
+        ) : null}
+
+      </Box>
+      <Box display="flex" justifyContent="center" alignItems="center">
+        {getCreds ? (<Form/>) : null}
+      </Box>
     </>
   )
 }

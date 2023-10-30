@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import LandingPage from './components/LandingPage';
 import CloudSetup from './components/CloudSetup';
 import MinikubeSetup from './components/MinikubeSetup';
+import Form from './components/Form';
+
 
 import HomePage from './pages/HomePage';
 import FormPage from './pages/FormPage';
@@ -22,6 +24,9 @@ const App = () => {
     </>
   );
 
+  // return (
+  //   <Form />
+  // )
 };
 
 export default App;
