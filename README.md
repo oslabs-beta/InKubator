@@ -20,23 +20,31 @@ InKubator - Easy Kubernetes Deployment Tool
 </p>
 
 <h2>What is InKubator?</h2>
-<p>Kubernetes architecture can be intricate and the process of cluster deployment is not always straight-forward. InKubator - a developer tool that simplifies YAML generation and cluster deployment. InKubator offers cluster deployment locally opn your machine using minimube or Cloud deployment on Google Kubernetes Engine (EKG).
+<p>Kubernetes architecture can be intricate and the process of cluster deployment is not always straight-forward. InKubator - a developer tool that simplifies YAML generation and cluster deployment. InKubator offers cluster deployment locally on your machine using minimube or Cloud deployment on Google Kubernetes Engine (EKG).
 </p>
 <h2>To Get Started</h2>
 InKubator requires you to have <a href="https://docs.docker.com/get-docker/">Docker</a> installed on your machine. Please dowload and install version based on your operating system.
 <h4>Minikube</h4>
 <p>
-  If you are testing InKubator using minikube, you'll need 2CPU or more, 2GB of free memory, 20GB of free disk space and Internet connection. Please install <a href="https://minikube.sigs.k8s.io/docs/start/">Minikube</a> on your machine. Alternatively you can install the latest minikube stable release on x86-64 macOS using binary download: <code>
+  If you are testing InKubator using minikube, you'll need 2CPU or more, 2GB of free memory, 20GB of free disk space and Internet connection. Please install <a href="https://minikube.sigs.k8s.io/docs/start/">Minikube</a> on your machine. Alternatively you can install the latest minikube stable release on x86-64 macOS using binary download:
+<code>
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
 sudo install minikube-darwin-amd64 /usr/local/bin/minikube
 </code>
+</p>
+<p>
 Lastly, start minikube in your terminal:
 <code>minikube start</code>
 and navigate to <a href="https://inkubator.app">InKubator</a>.
 You can deploy your containerized app in InKubator, all you need is your public image. Alternative, InKubator offers you a sample app to test Kubernetes deployment.
 </p>
 <h4>Cloud Deployment</h4>
-To deploy on Google Cloud make sure <a href="https://cloud.google.com/sdk/docs/install">gloud CLI</a> is installed on your machine. Additionally you need to manage authentication between the client and Google Kubernetes Engine. Run
-<code>
-  gke-gcloud-auth-plugin
-</code> or click <a href="https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke">here</a> for more information.
+<p>To deploy on Google Cloud make sure <a href="https://cloud.google.com/sdk/docs/install">gloud CLI</a> is installed on your machine. Additionally you need to manage authentication between the client and Google Kubernetes Engine. Run <code>gke-gcloud-auth-plugin</code> or click <a href="https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke">here</a> for more information.
+</p>
+<h2>Features</h2>
+InKubator guides you through YAML configuration, just fill out a simple form and InKubator will generate YAML for you. Additionally you can preview YAML file before applying it to deploymeyment. If you are deployment to Google Cloud, InKubator offers your an option to create a new cluster. Please keep in mind, creating a new cluster can take up to 10 minutes. Alternatively, you can deploy to the existing cluster. InKubator offers you to expose your application for external IP requests. Lastly, InKubator offers you to view your deployment stats: deployment name, image, replicas, pods and pods health.
+
+<h2>Contributions</h2>
+<h2>Publications</h2>
+Read our Medium article here.
+<h2>About the team</h2>
