@@ -31,7 +31,6 @@ controller.startMinikube = function(req, res, next) {
 controller.deploymentYaml = async function(req, res, next) {
   try {
     let { clusterName, replicas, image, port, label } = req.body;
-    // separate labels later??
 
     const doc = await yaml.load(fs.readFileSync('./deployment-template.yaml', 'utf8'));
     console.log('DOC', doc.metadata.labels);
@@ -40,7 +39,7 @@ controller.deploymentYaml = async function(req, res, next) {
     doc.metadata.name = `${clusterName}`;
     doc.spec.replicas = replicas;
     
-    // app and name labels, all use the same label
+    // App and name labels, all use the same label
     doc.metadata.labels.app = label;
     doc.spec.selector.matchLabels.app = label;
     doc.spec.template.metadata.labels.app = label;

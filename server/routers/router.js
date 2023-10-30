@@ -13,7 +13,6 @@ router.use('/startminikube', controller.startMinikube, (req, res) => {
     return res.status(200).json('Minikube started')
 });
 
-
 router.use('/yaml', controller.deploymentYaml, (req, res) => {
     
     return res.status(200).json('Deployment YAML Created')

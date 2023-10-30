@@ -1,23 +1,5 @@
-<<<<<<< HEAD
-import React, { useState } from 'react'
-import CloudSetup from './components/CloudSetup';
-import Form from './components/form';
-import LandingPage from './components/LandingPage';
-import MinikubeSetup from './components/MinikubeSetup';
-
-const App = () => {
-
-  const [deploymentEnvironment, setDeploymentEnvironment] = useState('cloud');
-
-  return (
-    <div>
-      {/* Renders sections inside each tab */}
-      <LandingPage setDeploymentEnvironment={setDeploymentEnvironment} />
-      {deploymentEnvironment === 'cloud' ? <CloudSetup /> : <MinikubeSetup />}    
-      <Form />
-    </div>
-=======
 import React, { useState } from 'react';
+
 import LandingPage from './components/LandingPage';
 import CloudSetup from './components/CloudSetup';
 import MinikubeSetup from './components/MinikubeSetup';
@@ -25,11 +7,13 @@ import MinikubeSetup from './components/MinikubeSetup';
 import HomePage from './pages/HomePage';
 import FormPage from './pages/FormPage';
 import DeploymentPage from './pages/DeploymentPage';
+import YamlGenerator from './components/YamlGenerator';
+
 
 import { Routes, Route, Switch } from 'react-router-dom';
 
 const App = () => {
-  const [deploymentEnvironment, setDeploymentEnvironment] = useState('cloud');
+  const [deploymentEnvironment, setDeploymentEnvironment] = useState('');
 
   return (
     <>
@@ -39,7 +23,6 @@ const App = () => {
       <Route path='/deploymentlist' element={<DeploymentPage />}/>
     </Routes>
     </>
->>>>>>> dev
   );
 };
 
