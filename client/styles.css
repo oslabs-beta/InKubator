@@ -182,16 +182,12 @@ body {
 
 /* SETUP PAGE */
 #cloud-setup-instructions {
-    align-items: center;
-    max-width: 700px;
-    padding: 20px;
-
+    height: 92vh;
+    width: 95vw;
+    margin-top: 50px;
 }
 
 #minikube-setup-instructions {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     height: 92vh;
     width: 95vw;
     margin-top: 50px;
@@ -200,13 +196,18 @@ body {
 .setup-img {
     height: 100%;
     width: 100%;
-    object-fit: contain;
-    border: red solid;
+    object-fit: cover;
     border-radius: 30px;
 }
 
+.setup-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .setup-paper {
-    background-color: #f2f3f9;
+    background-color: rgb(253, 249, 249);
     border-radius: 30px;
     padding: 1px 5px 5px 5px;
     margin: 5px;
@@ -221,16 +222,18 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .code-snippet {
     display: flex;
     flex-direction: row;
-    background-color: #f6f6f6;
+    color: #ededed;
+    background-color: #272a36;
     border: solid #ededed 1px;
-    border-radius: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
+    border-radius: 30px;
+    padding-left: 30px;
+    padding-right: 20px;
     margin-left: 10px;
     margin-right: 10px;
     width: auto;

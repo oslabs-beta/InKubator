@@ -21,8 +21,8 @@ const LandingPage = ({ setDeploymentEnvironment }) => {
 
         {/* MINIKUBE CONTAINER */}
         <div class='landing-page-buttons'>
-        <Link
-          to="setup-container"
+        <Link 
+          to="minikube-setup-instructions"
           activeClass="active"
           spy={true}
           smooth={true}
@@ -45,7 +45,7 @@ const LandingPage = ({ setDeploymentEnvironment }) => {
         {/* CLOUD CONTAINER */}
         <div class='landing-page-buttons'>
           <Link 
-            to="setup-container"
+            to="cloud-setup-instructions"
             activeClass="active"
             spy={true}
             smooth={true}
