@@ -91,7 +91,7 @@ const Clusters = (props) => {
             alignItems="center">
             {showMore ? fullResArr : partialResArr}
                 <Stack spacing={2} divider={<Divider/>}>
-            {props.clusters ? refreshButton : getClustersButton}
+            {props.clusters ? refreshButton : null}
             {props.clusters ? (showMore ?  showLessButton : showMoreButton) : null}
                 </Stack>
         </Grid>

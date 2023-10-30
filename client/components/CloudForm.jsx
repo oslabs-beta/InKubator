@@ -40,9 +40,14 @@ const CloudForm = () => {
     await setGetCreds(credsAreTied)
   }
 
+  useEffect(() => {
+    handleGetClusters()
+  }, [])
+
   return (
     <>
       <Box id="cluster">
+        {/* <Box> */}
 
         <Clusters
           clusters={clusters}
@@ -74,6 +79,7 @@ const CloudForm = () => {
           </Stack>
         ) : null}
 
+        {/* </Box> */}
       </Box>
       <Box display="flex" justifyContent="center" alignItems="center">
         {getCreds ? (<Form/>) : null}
