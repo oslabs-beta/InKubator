@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Button, Paper, Typography, Link, Breadcrumbs } from '@mui/material';
+import { Box, Grid, Button, Stack, Paper, Typography, Link, Breadcrumbs } from '@mui/material';
 
 const DeploymentPage = () => {
-
   const [deploymentStats, setDeploymentStats] = useState({});
 
   //Default deployment object
@@ -19,7 +18,6 @@ const DeploymentPage = () => {
     pods: [],
   };
 
-    
   //Helper function that converts output string to object for DEPLOYMENT
   const helperDeploymentObject = (str) => {
     //Convert to array and remove spaces and empty strings
@@ -33,7 +31,6 @@ const DeploymentPage = () => {
     deplObjConstruct.deployment.image = strToArr[6];
     deplObjConstruct.replicas.pods = strToArr[1];
   };
-
 
   //Helper function that converts output string to object for PODS
   const helperPodsObject = (str) => {
@@ -58,7 +55,6 @@ const DeploymentPage = () => {
     };
   };
 
-
   const getStats = async () => {
     const fetchDeployment = await fetch('http://localhost:3001/status/getDeployment');
     const deploymentInfo = await fetchDeployment.json();
@@ -79,75 +75,74 @@ const DeploymentPage = () => {
 
   let deplInfoRender = [];
   for (let keyDepl in deploymentStats.deployment) {
-    deplInfoRender.push(<Typography variant="body1" key={keyDepl}>{keyDepl.toUpperCase()}: {deploymentStats.deployment[keyDepl]}</Typography>);
+    deplInfoRender.push(<Typography variant="body1" xs={10} m={1} key={keyDepl}>{keyDepl.toUpperCase()}: {deploymentStats.deployment[keyDepl]}</Typography>);
   };
 
   let replicaInfoRender = [];
   for (let keyRepl in deploymentStats.replicas){
-    replicaInfoRender.push(<Typography variant="body1" key={keyRepl}>{keyRepl.toUpperCase()}: {deploymentStats.deployment[keyRepl]}</Typography>);
+    replicaInfoRender.push(<Typography variant="body1" xs={10} m={1} key={keyRepl}>{keyRepl.toUpperCase()}: {deploymentStats.deployment[keyRepl]}</Typography>);
   };
 
   let podsInfoRender = deploymentStats.pods && Array.isArray(deploymentStats.pods)
   ? deploymentStats.pods.map((pod, index) => (
       <Grid container spacing={2} key={index}>
+
         <Grid item xs={12}>
           <Typography variant="h7">Pod {index + 1}</Typography>
         </Grid>
-          {Object.keys(pod).map((key, innerIndex) => (
-            <Grid item xs={3} key={innerIndex}>
+
+        {Object.keys(pod).map((key, innerIndex) => (
+          <Grid item xs={3} key={innerIndex}>
             <Typography variant="body1">
               {key.toUpperCase()}: {pod[key]}
             </Typography>
         </Grid>
         ))}
+        
       </Grid>
     ))
   : null;
 
   return (
     <>
-    <Breadcrumbs aria-label="breadcrumb">
-      <Link underline="hover" href="/">
-        Landing
-      </Link>
-      <Link href="/form">
-        Form
-      </Link>
-      <Typography> Deployment Page </Typography>
-    </Breadcrumbs>
-      <h3>Cluster Status</h3>
-        <Paper variant="outlined" style={{ margin: '10px' }} elevation={12} square={false}>
-          <Grid container direction="column" alignItems="center">
-            <Grid item xs={8}>
-              <Typography variant="h7">DEPLOYMENT</Typography>
-            </Grid>
-            <Grid item xs={6}>
-              {deplInfoRender}
-            </Grid>
-          </Grid>
-          </Paper>
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link underline="hover" href="/">
+          Landing
+        </Link>
+        <Link href="/form">
+          Form
+        </Link>
+        <Typography> Deployment Page </Typography>
+      </Breadcrumbs>
 
-          <Paper variant="outlined" style={{ margin: '10px' }} elevation={12} square={false}>
-          <Grid container direction="column" alignItems="center">
-            <Grid item xs={8}>
-              <Typography variant="h7">REPLICAS</Typography>
-            </Grid>
-            <Grid item xs={6}>
-              {replicaInfoRender}
-            </Grid>
-          </Grid>
-          </Paper>
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <h3>Cluster Status</h3>
+      </Box>
 
-          <Paper variant="outlined" style={{ margin: '10px' }} elevation={12} square={false}>
-          <Grid container direction="column" alignItems="center">
-            <Grid item xs={8}>
-              <Typography variant="h7">PODS</Typography>
-            </Grid>
-            <Grid item xs={6}>
-              {podsInfoRender}
-            </Grid>
-          </Grid>
-          </Paper>
+      <Grid container display="flex" justifyContent="center" alignItems="center">
+
+        <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
+          <Stack justifyContent="center" alignItems="center">
+            <Typography variant="h7">DEPLOYMENT</Typography>
+            {deplInfoRender}
+            </Stack>
+        </Paper>
+
+        <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
+          <Stack justifyContent="center" alignItems="center">
+            <Typography variant="h7">REPLICAS</Typography>
+            {replicaInfoRender}
+            </Stack>
+        </Paper>
+
+        <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
+          <Stack container direction="column" alignItems="center">
+            <Typography variant="h7">PODS</Typography>
+            {podsInfoRender}
+          </Stack>
+        </Paper>
+          
+      </Grid>
     </>
   )
 }

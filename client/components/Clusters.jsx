@@ -1,52 +1,84 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Button, Paper, Typography, Fab } from '@mui/material';
+import { Box, Grid, Button, Paper, Typography, Fab, Stack, Divider, Checkbox, FormControlLabel } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
-
 const Clusters = (props) => {
-    const [showMore, setShowMore] = useState(false), fullResArr = [], partialResArr = [], [spin, setSpin] = useState(false)
-    
-    const handleShowMore = async (e) => {
-        setShowMore(!showMore)
-    }
+    // All declared states and variables
+    const [showMore, setShowMore] = useState(false), [spin, setSpin] = useState(false), fullResArr = [], partialResArr = [];
 
-    const handleSelectCluster = async (e) => {
-        props.setClusterName(e.target.id)
-    }
-
+    // On Click Even Handlers
+    const handleShowMore = async (e) => setShowMore(!showMore);
+    const handleSelectCluster = async (e) => props.setClusterName(e.target.id);
     const handleSpin = (e) => {
-        setSpin(true)
+        setSpin(true);
 
-        setTimeout(() => {
-            setSpin(false)
-        }, 1000);
-    }
+        setTimeout(() => {setSpin(false)}, 1000);
+    };
 
-    let showMoreButton = <Button onClick={handleShowMore}> Show more </Button>
-    let showLessButton = <Button onClick={handleShowMore}> Show less </Button>
+    // Buttons
+    const showMoreButton = <Fab color="primary" onClick={handleShowMore}> More </Fab>;
+    const showLessButton = <Fab color="primary" onClick={handleShowMore}> Less </Fab>;
+    const refreshButton = <Fab color="primary" onClick={handleSpin} className={spin ? "spin" : ""}> <RefreshIcon/> </Fab>;
+    const getClustersButton = <Button onClick={props.handleGetClusters}> Get Clusters </Button>;
 
+    // If clusters are passed down via props, iterate over clusters, create a result array for all info, and another for partial info
     if (props.clusters) {
-        props.clusters.forEach((prop, idx) => {
+        props.clusters.forEach((cluster, idx) => {
             const fullArr = [], partialArr = [];
             let button;
 
-            for (let keys in prop) {
+            for (let keys in cluster) {
                 if (keys === 'NAME') {
-                    partialArr.push(<Typography xs={10} m={1}> {keys} : {prop[keys]} </Typography>)
-                    button = <Button onClick={handleSelectCluster} key={prop[keys]} id={prop[keys]}> Select {prop[keys]} </Button>
+                    partialArr.push(
+                    <Typography xs={10} m={1}> 
+                        {keys} : {cluster[keys]}
+                    </Typography>
+                    )
+                    button = 
+                    <Fab color="primary" variant="extended"
+                    onClick={handleSelectCluster}
+                    key={cluster[keys]} id={cluster[keys]}>
+                        Select 
+                    </Fab>
                 }
                 if (keys === 'LOCATION') {
-                    props.setLocation(prop[keys])
-                    partialArr.push(<Typography xs={10} m={1}> {keys} : {prop[keys]} </Typography>)
+                    props.setLocation(cluster[keys])
+                    partialArr.push(
+                        <Typography xs={10} m={1}> 
+                            {keys} : {cluster[keys]}
+                        </Typography>
+                    )
                 } 
                 if (keys === 'STATUS') {
-                    props.setStatus(prop[keys])
-                    partialArr.push(<Typography xs={10} m={1}> {keys} : {prop[keys]} </Typography>)
+                    props.setStatus(cluster[keys])
+                    partialArr.push(
+                        <Typography xs={10} m={1}>
+                            {keys} : {cluster[keys]}
+                        </Typography>
+                    )
                 }
-                fullArr.push(<Typography xs={10} m={1}> {keys} : {prop[keys]} </Typography>)
+                fullArr.push(
+                    <Typography xs={10} m={1}>
+                        {keys} : {cluster[keys]}
+                    </Typography>
+                )
             }
-            fullResArr.push(<Paper style={{ margin: '10px' }} elevation={5} square={false}> <Grid item xs={'auto'}> {fullArr} {button} </Grid> </Paper>)
-            partialResArr.push(<Paper style={{ margin: '10px' }} elevation={5} square={false}> <Grid item xs={'auto'}> {partialArr} {button} </Grid> </Paper>)
+            fullResArr.push(
+                <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
+                    <Stack justifyContent="center" alignItems="center">
+                        {fullArr} 
+                        {button}
+                    </Stack>
+                </Paper>
+            )
+            partialResArr.push(
+                <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
+                    <Stack justifyContent="center" alignItems="center">
+                        {partialArr}
+                        {button}
+                    </Stack>
+                </Paper>
+            )
         })
     }
 
@@ -57,9 +89,11 @@ const Clusters = (props) => {
             // columnSpacing={10}
             justifyContent="center"
             alignItems="center">
-            {props.clusters ? <Fab onClick={handleSpin} className={spin ? "spin" : ""} size="small"> <RefreshIcon/> </Fab> : <Button onClick={props.handleGetClusters}> Get Clusters </Button>}
             {showMore ? fullResArr : partialResArr}
+                <Stack spacing={2} divider={<Divider/>}>
+            {props.clusters ? refreshButton : getClustersButton}
             {props.clusters ? (showMore ?  showLessButton : showMoreButton) : null}
+                </Stack>
         </Grid>
     )
 }
