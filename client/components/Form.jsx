@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Alert, Button, MenuItem, TextField } from '@mui/material';
+import { Alert, Box, Grid, Button, MenuItem, IconButton, Fab, TextField, Typography } from '@mui/material';
+
+
 import { Link as RouterLink } from 'react-router-dom';
 import YamlGenerator from './YamlGenerator';
 
@@ -155,7 +157,7 @@ const Form = () => {
         } else {
           console.log("POST request NOT made");
         };
-  };
+    };
 
   const handleDeploy = async () => {
     try {
@@ -183,12 +185,11 @@ const Form = () => {
     };
   };
 
-  const handleExpose = async () => { 
-    try {
-        const exposeYaml = await fetch('api/tunnelexpose');
-        const resExpose = exposeYaml.json();
-        console.log('EXPOSURE RESULTS', resExpose);
-        // console.log(resExpose);
+    const handleExpose = async () => { 
+      try {
+          const exposeYaml = await fetch('api/tunnelexpose')
+          const resExpose = await exposeYaml.json();
+          console.log('EXPOSURE RESULTS', resExpose);
 
         const prevState = {...buttonFeedback};
         // handle button feedback here (based on status code)
@@ -209,7 +210,7 @@ const Form = () => {
   };
 
   return (
-    <div id='test-form' className='form'>
+    <Box id='test-form' className='form'>
 
     {/* HEADER */}
     <div className='form-header'>
@@ -251,8 +252,7 @@ const Form = () => {
           />
           
           <p>Labels</p>
-          <p>Labels are custom key/value pairs that are assigned to Kubernetes resources. The labels defined in the Deployment section are applied to the Deployment, Pod, Service, Ingress, ConfigMap and Secret resources.
-            The labels are optional, as we will automatically add the tags required to manage the Kubernetes resources.</p> 
+          <p>Labels are custom key/value pairs that are assigned to Kubernetes resources. The labels defined in the Deployment section are applied to the Deployment, Pod, Service, Ingress, ConfigMap and Secret resources.</p> 
           <TextField 
             id='deploymentName' 
             label='Label'
@@ -347,7 +347,7 @@ const Form = () => {
       <Alert severity="success">This is a success alert — check it out!</Alert> */}
 
       <Button><RouterLink to='/deploymentlist'>See Deployments</RouterLink></Button>
-    </div>
+    </Box>
   )
 }
 

@@ -35,8 +35,10 @@ controller.deploymentYaml = async function(req, res, next) {
     const doc = await yaml.load(fs.readFileSync('./deployment-template.yaml', 'utf8'));
     console.log('DOC', doc.metadata.labels);
 
-    // REQUIRED
+  //Set name
     doc.metadata.name = `${clusterName}`;
+
+  //Set number of replicas
     doc.spec.replicas = replicas;
     
     // App and name labels, all use the same label
@@ -45,14 +47,19 @@ controller.deploymentYaml = async function(req, res, next) {
     doc.spec.template.metadata.labels.app = label;
     doc.spec.template.spec.containers[0].name = label;
 
-    // OPTIONAL
+  //Set Docker image
     doc.spec.template.spec.containers[0].image = image;
+    
+  //Set Docker container app port  
     doc.spec.template.spec.containers[0].ports[0].containerPort = port;
     
     console.log('DOC AFTER', doc);
-    
+  
+  //Convert doc to YAML
     const newDoc = yaml.dump(doc);
     console.log('NEW DOC', newDoc);
+  
+  //Write to new YAML file
     fs.writeFile('./deployment.yaml', newDoc, err => {
         if (err) {
             next(err);
@@ -68,8 +75,7 @@ controller.deploymentYaml = async function(req, res, next) {
   };
 };
 
-controller.serviceYaml = function(req, res, next) {};
-
+//Deployment of YAML
 controller.deploy = function(req, res, next) {
   exec('kubectl apply -f ./deployment.yaml', (err, stdout, stderr) => {
     if (err) {
@@ -85,7 +91,9 @@ controller.deploy = function(req, res, next) {
   });
 };
 
+//Tunnel is required for minikube only to provide external IP to access deployed app
 controller.tunnel = function(req, res, next) {
+  //Execute tunnel if it doesn't exists yet
   if(!tunnelProcess) {
     tunnelProcess = spawn('minikube', ['tunnel']);
       tunnelProcess.stdout.on('data', (data) => {
@@ -106,6 +114,7 @@ controller.tunnel = function(req, res, next) {
   };
 };
 
+//Kill tunnel child process
   controller.killTunnel = function(req, res, next) {
     if(tunnelProcess) {
       tunnelProcess.kill();
@@ -115,9 +124,9 @@ controller.tunnel = function(req, res, next) {
     return next();
   };
 
+//Create load balancer and expose app on port 9000
 controller.expose = async function(req, res, next) {
   const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
-  // console.log(doc.metadata.name);
   const clusterName = doc.metadata.name;
   const targetPort = doc.spec.template.spec.containers[0].ports[0].containerPort;
   console.log('TARGET PORT', targetPort);
@@ -137,42 +146,5 @@ controller.expose = async function(req, res, next) {
   });
 };
 
-controller.deleteService = async function(req, res, next) {
-  const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
-  const deploymentName = doc.metadata.name;
-  console.log(deploymentName);
-
-  exec(`kubectl delete service ${deploymentName}`, (err, stdout, stderr) => {
-    if (err) {
-      return next({
-        log: 'Couldn\'t Delete Service',
-        message: { err: `Error occurred in controller.deleteService: ${err}` },
-      });
-    } else {
-      console.log(stdout);
-      res.locals.deleteService = stdout;
-      return next();
-    };
-  });
-};
-
-controller.deleteDeployment = async function(req, res, next) {
-  const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
-  const deploymentName = doc.metadata.name;
-  console.log(deploymentName);
-
-  exec(`kubectl delete deployment ${deploymentName}`, (err, stdout, stderr) => {
-    if (err) {
-      return next({
-        log: 'Couldn\'t Delete Deployment',
-        message: { err: `Error occurred in controller.deleteDeployment: ${err}` },
-      });
-    } else {
-      console.log(stdout);
-      res.locals.deleteDeployment = stdout;
-      return next();
-    };
-  });
-};
 
 module.exports = controller;
