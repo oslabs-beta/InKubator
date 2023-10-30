@@ -1,7 +1,8 @@
 # InKubator
 InKubator - Easy Kubernetes Deployment Tool
 
-<img width="1358" alt="Screenshot 2023-10-30 at 12 39 20 PM" src="https://github.com/oslabs-beta/InKubator/assets/140859521/5a16ee13-55e3-4f0f-a37c-d1a6751b0022">
+<img width="1356" alt="Screenshot 2023-10-30 at 4 57 24 PM" src="https://github.com/oslabs-beta/InKubator/assets/140859521/9f09af02-89b9-4493-9d7f-2dfa318634cd">
+
 
 <h2>What is Kubernetes?</h2>
 <p>
@@ -22,13 +23,20 @@ InKubator - Easy Kubernetes Deployment Tool
 <p>Kubernetes architecture can be intricate and the process of cluster deployment is not always straight-forward. InKubator - a developer tool that simplifies YAML generation and cluster deployment. InKubator offers cluster deployment locally opn your machine using minimube or Cloud deployment on Google Kubernetes Engine (EKG).
 </p>
 <h2>To Get Started</h2>
-InKubator requires you to have <a href="https://www.docker.com/products/docker-desktop/">Docker</a> installed on your machine. Please dowload and install version based on your operating system.
+InKubator requires you to have <a href="https://docs.docker.com/get-docker/">Docker</a> installed on your machine. Please dowload and install version based on your operating system.
 <h4>Minikube</h4>
 <p>
-  If you are testing InKubator using minikube, you'll need 2CPU or more, 2GB of free memory, 20GB of free disk space and Internet connection. Please install minikube on your machine. Alternatively you can install the latest minikube stable release on x86-64 macOS using binary download:
-  ```
-  curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+  If you are testing InKubator using minikube, you'll need 2CPU or more, 2GB of free memory, 20GB of free disk space and Internet connection. Please install <a href="https://minikube.sigs.k8s.io/docs/start/">Minikube</a> on your machine. Alternatively you can install the latest minikube stable release on x86-64 macOS using binary download: <code>
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
 sudo install minikube-darwin-amd64 /usr/local/bin/minikube
-  ```
-  
+</code>
+Lastly, start minikube in your terminal:
+<code>minikube start</code>
+and navigate to <a href="https://inkubator.app">InKubator</a>.
+You can deploy your containerized app in InKubator, all you need is your public image. Alternative, InKubator offers you a sample app to test Kubernetes deployment.
 </p>
+<h4>Cloud Deployment</h4>
+To deploy on Google Cloud make sure <a href="https://cloud.google.com/sdk/docs/install">gloud CLI</a> is installed on your machine. Additionally you need to manage authentication between the client and Google Kubernetes Engine. Run
+<code>
+  gke-gcloud-auth-plugin
+</code> or click <a href="https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke">here</a> for more information.
