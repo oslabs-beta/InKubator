@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Alert, Box, Grid, Button, MenuItem, IconButton, Fab, TextField, Typography } from '@mui/material';
-
-
 import { Link as RouterLink } from 'react-router-dom';
 import YamlGenerator from './YamlGenerator';
 
