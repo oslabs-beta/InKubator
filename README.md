@@ -20,31 +20,63 @@ InKubator - Easy Kubernetes Deployment Tool
 </p>
 
 <h2>What is InKubator?</h2>
-<p>Kubernetes architecture can be intricate and the process of cluster deployment is not always straight-forward. InKubator - a developer tool that simplifies YAML generation and cluster deployment. InKubator offers cluster deployment locally on your machine using minimube or Cloud deployment on Google Kubernetes Engine (EKG).
+<p>Understanding Kubernetes architecture can be complex, and the process of deploying a cluster is not always straightforward. Even minor syntax errors or incorrect indentation of YAML manifrst can significantly complicate the deployment process, especially for those new to Kubernetes. InKubator is a developer tool designed to simplify YAML generation and cluster deployment. It enables users to deploy clusters locally on their machines using Minikube or in the cloud with the Google Kubernetes Engine (GKE).
 </p>
 <h2>To Get Started</h2>
-InKubator requires you to have <a href="https://docs.docker.com/get-docker/">Docker</a> installed on your machine. Please dowload and install version based on your operating system.
+InKubator requires you to have <a href="https://docs.docker.com/get-docker/">Docker</a> installed on your machine. Please dowload and install the appropriate version for your operating system.
 <h4>Minikube</h4>
 <p>
-  If you are testing InKubator using minikube, you'll need 2CPU or more, 2GB of free memory, 20GB of free disk space and Internet connection. Please install <a href="https://minikube.sigs.k8s.io/docs/start/">Minikube</a> on your machine. Alternatively you can install the latest minikube stable release on x86-64 macOS using binary download:
+ To test InKubator using minikube, ensure that your machine meets the following requirements: 2 CPU or more, 2GB of free memory, 20GB of free disk space, and an active internet connection. If you haven't already, please install <a href="https://minikube.sigs.k8s.io/docs/start/">Minikube</a> on your machine. Alternatively, you can install the latest minikube stable release on x86-64 macOS using binary download:
 <code>
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
 sudo install minikube-darwin-amd64 /usr/local/bin/minikube
 </code>
 </p>
 <p>
-Lastly, start minikube in your terminal:
+Once installed, start minikube in your terminal:
 <code>minikube start</code>
 and navigate to <a href="https://inkubator.app">InKubator</a>.
-You can deploy your containerized app in InKubator, all you need is your public image. Alternative, InKubator offers you a sample app to test Kubernetes deployment.
+InKubator enables you to deploy your containerized app effortlessly, requiring only your public image. Alternatively, you can utilize a sample app provided by InKubator to test Kubernetes deployment.
 </p>
 <h4>Cloud Deployment</h4>
-<p>To deploy on Google Cloud make sure <a href="https://cloud.google.com/sdk/docs/install">gloud CLI</a> is installed on your machine. Additionally you need to manage authentication between the client and Google Kubernetes Engine. Run <code>gke-gcloud-auth-plugin</code> or click <a href="https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke">here</a> for more information.
+<p>Before deploying on Google Cloud, ensure that the <a href="https://cloud.google.com/sdk/docs/install">gloud CLI</a> is installed on your machine. Additionally, you will need to manage authentication between the client and Google Kubernetes Engine. Run <code>gke-gcloud-auth-plugin</code> or click <a href="https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke">here</a> for more information.
 </p>
 <h2>Features</h2>
-Let InKubator guide your through YAML configuration process. Just fill out a straightforward form, and it will generate YAML manifest for you. Moreover, you can conveniently preview the YAML file before applying it. If you're considering deploying to Google Cloud, InKubator offers the option to either create a new cluster or utilize an existing one. Keep in mind, setting up a new cluster may take up to 10 minutes. Additionally, you have the flexibility to expose your application to external IP requests. Lastly, InKubator provides additional information on clusters you just deployed, including the deployment name, image, replicas, pods, and pods health.
-
+<p>Let InKubator guide you through YAML configuration process. Just fill out a straightforward form, and it will generate the YAML manifest for you. Moreover, you can conveniently preview the YAML file before applying it. If you're considering deploying to Google Cloud, InKubator offers the option to either create a new cluster or utilize an existing one. Keep in mind that setting up a new cluster may take up to 10 minutes. Additionally, you have the flexibility to expose your application to external IP requests. Lastly, InKubator provides additional information on the clusters you just deployed, including the deployment name, image, replicas, pods, and pods health.
+  </p>
+  <p>
+InKubator is currently offers a beta version. Our team is actively expanding InKubator, incorporating features such as multiple node deployment, visualization, and advanced monitoring capabilities. Stay tuned for the latest updates and developments!
+</p>
 <h2>Contributions</h2>
+<p>
+Contributions are the cornerstone of the Open Source Community, making it an incredible space for learning, development, and innovation. InKubator, as an Open Source project, eagerly welcomes contributions. Begin by forking the dev branch and creating a feature branch in your repository. Ensure that all pull requests originate from your feature branch and are directed to InKubator's dev branch. Feel free to open an issue as well!
+  </p>
 <h2>Publications</h2>
-Read our Medium article here.
+Read our Medium article <a href="">here</a>.
 <h2>About the team</h2>
+<table>
+  <tr>
+    <th>Pic</th>
+    <th>Pic</th> 
+    <th>Pic</th>
+    <th>Pic</th>
+  </tr>
+  <tr>
+    <td>Tarik Bensalem</td>
+    <td>Rita Bizhan</td> 
+    <td>Jeff Chan</td>
+    <td>Cristina Flores</td>
+  </tr>
+  <tr>
+    <td>Link</td>
+    <td>Link</td> 
+    <td>Link</td>
+    <td>Link</td>
+  </tr>
+  <tr>
+    <td>Link</td>
+    <td>Link</td> 
+    <td>Link</td>
+    <td>Link</td>
+  </tr>
+</table>
