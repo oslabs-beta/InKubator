@@ -229,6 +229,7 @@ body {
     height: 92vh;
     width: 95vw;
     margin-top: 50px;
+    box-sizing: border-box;
 }
 
 .setup-img {

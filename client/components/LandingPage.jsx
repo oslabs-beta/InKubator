@@ -1,10 +1,12 @@
 import React from 'react';
 import { Box, Button, Paper } from '@mui/material';
-import { Link, animateScroll as scroll } from 'react-scroll';
+import { Link, animateScroll as scroll} from 'react-scroll';
 import googleCloudLogo from '../assets/google-cloud-logo-full.png'
 import minikubeLogo from '../assets/minikube-logo-full.png';
 
-const LandingPage = ({ setDeploymentEnvironment }) => {
+
+const LandingPage = ({ handleEnvironmentChange }) => {
+
   return ( 
     <div className='landing'>
 
@@ -22,22 +24,17 @@ const LandingPage = ({ setDeploymentEnvironment }) => {
         {/* MINIKUBE CONTAINER */}
         <div class='landing-page-buttons'>
         <Link 
-          to="minikube-setup-instructions"
+          to="setup-container"
           activeClass="active"
           spy={true}
           smooth={true}
           duration={900}
         >
-          <Button class='landing-page-button'>
+          <Button class='landing-page-button' onClick={() => {handleEnvironmentChange('minikube')}}>
             <img
               src={minikubeLogo}
               alt="minikube-logo"
-              height="65"
-              onClick={() => {
-                console.log('button clicked!')
-                setDeploymentEnvironment('minikube')
-              }} 
-            />
+              height="65"/>
           </Button>
         </Link>
         </div>
@@ -45,18 +42,17 @@ const LandingPage = ({ setDeploymentEnvironment }) => {
         {/* CLOUD CONTAINER */}
         <div class='landing-page-buttons'>
           <Link 
-            to="cloud-setup-instructions"
+            to="setup-container"
             activeClass="active"
             spy={true}
             smooth={true}
             duration={900} 
           >
-            <Button class='landing-page-button'>
+            <Button class='landing-page-button' onClick={() => handleEnvironmentChange('cloud')}>
               <img 
                 src={googleCloudLogo} 
                 alt="gcloud-logo" 
-                height="55"
-                onClick={() => setDeploymentEnvironment('cloud')}/>
+                height="55"/>
             </Button>
           </Link>
         </div>
