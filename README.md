@@ -1,5 +1,5 @@
-# InKubator
-InKubator - Easy Kubernetes Deployment Tool
+
+<h2>InKubator - Easy Kubernetes Deployment Tool</h2>
 
 <img width="1356" alt="Screenshot 2023-10-30 at 4 57 24 PM" src="https://github.com/oslabs-beta/InKubator/assets/140859521/9f09af02-89b9-4493-9d7f-2dfa318634cd">
 
@@ -80,3 +80,13 @@ Read our Medium article <a href="">here</a>.
     <td>Link</td>
   </tr>
 </table>
+
+
+
+<a href="https://www.linkedin.com/in/margarita-bizhan-0837a9171/">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/135868272/270130207-a52096b1-552d-4c57-982c-3f22023ed68a.png" width="20" alt="LinkedIn"></a>
+
+<a href="https://github.com/margaritabizhan">
+  <img src="https://www.iconsdb.com/icons/preview/white/github-11-xxl.png" width="20" alt="GitHub"></a>
+
+
