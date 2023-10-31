@@ -68,25 +68,27 @@ Read our Medium article <a href="">here</a>.
     <td>Cristina Flores</td>
   </tr>
   <tr>
-    <td>Link</td>
-    <td>Link</td> 
-    <td>Link</td>
-    <td>Link</td>
+    <td align="center"><a href="https://www.linkedin.com/in/tarik-bensalem/">
+<img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-1024.png" width="25" alt="LinkedIn"></a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/margarita-bizhan-0837a9171/">
+<img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-1024.png" width="25" alt="LinkedIn"></a></td> 
+    <td align="center"><a href="https://www.linkedin.com/in/jeffnzk/">
+<img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-1024.png" width="25" alt="LinkedIn"></a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/cristina-flores-rodriguez/">
+<img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-1024.png" width="25" alt="LinkedIn"></a></td>
   </tr>
   <tr>
-    <td>Link</td>
-    <td>Link</td> 
-    <td>Link</td>
-    <td>Link</td>
+    <td align="center"><a href="https://github.com/Tbensalem">
+  <img src="https://www.iconsdb.com/icons/preview/white/github-11-xxl.png" width="25" alt="GitHub"></a></td>
+    <td align="center"><a href="https://github.com/margaritabizhan">
+  <img src="https://www.iconsdb.com/icons/preview/white/github-11-xxl.png" width="25" alt="GitHub"></a></td> 
+    <td align="center">
+<a href="https://github.com/jeffnzk">
+  <img src="https://www.iconsdb.com/icons/preview/white/github-11-xxl.png" width="25" alt="GitHub"></a></td>
+    <td align="center"><a href="https://github.com/mildwushroom">
+  <img src="https://www.iconsdb.com/icons/preview/white/github-11-xxl.png" width="25" alt="GitHub"></a></td>
   </tr>
 </table>
 
-
-
-<a href="https://www.linkedin.com/in/margarita-bizhan-0837a9171/">
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/135868272/270130207-a52096b1-552d-4c57-982c-3f22023ed68a.png" width="20" alt="LinkedIn"></a>
-
-<a href="https://github.com/margaritabizhan">
-  <img src="https://www.iconsdb.com/icons/preview/white/github-11-xxl.png" width="20" alt="GitHub"></a>
 
 
