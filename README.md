@@ -3,6 +3,10 @@
 
 <img width="1356" alt="Screenshot 2023-10-30 at 4 57 24 PM" src="https://github.com/oslabs-beta/InKubator/assets/140859521/9f09af02-89b9-4493-9d7f-2dfa318634cd">
 
+<h2>Tech Stack</h2>
+
+<img width="692" alt="Screenshot 2023-10-31 at 4 38 59 PM" src="https://github.com/oslabs-beta/InKubator/assets/140859521/cfda02f2-007a-40eb-805c-5cabebab7baf">
+
 
 <h2>What is Kubernetes?</h2>
 <p>
