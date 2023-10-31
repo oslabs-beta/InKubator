@@ -92,7 +92,7 @@ const CloudForm = () => {
       </Grid>
       <Grid item xs={6} id='selected-cluster-container'>
         {clusterName ? (
-          <Stack justifyContent="center" alignItems="left">
+          <Stack justifyContent="center" alignItems="left" spacing={2}>
             <Typography variant="h6" component="h6"> 
               Selected: {clusterName}
             </Typography>

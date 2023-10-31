@@ -24,16 +24,26 @@ body {
     flex-direction: column;
 }
 
-/* CLUSTER INFO BOX */
+/* CLUSTERS */
+#clusters-main-container {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+    width: 95vw;
+    /* background-color: #64B5F6; */
+}
+
 #selected-cluster-container {
-    background-color: #E57373;
+    background-color: #d3d7f1;
     border-radius: 30px;
     margin: 1%;
-    padding: 1%;
+    padding: 2%;
 }
 
 .cluster-paper {
-    margin: 2%;
+    margin: 1%;
     padding: 1%;
     border-radius: 30px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
@@ -55,7 +65,7 @@ body {
     border-radius: 30px;
     width: 85%;    
     box-sizing: border-box;                           ;
-    background-color: #ccdaea;
+    background-color: #d3d7f1;
 }
 
 .cluster-content {
@@ -68,6 +78,63 @@ body {
     justify-content: right;
     align-items: right;
 }
+
+
+#clusters-header {
+    width: 95vw;
+    height: 30vh;
+    margin: 1%;
+    overflow: hidden;
+    border-radius: 30px;
+}
+
+#clusters-header-img {
+    height: 100%;
+    width: 100%;
+    border-radius: 30px;
+    object-fit: cover;
+}
+
+.clusters-container-A {
+    background-color: #dfe2ef;
+    border-radius: 25px;
+    /* margin: 1%; */
+    /* margin: 50px; */
+    padding: 1%;
+    box-sizing: border-box; 
+    /* background-color: purple; */
+}
+
+#clusters-container-B {
+    /* background-color: red; */
+    padding: 1%;
+    box-sizing: border-box;
+}
+
+#user-clusters {
+    display: flex;
+    flex-direction: row;
+}
+
+#cluster-main-buttons {
+    padding: 1%;
+}
+
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spin {
+animation: spin 1s linear infinite;
+}
+
+
 
 #test-form {
     /* CSS GRID */
@@ -157,11 +224,7 @@ body {
     margin: 10px;
     height: 92vh;
     width: 95vw;
-    /* background-color: #E57373; */
-    /* background-image: url(https://images.unsplash.com/photo-1618172193763-c511deb635ca?auto=format&fit=crop&q=80&w=2864&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); */
-    /* background-image: url(https://images.unsplash.com/photo-1620121692029-d088224ddc74?auto=format&fit=crop&q=80&w=2832&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); */
     background-image: url(https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&q=80&w=2874&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
-    /* background-image: url('./assets/milad-fakurian-background.jpg'); */
     background-size: cover;
     border-radius: 30px;
 }
@@ -308,64 +371,4 @@ body {
 .section.active {
     transform: translateY(0);
   }
-
-/* GCLOUD CLUSTERS PAGE */
-#clusters-main-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1%;
-    width: 95vw;
-    /* background-color: #64B5F6; */
-}
-
-#clusters-header {
-    width: 95vw;
-    height: 30vh;
-    margin: 1%;
-    overflow: hidden;
-    border-radius: 30px;
-}
-
-#clusters-header-img {
-    height: 100%;
-    width: 100%;
-    border-radius: 30px;
-    object-fit: cover;
-}
-
-.clusters-container-A {
-    background-color: #ccdaeb;
-    border-radius: 25px;
-    margin: 1%;
-    padding: 1%;
-    box-sizing: border-box; 
-}
-
-#clusters-container-B {
-    /* background-color: red; */
-}
-
-#user-clusters {
-    display: flex;
-    flex-direction: row;
-}
-
-#cluster-main-buttons {
-    padding: 1%;
-}
-
-
-@keyframes spin {
-from {
-    transform: rotate(0deg);
-}
-to {
-    transform: rotate(360deg);
-}
-}
-
-.spin {
-animation: spin 1s linear infinite;
-}
 

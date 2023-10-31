@@ -2,11 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Button, Chip, Grid, IconButton, Tooltip, Stack } from '@mui/material';
 import { ContentCopy, KeyboardArrowUp } from '@mui/icons-material';
 import { Element, Link, animateScroll as scroll } from 'react-scroll';
+import { Link as RouterLink } from 'react-router-dom';
+import googleCloudFloating from '../assets/google-cloud-floating.png'
 import Clusters from './Clusters'
 import Form from './Form';
-import googleCloudFloating from '../assets/google-cloud-floating.png'
 
-import { Link as RouterLink } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+const theme = createTheme({
+  palette: {
+    purple: '#8870E0'
+  }
+})
+
 
 const CloudSetup = () => {
   const [clusters, setClusters] = useState();
@@ -59,6 +66,7 @@ const CloudSetup = () => {
   };
 
   return (
+    <ThemeProvider theme={theme}>
     <Grid container className='cloud' id='cloud-setup-instructions'>
       {/* top of container */}
       <Grid item xs={12} className='setup-header'>
@@ -131,6 +139,7 @@ const CloudSetup = () => {
       </Grid>
 
     </Grid>
+    </ThemeProvider>
   );
 };
 
