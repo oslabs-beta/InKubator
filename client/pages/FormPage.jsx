@@ -12,15 +12,8 @@ const FormPage = ({ deploymentEnvironment }) => {
         <Link underline="hover" href="/">Landing</Link>
         <Typography>Form</Typography>
       </Breadcrumbs>
-
-      <Grid className="formPage" container spacing={2}>
-        <Grid item md={8}>
-          {deploymentEnvironment === 'cloud' ? <CloudForm /> : <Form />}
-        </Grid>
-        <Grid item md={4}>
-          {/* <YamlGenerator/> */}
-        </Grid>
-      </Grid>
+        DEPLOYMENT ENVIRONMENT: {deploymentEnvironment}
+        {deploymentEnvironment === 'minikube' ? <Form/> : <CloudForm/> }
     </Stack>
     </>
   );
