@@ -9,7 +9,7 @@ const HomePage = ({ setDeploymentEnvironment, deploymentEnvironment }) => {
   return (
     <>
       <div id='homepage-container'>
-        <LandingPage setDeploymentEnvironment={setDeploymentEnvironment} />
+        <LandingPage deploymentEnvironment={deploymentEnvironment} setDeploymentEnvironment={setDeploymentEnvironment} />
         <SetupContainer deploymentEnvironment={deploymentEnvironment} />
       </div>
     </>

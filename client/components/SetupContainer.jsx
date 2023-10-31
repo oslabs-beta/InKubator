@@ -4,7 +4,7 @@ import MinikubeSetup from '../components/MinikubeSetup';
 
 const SetupContainer = ({ deploymentEnvironment }) => {
   return (
-    <div id='setup-container'>
+    <div className='setup-container' id='setup-container'>
       {deploymentEnvironment === '' ? null : (deploymentEnvironment === 'cloud' ?  <CloudSetup /> : <MinikubeSetup />)}    
     </div>
   )

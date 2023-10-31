@@ -4,9 +4,21 @@ import { Link, animateScroll as scroll } from 'react-scroll';
 import googleCloudLogo from '../assets/google-cloud-logo-full.png'
 import minikubeLogo from '../assets/minikube-logo-full.png';
 
-const LandingPage = ({ setDeploymentEnvironment }) => {
+const LandingPage = ({ setDeploymentEnvironment, deploymentEnvironment }) => {
+  const scrollToMinikube = () => {
+    console.log('scroll clicked')
+    scroll.scrollTo('minikube-setup-instructions', {
+      containerId: 'minikube-setup-instructions'
+    })
+  }
+
   return ( 
     <div className='landing'>
+    <Button
+    onClick={scrollToMinikube()}
+    >
+      SCROLL TO MINIKUBE TEST
+    </Button>
 
       <Box id='landing-header-container'>
         <p id='landing-header-title'>Inkubator</p>
@@ -34,9 +46,9 @@ const LandingPage = ({ setDeploymentEnvironment }) => {
               alt="minikube-logo"
               height="65"
               onClick={() => {
-                console.log('button clicked!')
-                setDeploymentEnvironment('minikube')
-              }} 
+                  setDeploymentEnvironment('minikube')
+                }
+              }
             />
           </Button>
         </Link>
