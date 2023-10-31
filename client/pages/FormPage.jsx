@@ -13,14 +13,7 @@ const FormPage = ({ deploymentEnvironment }) => {
         <Typography>Form</Typography>
       </Breadcrumbs>
 
-      <Grid className="formPage" container spacing={2}>
-        <Grid item md={8}>
-          {deploymentEnvironment === 'cloud' ? <CloudForm /> : <Form />}
-        </Grid>
-        <Grid item md={4}>
-          {/* <YamlGenerator/> */}
-        </Grid>
-      </Grid>
+          {deploymentEnvironment === 'minikube' ? <Form /> : <CloudForm />  }
     </Stack>
     </>
   );

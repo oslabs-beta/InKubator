@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Button, Paper, Typography, Fab, Stack, Divider, Checkbox, FormControlLabel } from '@mui/material';
+import { Box, Chip, Grid, Button, Paper, Typography, Fab, Stack, Divider, Checkbox, FormControlLabel } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
 const Clusters = (props) => {
@@ -27,56 +27,74 @@ const Clusters = (props) => {
       let button;
 
       for (let keys in cluster) {
+        
+        // Format the cluster name, this is the header
+        let formattedClusterName =  <div className='cluster-labels'>
+                                      {cluster[keys]}
+                                    </div>
+
+        // Format the status, this is important info for the user
+        let formattedStatus = <Chip label={cluster[keys]}/>
+
         if (keys === 'NAME') {
-          partialArr.push(
-            <Typography xs={10} m={1}> 
-              {keys} : {cluster[keys]}
-            </Typography>
-          )
-          button = 
-          <Fab color="primary" variant="extended"
-          onClick={handleSelectCluster}
-          key={cluster[keys]} id={cluster[keys]}>
-              Select 
-          </Fab>
+          partialArr.push(<div className='cluster-labels-container'>{formattedClusterName}</div>)
+          fullArr.push(<div className='cluster-labels-container'>{formattedClusterName}</div>)
+          button =  <Fab 
+                      color="#8870E0" 
+                      variant="extended"
+                      onClick={handleSelectCluster}
+                      key={cluster[keys]} 
+                      id={cluster[keys]}
+                    >
+                      Select 
+                    </Fab>
         }
-        if (keys === 'LOCATION') {
+        else if (keys === 'LOCATION') {
             props.setLocation(cluster[keys])
             partialArr.push(
-                <Typography xs={10} m={1}> 
-                    {keys} : {cluster[keys]}
-                </Typography>
+              <Typography xs={10} m={1}> 
+                <strong>{keys}: </strong>{cluster[keys]}
+              </Typography>
+            )
+            fullArr.push(
+              <Typography xs={10} m={1}> 
+                <strong>{keys}: </strong>{cluster[keys]}
+              </Typography>
             )
         } 
-        if (keys === 'STATUS') {
+        else if (keys === 'STATUS') {
             props.setStatus(cluster[keys])
             partialArr.push(
-                <Typography xs={10} m={1}>
-                    {keys} : {cluster[keys]}
-                </Typography>
+              <Typography xs={10} m={1}>
+                <strong>{keys}: </strong>{formattedStatus}
+              </Typography>
             )
+            fullArr.push(
+              <Typography xs={10} m={1}>
+                <strong>{keys}: </strong>{formattedStatus}
+              </Typography>
+          )
+        } else {
+          fullArr.push(
+              <Typography xs={10} m={1}>
+                <strong>{keys}: </strong>{cluster[keys]}
+              </Typography>
+          )
         }
-        fullArr.push(
-            <Typography xs={10} m={1}>
-                {keys} : {cluster[keys]}
-            </Typography>
-        )
       }
       fullResArr.push(
-        <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
-          <Stack justifyContent="center" alignItems="center">
+        <div className='cluster-paper'>
+          <Stack justifyContent="left" alignItems="left">
             {fullArr} 
             {button}
           </Stack>
-        </Paper>
+        </div>
       )
       partialResArr.push(
-        <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
-          <Stack justifyContent="center" alignItems="center">
+        <div className='cluster-paper'>
             {partialArr}
             {button}
-          </Stack>
-        </Paper>
+        </div>
       )
     })
   }

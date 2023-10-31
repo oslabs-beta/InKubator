@@ -9,7 +9,7 @@ body {
     justify-content: center; */
     font-family: 'Roboto', sans-serif;
     background-color: #e7f0fc;
-    color: #252929;
+    color: #30292F;
 }
 
 /* FORM */
@@ -22,6 +22,44 @@ body {
     display: flex;
     /* padding: 40px; */
     flex-direction: column;
+}
+
+/* CLUSTER INFO BOX */
+#selected-cluster-container {
+    background-color: #E57373;
+    border-radius: 30px;
+    margin: 1%;
+    padding: 1%;
+}
+
+.cluster-paper {
+    margin: 2%;
+    padding: 1%;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
+    background-color: white;
+}
+
+.cluster-labels-container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.cluster-labels {
+    text-align: center;
+    font-weight: 600;
+    font-size: large;
+    padding: 3%;
+    margin-top: 5%;
+    border-radius: 30px;
+    width: 85%;    
+    box-sizing: border-box;                           ;
+    background-color: #ccdaea;
+}
+
+.cluster-content {
+    font-weight: 400;
 }
 
 #deployment-button {
@@ -300,6 +338,7 @@ body {
     border-radius: 25px;
     margin: 1%;
     padding: 1%;
+    box-sizing: border-box; 
 }
 
 #clusters-container-B {
@@ -314,6 +353,7 @@ body {
 #cluster-main-buttons {
     padding: 1%;
 }
+
 
 @keyframes spin {
 from {

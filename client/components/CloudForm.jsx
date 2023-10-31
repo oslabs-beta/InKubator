@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Button, Stack, Fab, Typography, Checkbox, CircularProgress } from '@mui/material';
+import { Box, Chip, Grid, Button, Stack, Fab, Typography, CircularProgress, Tooltip } from '@mui/material';
 import { Link, animateScroll as scroll } from 'react-scroll';
 import clustersHeader from '../assets/clusters-header.png'
 import Clusters from './Clusters'
 import Form from './Form';
+import { InfoOutlined } from "@mui/icons-material";
 
 const CloudForm = () => {
   const [clusters, setClusters] = useState();
@@ -44,6 +45,16 @@ const CloudForm = () => {
     await setGetCreds(credsAreTied)
   }
 
+  const statusChip = (status) => {
+    // If status = running, make chip green
+    // Anything else, make chip red
+    const statusText = status.toLowerCase();
+    if (statusText === 'running') {
+      return <Chip label={statusText} variant='outlined' color='success' />
+    } else {
+      return <Chip label={statusText} variant='outlined' color='error' />
+    }
+  }
   // ??
   useEffect(() => {
     handleGetClusters()
@@ -53,8 +64,10 @@ const CloudForm = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 1000);
   }, clusters)
+
+
 
   return (
     <>
@@ -77,15 +90,19 @@ const CloudForm = () => {
             handleGetClusters={handleGetClusters}
           />}
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={6} id='selected-cluster-container'>
         {clusterName ? (
-          <Stack justifyContent="center" alignItems="center">
+          <Stack justifyContent="center" alignItems="left">
             <Typography variant="h6" component="h6"> 
-              Current Cluster: {clusterName}
+              Selected: {clusterName}
             </Typography>
+            
 
-            <Typography>
-              Status: {status.toLowerCase()}
+            <Typography variant='h6' component='h6'>
+              Status: {statusChip(status)}
+              <Tooltip title='Status must be running to proceed' placement='right'>
+                <InfoOutlined/>
+              </Tooltip>
             </Typography>
 
           </Stack>
