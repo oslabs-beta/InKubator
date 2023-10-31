@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Chip, Grid, IconButton, Tooltip } from '@mui/material';
-import { ContentCopy, InfoOutlined, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
+import { Button, Chip, Grid, IconButton, Tooltip, Stack } from '@mui/material';
+import { ContentCopy, InfoOutlined, KeyboardArrowUp } from '@mui/icons-material';
 import { Element, Link, animateScroll as scroll } from 'react-scroll';
 import minikubeBlock from '../assets/mkube-floating.png';
 
@@ -68,7 +68,7 @@ const MinikubeSetup = () => {
           <div class='code-snippet'>
             <pre>{minikubeStartCode}</pre>
             <Tooltip title={isCopied ? 'Copied!' : 'Copy'} >
-              <IconButton onClick={copyToClipboard} style={{ color: 'white' }}>
+              <IconButton onClick={copyToClipboard} style={{ color: '#272a36' }}>
                 <ContentCopy/>
               </IconButton>
             </Tooltip>
@@ -77,12 +77,14 @@ const MinikubeSetup = () => {
       </Grid>
 
       <Grid xs={12} className='setup-footer'>
-        <h3> Ready to deploy?</h3>
-        <RouterLink to='/form'>
-          <Button variant='contained'>
-            Let's go!
-          </Button>
-        </RouterLink>
+        <Stack justifyContent='center' alignItems='center'>
+          <h3> Ready to deploy?</h3>
+          <RouterLink to='/form'>
+            <Button variant='contained'>
+              Let's go!
+            </Button>
+          </RouterLink>
+        </Stack>
       </Grid>
 
     </Grid>

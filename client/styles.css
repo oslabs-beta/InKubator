@@ -228,8 +228,9 @@ body {
 .code-snippet {
     display: flex;
     flex-direction: row;
-    color: #ededed;
-    background-color: #272a36;
+    color: #272a36;
+    /* background-color: #272a36; */
+    background-color: #d3d7f1;
     border: solid #ededed 1px;
     border-radius: 30px;
     padding-left: 30px;
@@ -269,6 +270,51 @@ body {
     transform: translateY(0);
   }
 
+/* GCLOUD CLUSTERS PAGE */
+#clusters-main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+    width: 95vw;
+    /* background-color: #64B5F6; */
+}
+
+#clusters-header {
+    width: 95vw;
+    height: 30vh;
+    margin: 1%;
+    overflow: hidden;
+    border-radius: 30px;
+}
+
+#clusters-header-img {
+    height: 100%;
+    width: 100%;
+    border-radius: 30px;
+    object-fit: cover;
+}
+
+.clusters-container-A {
+    background-color: #ccdaeb;
+    border-radius: 25px;
+    margin: 1%;
+    padding: 1%;
+}
+
+#clusters-container-B {
+    /* background-color: red; */
+}
+
+#user-clusters {
+    display: flex;
+    flex-direction: row;
+}
+
+#cluster-main-buttons {
+    padding: 1%;
+}
+
 @keyframes spin {
 from {
     transform: rotate(0deg);
@@ -281,3 +327,4 @@ to {
 .spin {
 animation: spin 1s linear infinite;
 }
+

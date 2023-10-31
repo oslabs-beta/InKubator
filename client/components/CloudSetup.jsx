@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Button, Chip, Grid, IconButton, Paper, Tooltip } from '@mui/material';
+import React, { useEffect, useState } from "react";
+import { Button, Chip, Grid, IconButton, Tooltip, Stack } from '@mui/material';
 import { ContentCopy, KeyboardArrowUp } from '@mui/icons-material';
 import { Element, Link, animateScroll as scroll } from 'react-scroll';
 import Clusters from './Clusters'
@@ -15,7 +15,7 @@ const CloudSetup = () => {
   const [getCreds, setGetCreds] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
 
-  // Reusable Fetch request function
+  // Reusable fetch request function
   const fetchRequest = async (endpoint, method, card) => {
     // If no "method" is passed, it uses this default header
     let defaultHeader = {
@@ -25,28 +25,28 @@ const CloudSetup = () => {
         },
         body: JSON.stringify(card)
         };
-        // if a method is is passed, it updates the default header
+    // If a method is is passed, it updates the default header
     let header = Object.assign({}, defaultHeader, method);
 
     const result = await fetch(`${endpoint}`, header)
         .then((data) => data.json())
-        // .then((data) => console.log('DATA', data))
         .catch((err) => console.error(err))
+
     return result;
-}
+  }
 
-// Handle Clicks for Getting Clusters, and tying credentials to KubeCTL
-const handleGetClusters = async (e) => {
-  const allClusters = await (fetchRequest('http://localhost:3001/google/getClusters',{method: "POST"}));
-  await console.log('allClusters', allClusters)
-  await setClusters(allClusters)
-}
+  // Handle clicks for getting clusters, and tying credentials to KubeCTL
+  const handleGetClusters = async (e) => {
+    const allClusters = await (fetchRequest('http://localhost:3001/google/getClusters', {method: "POST"}));
+    await console.log('allClusters', allClusters)
+    await setClusters(allClusters)
+  }
 
-const handleGetCredentials = async (e) => {
+  const handleGetCredentials = async (e) => {
   const credsAreTied = await (fetchRequest('http://localhost:3001/google/getCredentials', {method: "POST"}, {"clusterName": clusterName}))
   await setGetCreds(credsAreTied)
-}
-  // Code for copy to clipboard functionality
+  }
+  // Handle copy to clipboard 
   const cloudStartCode = 'gcloud components install gke-gcloud-auth-plugin';
   const copyToClipboard = () => {
     navigator.clipboard.writeText(cloudStartCode)
@@ -57,7 +57,7 @@ const handleGetCredentials = async (e) => {
       setIsCopied(false);
     }, 2000);
   };
-  
+
   return (
     <Grid container className='cloud' id='cloud-setup-instructions'>
       {/* top of container */}
@@ -75,59 +75,59 @@ const handleGetCredentials = async (e) => {
         </Link>
       </Grid>
 
-        {/* left hand side image */}
-        <Grid item xs={5}>
-          <img src={googleCloudFloating} className='setup-img'/>
+      <Grid item xs={5}>
+        <img src={googleCloudFloating} className='setup-img'/>
+      </Grid>
+
+      <Grid item xs={7} className='setup-content'>
+        <h1>Deployments with Google Cloud</h1>
+        
+        <div class='setup-requirements'>
+          <h3>Before getting started, you'll need:</h3>
+            <ol>
+              <li>Google Cloud CLI installed on your computer</li>
+              <li>Kubectl authentication for your Google Cloud account</li>
+              <li>A containerized application</li>
+            </ol>
+        </div>
+
+        <Grid className='setup-paper'>
+          <h3><Chip label='1' />  Installing the Google Cloud CLI on your machine</h3>
+          <p>Visit the Google Cloud <a href='https://cloud.google.com/sdk/docs/install'>documentation</a> for installation instructions.</p>
         </Grid>
 
-        {/* right hand side contents */}
-        <Grid item xs={7} className='setup-content'>
-          <h1>Deployments with Google Cloud</h1>
-          
-          <div class='setup-requirements'>
-            <h3>Before getting started, you'll need:</h3>
-              <ol>
-                <li>Google Cloud CLI installed on your computer</li>
-                <li>Kubectl authentication for your Google Cloud account</li>
-                <li>A containerized application</li>
-              </ol>
-          </div>
+        <Grid className='setup-paper'>
+          <h3><Chip label='2' />  Installing the Kubectl authentication plugin</h3>
+            <p>Run this command in your terminal to get started:</p>
+            <div class='code-snippet'>
+              <pre>{cloudStartCode}</pre>
+              <Tooltip title={isCopied ? 'Copied!' : 'Copy'} >
+                <IconButton onClick={copyToClipboard} style={{ color: '#272a36' }}>
+                  <ContentCopy/>
+                </IconButton>
+              </Tooltip>
+            </div>
+            <p>Learn more about this command <a href='https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke'>here</a>!</p>
+        </Grid>
 
-          <Grid className='setup-paper'>
-            <h3><Chip label='1' />  Installing the Google Cloud CLI on your machine</h3>
-            <p>Visit the Google Cloud <a href='https://cloud.google.com/sdk/docs/install'>documentation</a> for installation instructions.</p>
-          </Grid>
-
-          <Grid className='setup-paper'>
-            <h3><Chip label='2' />  Installing the Kubectl authentication plugin</h3>
-              <p>Run this command in your terminal to get started:</p>
-              <div class='code-snippet'>
-                <pre>{cloudStartCode}</pre>
-                <Tooltip title={isCopied ? 'Copied!' : 'Copy'} >
-                  <IconButton onClick={copyToClipboard} style={{ color: 'white' }}>
-                    <ContentCopy/>
-                  </IconButton>
-                </Tooltip>
-              </div>
-              <p>Learn more about this command <a href='https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke'>here</a>!</p>
-          </Grid>
-
-          <Grid className='setup-paper'>
-            <h3><Chip label='3' /> Setting up your containerized application</h3>
-            <p>Have the link to your containerized application ready</p>
-            <p>We support Dockerhub, Google Container Registry, etc.</p>
-            <p>To containerize your application, you can use something like <a href='https://docs.docker.com/get-docker/'> Docker </a></p>
-          </Grid> 
+        <Grid className='setup-paper'>
+          <h3><Chip label='3' /> Setting up your containerized application</h3>
+          <p>Have the link to your containerized application ready</p>
+          <p>We support Dockerhub, Google Container Registry, etc.</p>
+          <p>To containerize your application, you can use something like <a href='https://docs.docker.com/get-docker/'> Docker </a></p>
+        </Grid> 
 
       </Grid>
 
       <Grid item xs={12} className='setup-footer'>
-        <h3> Ready to deploy?</h3>
-        <RouterLink to='/form'>
-          <Button variant='contained'>
-            Let's go!
-          </Button>
-        </RouterLink>
+        <Stack justifyContent='center' alignItems='center'>
+          <h3> Ready to deploy?</h3>
+          <RouterLink to='/form'>
+            <Button variant='contained'>
+              Let's go!
+            </Button>
+          </RouterLink>
+        </Stack>
       </Grid>
 
     </Grid>
