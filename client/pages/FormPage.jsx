@@ -18,7 +18,7 @@ const FormPage = ({ deploymentEnvironment }) => {
           {deploymentEnvironment === 'cloud' ? <CloudForm /> : <Form />}
         </Grid>
         <Grid item md={4}>
-          <YamlGenerator/>
+          {/* <YamlGenerator/> */}
         </Grid>
       </Grid>
     </Stack>

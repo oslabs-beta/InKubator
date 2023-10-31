@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Button, Stack, Fab, Typography, Checkbox } from '@mui/material';
+import { Box, Grid, Button, Stack, Fab, Typography, Checkbox, CircularProgress } from '@mui/material';
 import { Link, animateScroll as scroll } from 'react-scroll';
+import clustersHeader from '../assets/clusters-header.png'
 import Clusters from './Clusters'
 import Form from './Form';
 
@@ -10,6 +11,7 @@ const CloudForm = () => {
   const [location, setLocation] = useState(null);
   const [status, setStatus] = useState(null);
   const [getCreds, setGetCreds] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchRequest = async (endpoint, method, card) => {
     // If no "method" is passed, it uses this default header
@@ -28,36 +30,54 @@ const CloudForm = () => {
       // .then((data) => console.log('DATA', data))
       .catch((err) => console.error(err))
     return result;
-}
+  }
 
+  // ?
   const handleGetClusters = async (e) => {
     const allClusters = await (fetchRequest('http://localhost:3001/google/getClusters',{method: "POST"}));
     await setClusters(allClusters)
   }
 
+  // ??
   const handleGetCredentials = async (e) => {
     const credsAreTied = await (fetchRequest('http://localhost:3001/google/getCredentials', {method: "POST"}, {"clusterName": clusterName, "location": location}))
     await setGetCreds(credsAreTied)
   }
 
+  // ??
   useEffect(() => {
     handleGetClusters()
   }, [])
 
+  // Set loading to false once the content renders
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, clusters)
+
   return (
     <>
-      <Box id="cluster">
-        {/* <Box> */}
-
-        <Clusters
-          clusters={clusters}
-          clusterName={clusterName}
-          setClusterName={setClusterName}
-          setLocation={setLocation}
-          setStatus={setStatus}
-          handleGetClusters={handleGetClusters}
-        />
-
+    <Grid container id='clusters-main-container' justifyContent="center" alignItems="center" >
+      <Grid item id='clusters-header' xs={12}>
+        <img src={clustersHeader} id='clusters-header-img' />
+      </Grid>
+      <Grid id='clusters-container-B' item xs={12}>
+        {isLoading ? // if loading, render loading circle
+          <Grid className='clusters-container-A'>
+            <CircularProgress/> 
+          </Grid>
+          : // or render clusters
+          <Clusters
+            clusters={clusters}
+            clusterName={clusterName}
+            setClusterName={setClusterName}
+            setLocation={setLocation}
+            setStatus={setStatus}
+            handleGetClusters={handleGetClusters}
+          />}
+      </Grid>
+      <Grid item xs={12}>
         {clusterName ? (
           <Stack justifyContent="center" alignItems="center">
             <Typography variant="h6" component="h6"> 
@@ -68,22 +88,20 @@ const CloudForm = () => {
               Status: {status.toLowerCase()}
             </Typography>
 
-            <Fab 
-              onClick={handleGetCredentials} color="primary" variant="extended"> 
-                Proceed 
-              <Link
-                to="form">
-              </Link>
-            </Fab> 
-
           </Stack>
         ) : null}
-
-        {/* </Box> */}
-      </Box>
-      <Box display="flex" justifyContent="center" alignItems="center">
-        {getCreds ? (<Form/>) : null}
-      </Box>
+        <Fab 
+          onClick={handleGetCredentials} color="primary" variant="extended"> 
+            Proceed 
+          <Link
+            to="form">
+          </Link>
+        </Fab> 
+      </Grid>
+    </Grid>
+    <Box display="flex" justifyContent="center" alignItems="center">
+      {getCreds ? (<Form/>) : null}
+    </Box>
     </>
   )
 }

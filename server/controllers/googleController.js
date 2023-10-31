@@ -96,7 +96,7 @@ googleController.createCluster = (req, res, next) => {
 };
 
 googleController.getClusters = (req, res, next) => {
-    console.log('MADE IT TO GET CLUSTERS')
+    console.log('made it to get clusters')
     exec(`gcloud container clusters list`, (err, stdout, stderr) => {
         if (err) {
             return next({
