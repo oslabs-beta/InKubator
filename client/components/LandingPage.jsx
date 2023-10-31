@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, Button, Paper } from '@mui/material';
-import { Link, animateScroll as scroll, scroller, Element } from 'react-scroll';
+import { Link, animateScroll as scroll} from 'react-scroll';
 import googleCloudLogo from '../assets/google-cloud-logo-full.png'
 import minikubeLogo from '../assets/minikube-logo-full.png';
 
 
-const LandingPage = ({ setDeploymentEnvironment, deploymentEnvironment }) => {
+const LandingPage = ({ handleEnvironmentChange }) => {
 
   return ( 
     <div className='landing'>
@@ -30,7 +30,7 @@ const LandingPage = ({ setDeploymentEnvironment, deploymentEnvironment }) => {
           smooth={true}
           duration={900}
         >
-          <Button class='landing-page-button' onClick={() => {setDeploymentEnvironment('minikube')}}>
+          <Button class='landing-page-button' onClick={() => {handleEnvironmentChange('minikube')}}>
             <img
               src={minikubeLogo}
               alt="minikube-logo"
@@ -48,7 +48,7 @@ const LandingPage = ({ setDeploymentEnvironment, deploymentEnvironment }) => {
             smooth={true}
             duration={900} 
           >
-            <Button class='landing-page-button' onClick={() => setDeploymentEnvironment('cloud')}>
+            <Button class='landing-page-button' onClick={() => handleEnvironmentChange('cloud')}>
               <img 
                 src={googleCloudLogo} 
                 alt="gcloud-logo" 

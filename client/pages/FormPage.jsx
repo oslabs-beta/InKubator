@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDeployment } from '../components/DeploymentContext.jsx'
 import { Box, Breadcrumbs, Stack, Grid, Link, Typography } from "@mui/material";
 import Form from '../components/Form';
 import CloudForm from '../components/CloudForm';
 import YamlGenerator from "../components/YamlGenerator";
 
-const FormPage = ({ deploymentEnvironment }) => {
+const FormPage = () => {
+  const { deploymentEnvironment } = useDeployment();
+
   return (
     <>
     <Stack>
@@ -12,8 +15,7 @@ const FormPage = ({ deploymentEnvironment }) => {
         <Link underline="hover" href="/">Landing</Link>
         <Typography>Form</Typography>
       </Breadcrumbs>
-        DEPLOYMENT ENVIRONMENT: {deploymentEnvironment}
-        {deploymentEnvironment === 'minikube' ? <Form/> : <CloudForm/> }
+      {deploymentEnvironment === 'minikube' ? <Form/> : <CloudForm/>}
     </Stack>
     </>
   );
