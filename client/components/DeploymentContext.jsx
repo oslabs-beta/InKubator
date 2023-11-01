@@ -5,6 +5,7 @@ const DeploymentContext = createContext();
 export function DeploymentProvider({ children }) {
     const [deploymentEnvironment, setDeploymentEnvironment] = useState(localStorage.getItem('deploymentEnvironment') || '');
 
+
     useEffect(() => {
         localStorage.setItem('deploymentEnvironment', deploymentEnvironment);
     }, [deploymentEnvironment])
