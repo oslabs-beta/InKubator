@@ -2,7 +2,7 @@ const { exec, spawn } = require('child_process');
 const yaml = require('js-yaml');
 const fs = require('fs');
 
-const outputToObj = (string) => {
+const clusterOutputToObj = (string) => {
     // Takes string, strips whitespace and line breaks returns an array of only the strings
     const finalArr = [];
     let arr = string.split('\n').join(' ').split(' ');
@@ -76,7 +76,74 @@ const outputToObj = (string) => {
     return finalRes;
 };
 
+const projectsOutputToObj = (string) => {
+    const finalArr = [];
+    let arr = string.split('\n').join(' ').split(' ');
+    arr.forEach(ele => { if (ele !== '') {finalArr.push(ele)}});    
+
+    let endOfRow = finalArr.indexOf("PROJECT_NUMBER");
+    const rowArr = [];
+    for (let i = 0; i <= endOfRow; i++) rowArr.push(finalArr[i]);
+
+    let finalObj = {};
+    let finalRes = [];
+
+    for (let i = endOfRow + 1; i < finalArr.length; i++) {
+        const ele = finalArr[i];
+        const rowHead = rowArr[i % rowArr.length];
+
+        if (finalObj[rowHead]) {
+            finalRes.push(finalObj)
+            finalObj = {};
+        }
+        finalObj[rowHead] = ele;
+    }
+    
+    if (Object.keys(finalObj).length !== 0) {
+        finalRes.push(finalObj)
+    };
+
+    return finalRes;
+};
+
+
 const googleController = {};
+
+googleController.getProjects = (req, res, next) => {
+    console.log('MADE IT TO GET PROJECTS')
+
+    exec(`gcloud projects list`, (err, stdout, stderr) => {
+        projectsOutputToObj(stdout)
+        if (err) {
+            return next({
+                log: 'Couldn\'t get Project List',
+                message: { err: 'Error occurred in googleController.getProjects ' + err },
+            });
+        } else {
+            res.locals.googleGetProjects = projectsOutputToObj(stdout);
+            console.log(res.locals.googleGetProjects)
+        }
+        return next();
+    });
+};
+
+googleController.selectProject = (req, res, next) => {
+    console.log('MADE IT TO SELECT PROJECTS')
+
+    const { projectID } = req.body;
+
+    exec(`gcloud config set project ${projectID}`, (err, stdout, stderr) => {
+        if (err) {
+            return next({
+                log: 'Couldn\'t Select Project',
+                message: { err: 'Error occurred in googleController.selectProject ' + err },
+            });
+        } else {
+            res.locals.googleSelectProject = stdout;
+        }
+        return next();
+    });
+};
 
 googleController.createCluster = (req, res, next) => {
     const { clusterName } = req.body;
@@ -97,15 +164,20 @@ googleController.createCluster = (req, res, next) => {
 
 googleController.getClusters = (req, res, next) => {
     console.log('made it to get clusters')
+
     exec(`gcloud container clusters list`, (err, stdout, stderr) => {
+        // console.log('STDOUT', stdout)
+        // console.log('stderr', stderr)
+        // console.log('STDOUT', err)
+
         if (err) {
             return next({
                 log: 'Couldn\'t get clusters',
                 message: { err: 'Error occurred in googleController.getClusters ' + err },
             });
         } else {
-            const { NAME, LOCATION, STATUS} = outputToObj(stdout);
-            res.locals.getClusters = outputToObj(stdout);
+            const { NAME, LOCATION, STATUS} = clusterOutputToObj(stdout);
+            res.locals.getClusters = clusterOutputToObj(stdout);
         }
         return next();
     });

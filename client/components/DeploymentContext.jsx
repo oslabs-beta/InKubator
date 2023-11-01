@@ -3,7 +3,8 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 const DeploymentContext = createContext();
 
 export function DeploymentProvider({ children }) {
-    const [deploymentEnvironment, setDeploymentEnvironment] = useState(localStorage.getItem('deploymentEnvironment') || 'cloud');
+    const [deploymentEnvironment, setDeploymentEnvironment] = useState(localStorage.getItem('deploymentEnvironment') || '');
+
 
     useEffect(() => {
         localStorage.setItem('deploymentEnvironment', deploymentEnvironment);
