@@ -21,6 +21,7 @@ const Clusters = (props) => {
   const handleShowMore = async (e) => setShowMore(!showMore);
   const handleSelectCluster = async (e) => props.setClusterName(e.target.id);
   const handleSpin = (e) => {
+      props.handleGetClusters();
       setSpin(true);
       setTimeout(() => {setSpin(false)}, 1000);
   };

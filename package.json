@@ -1,11 +1,12 @@
 {
   "name": "k8",
   "version": "1.0.0",
-  "description": "",
+  "description": "inKubator",
   "main": "server/express.js",
   "scripts": {
+    "start": "node server/express.js",
     "dev": "webpack-dev-server --open & nodemon server/express.js",
-    "start": "nodemon server/express.js",
+    "start fake": "webpack-dev-server --open & nodemon server/express.js",
     "build": "webpack"
   },
   "keywords": [],
@@ -25,7 +26,13 @@
     "path": "^0.12.7",
     "react-router-dom": "^6.17.0",
     "react-scroll": "^1.9.0",
-    "react-syntax-highlighter": "^15.5.0"
+    "react-syntax-highlighter": "^15.5.0",
+    "yaml-loader": "^0.8.0",
+    "npm": "^10.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.23.2",
@@ -50,7 +57,6 @@
     "sass": "^1.69.3",
     "style-loader": "^3.3.3",
     "url-loader": "^4.1.1",
-    "web-dev-server": "^3.0.27",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1",

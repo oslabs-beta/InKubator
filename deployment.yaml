@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: yay
+  name: deplname
   labels:
-    app: yayyyyyy
+    app: label
 spec:
   selector:
     matchLabels:
-      app: yayyyyyy
+      app: label
   template:
     metadata:
       labels:
-        app: yayyyyyy
+        app: label
     spec:
       containers:
         - ports:
-            - containerPort: 1001
-          name: yayyyyyy
-          image: tbensalem/getting-started
-  replicas: 5
+            - containerPort: 3000
+          name: label
+          image: margaritabizhan/getting-started
+  replicas: 3
