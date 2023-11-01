@@ -133,7 +133,7 @@ const Form = () => {
           // console.log(yamlObj);
 
           try {
-            const postYaml = await fetch('/api/yaml', {
+            const postYaml = await fetch('api/yaml', {
               method: "POST",
               mode: "cors",
               headers: {"Content-Type": "application/json",},

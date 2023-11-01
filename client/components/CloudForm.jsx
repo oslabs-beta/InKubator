@@ -34,13 +34,13 @@ const CloudForm = () => {
 
   // ?
   const handleGetClusters = async (e) => {
-    const allClusters = await (fetchRequest('/google/getClusters',{method: "POST"}));
+    const allClusters = await (fetchRequest('google/getClusters',{method: "POST"}));
     await setClusters(allClusters)
   }
 
   // ??
   const handleGetCredentials = async (e) => {
-    const credsAreTied = await (fetchRequest('/google/getCredentials', {method: "POST"}, {"clusterName": clusterName, "location": location}))
+    const credsAreTied = await (fetchRequest('google/getCredentials', {method: "POST"}, {"clusterName": clusterName, "location": location}))
     await setGetCreds(credsAreTied)
   }
 
