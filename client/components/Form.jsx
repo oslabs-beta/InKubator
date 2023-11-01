@@ -170,7 +170,7 @@ const Form = () => {
 
   const handleDeploy = async () => {
     try {
-        const deployYaml = await fetch('api/deploy');
+        const deployYaml = await fetch('/api/deploy');
         const resDeploy = await deployYaml.json();
         // console.log(deployYaml.status);
         // console.log(resDeploy);
@@ -196,7 +196,7 @@ const Form = () => {
 
     const handleExpose = async () => { 
       try {
-          const exposeYaml = await fetch('api/tunnelexpose')
+          const exposeYaml = await fetch('/api/expose')
           const resExpose = await exposeYaml.json();
           console.log('EXPOSURE RESULTS', resExpose);
 

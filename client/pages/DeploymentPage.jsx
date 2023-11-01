@@ -56,7 +56,7 @@ const DeploymentPage = () => {
   };
 
   const getStats = async () => {
-    const fetchDeployment = await fetch('status/getDeployment');
+    const fetchDeployment = await fetch('/status/getDeployment');
     const deploymentInfo = await fetchDeployment.json();
     helperDeploymentObject(deploymentInfo);
 
@@ -70,6 +70,17 @@ const DeploymentPage = () => {
   useEffect(() => {
     getStats();
   }, [])
+
+  const handleDelete = async () => {
+    try {
+      const deleteReq = await fetch('/status/deleteDeployment');
+      const deleteRes = await deleteReq.json();
+      console.log('Delete status ', deleteReq.status);
+    
+    } catch(err) {
+      console.log(`ERROR: ${err}`);
+    }
+  }
 
   console.log('DEPLOYMENT STATS: ', deploymentStats);
 
@@ -141,10 +152,10 @@ const DeploymentPage = () => {
             {podsInfoRender}
           </Stack>
         </Paper>
-          
+        <Button id='delete-button' variant='contained' onClick={(e) => {handleDelete(e)}}>Delete Deployment</Button>
       </Grid>
     </>
   )
-}
+};
 
 export default DeploymentPage;
