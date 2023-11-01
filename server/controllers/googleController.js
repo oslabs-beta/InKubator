@@ -166,9 +166,9 @@ googleController.getClusters = (req, res, next) => {
     console.log('made it to get clusters')
 
     exec(`gcloud container clusters list`, (err, stdout, stderr) => {
-        // console.log('STDOUT', stdout)
-        // console.log('stderr', stderr)
-        // console.log('STDOUT', err)
+        console.log('STDOUT', stdout)
+        console.log('stderr', stderr)
+        console.log('STDOUT', err)
 
         if (err) {
             return next({
@@ -176,7 +176,10 @@ googleController.getClusters = (req, res, next) => {
                 message: { err: 'Error occurred in googleController.getClusters ' + err },
             });
         } else {
-            const { NAME, LOCATION, STATUS} = clusterOutputToObj(stdout);
+            if (stdout === null) {
+                res.locals.getClusters = 'No Clusters Found'
+                return next();
+            }
             res.locals.getClusters = clusterOutputToObj(stdout);
         }
         return next();
