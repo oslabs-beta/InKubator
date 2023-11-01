@@ -21,7 +21,7 @@ module.exports = {
     mode: 'development',
     devServer: {
         host: 'localhost',
-        port: 8090,
+        port: 8080,
         static: {
             directory: path.join(__dirname, '/dist'),
             publicPath: '/build/bundle.js'
@@ -29,7 +29,7 @@ module.exports = {
         hot: true,
         proxy: {
             '/api/**': {
-                target: 'http://localhost:3001/',
+                target: 'http://localhost:3000/',
                 secure: false,
               },
         },

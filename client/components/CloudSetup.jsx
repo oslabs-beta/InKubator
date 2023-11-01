@@ -37,13 +37,13 @@ const CloudSetup = () => {
 
   // Handle clicks for getting clusters, and tying credentials to KubeCTL
   const handleGetClusters = async (e) => {
-    const allClusters = await (fetchRequest('http://localhost:3001/google/getClusters', {method: "POST"}));
+    const allClusters = await (fetchRequest('http://localhost:3000/google/getClusters', {method: "POST"}));
     await console.log('allClusters', allClusters)
     await setClusters(allClusters)
   }
 
   const handleGetCredentials = async (e) => {
-  const credsAreTied = await (fetchRequest('http://localhost:3001/google/getCredentials', {method: "POST"}, {"clusterName": clusterName}))
+  const credsAreTied = await (fetchRequest('http://localhost:3000/google/getCredentials', {method: "POST"}, {"clusterName": clusterName}))
   await setGetCreds(credsAreTied)
   }
   // Handle copy to clipboard 
