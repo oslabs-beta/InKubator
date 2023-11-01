@@ -9,7 +9,7 @@ googleRouter.use('/getProjects', googleController.getProjects, (req, res, next) 
 
 googleRouter.use('/selectProject', googleController.selectProject, (req, res, next) => {
     console.log('Made it past select project middleware');
-    return res.status(200).json(`Project ${res.locals.selectProject} was selected!`);
+    return res.status(200).json(`${res.locals.googleSelectProject}, Project was selected!`);
 });
 
 googleRouter.use('/createCluster', googleController.createCluster, (req, res, next) => {
