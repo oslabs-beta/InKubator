@@ -14,23 +14,25 @@ const theme = createTheme({
 
 const Project = (projectInfo) => {
 
-  const {projectID, name, projectNumber} = projectInfo;
+  // const {projectID, name, projectNumber} = projectInfo;
 
   const handleSelectProject = async (e) => {
-    console.log(e.target.id);
+    // console.log(e.target.id);
     // setProject state??
+    console.log('hey this is the selected project')
   }
 
   return (
     <ThemeProvider theme={theme}>
-    <div className='project-cards'>
-      Name{name}
-      <strong>Project ID:</strong> projectID{projectID}
-      <strong>Project Number:</strong> projectNumber{projectNumber}
-      <Button id={projectID} theme='purple' onClick={handleSelectProject}>
+      <div>hey</div>
+    {/* <div className='project-cards'>
+      Name
+      <strong>Project ID:</strong> projectID
+      <strong>Project Number:</strong> projectNumber
+      <Button id='cristina' theme='purple' onClick={handleSelectProject}>
         Select
       </Button>
-    </div>
+    </div> */}
     </ThemeProvider>
   )
 }

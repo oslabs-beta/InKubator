@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Box, Chip, Grid, Button, Stack, Fab, Typography, CircularProgress, Tooltip, Paper } from '@mui/material';
 import { Link, animateScroll as scroll } from 'react-scroll';
 import { InfoOutlined } from "@mui/icons-material";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 import clustersHeader from '../assets/clusters-header.png'
 import Clusters from './Clusters'
 import Form from './Form';
 import Project from "./Project";
 
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     purple: {
@@ -48,7 +48,7 @@ const CloudForm = () => {
 
   // Get projects from Google Cloud, the user will select one
   const handleGetProjects = async (e) => {
-    const allProjects = await (fetchRequest('wait for TARIKS ASS'))
+    const allProjects = await (fetchRequest('/google/getProjects'))
     await setProjects(allProjects)
   }
 
@@ -80,6 +80,11 @@ const CloudForm = () => {
     handleGetClusters()
   }, [])
 
+  // Execute get projects
+  useEffect(() => {
+    handleGetProjects()
+  }, [])
+
   // Set loading to false once the content renders
   useEffect(() => {
     setTimeout(() => {
@@ -95,9 +100,9 @@ const CloudForm = () => {
       <Grid item id='clusters-header' xs={12}>
         <img src={clustersHeader} id='clusters-header-img' />
       </Grid>
-      <Grid container id='projects-main-container'>
+      <Grid id='projects-main-container'>
         <Paper>hey mami</Paper>
-        <div className='project-cards'>
+        {/* <div className='project-cards'>
         <div className='cluster-labels'>
           name
         </div>                                                                   
@@ -106,10 +111,10 @@ const CloudForm = () => {
         <Button color='purple'>
           select
         </Button>
-        </div>
-        {/* <Project
+        </div> */}
+        <Project
           key={1}
-        /> */}
+        />
         {/* for each item in array, render a project */}
         {/* projects.forEach((projectInfo) => {
           <Project
@@ -158,9 +163,9 @@ const CloudForm = () => {
         </Grid>
       </Grid>
     </Grid>
-    <Box display="flex" justifyContent="center" alignItems="center">
+    <Grid className='form-main-container' >
       {getCreds ? (<Form/>) : null}
-    </Box>
+    </Grid>
     </ThemeProvider>
     </>
   )
