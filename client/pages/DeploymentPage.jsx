@@ -21,13 +21,13 @@ const DeploymentPage = () => {
   //Default deployment object
   let deplObjConstruct = {
     deployment: {
-      name: 'name',
-      pods: '0/0',
-      image: 'image',
+      name: '',
+      pods: '',
+      image: '',
     },
     replicas: {
-      name: 'name',
-      pods: '0/0',
+      name: '',
+      pods: '',
     },
     pods: [],
   };
@@ -38,12 +38,20 @@ const DeploymentPage = () => {
     let strToArr = str.split(/(\s+)/).filter((el) => !el.includes(' ') && el !== '');
     //Remove auto-generated fields
     strToArr = strToArr.slice(strToArr.indexOf('\n') + 1);
+    console.log('array is ', strToArr);
 
     //Assuming this function receives only one deployment at a time
-    deplObjConstruct.deployment.name = strToArr[0];
-    deplObjConstruct.deployment.pods = strToArr[1];
-    deplObjConstruct.deployment.image = strToArr[6];
-    deplObjConstruct.replicas.pods = strToArr[1];
+    if (strToArr.length > 2) {
+      deplObjConstruct.deployment.name = strToArr[0];
+      deplObjConstruct.deployment.pods = strToArr[1];
+      deplObjConstruct.deployment.image = strToArr[6];
+      deplObjConstruct.replicas.pods = strToArr[1];
+    } else {
+      deplObjConstruct.deployment.name = null;
+      deplObjConstruct.deployment.pods = null;
+      deplObjConstruct.deployment.image = null;
+      deplObjConstruct.replicas.pods = null;
+    }
   };
 
   //Helper function that converts output string to object for PODS
@@ -51,7 +59,7 @@ const DeploymentPage = () => {
     //Convert to array, remove spaces and empty strings, remove non-applicable fields
     let strToArr = str.split(/(\s+)/).filter((el) => !el.includes(' ') && el !== '');
     strToArr = strToArr.slice(strToArr.indexOf('\n') + 1);
-    
+
     //Get replica name
     let replicaName = strToArr[0].split('-').slice(0, 2).join('-');
     deplObjConstruct.replicas.name = replicaName;
@@ -93,7 +101,8 @@ const DeploymentPage = () => {
     
     } catch(err) {
       console.log(`ERROR: ${err}`);
-    }
+    };
+    getStats();
   }
 
   console.log('DEPLOYMENT STATS: ', deploymentStats);

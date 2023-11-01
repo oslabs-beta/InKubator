@@ -348,6 +348,7 @@ const Form = () => {
         <Button id='yaml-button' variant='outlined' onClick={(e) => {handlePostYaml(e)}}>Generate YAML</Button>
         <Button id='expose-button' variant='outlined' onClick={(e) => {handleExpose(e)}}>Expose</Button>
         <Button id='deploy-button' variant='contained' onClick={(e) => {handleDeploy(e)}}>Deploy</Button>
+        <Button variant='contained'><RouterLink to='/deploymentlist'>See Deployments</RouterLink></Button>
       </div>
 
       {/* <Alert severity="error">This is an error alert — check it out!</Alert>
@@ -355,7 +356,7 @@ const Form = () => {
       <Alert severity="warning">This is a warning alert — check it out!</Alert>
       <Alert severity="info">This is an info alert — check it out!</Alert>
       <Alert severity="success">This is a success alert — check it out!</Alert> */}
-      <Button><RouterLink to='/deploymentlist'>See Deployments</RouterLink></Button>
+      
     </Grid>
     <Grid xs={3}>
       <YamlGenerator id='yaml-preview' formValues={formValues} setFormValues={setFormValues} yamlPreview={yamlPreview} setYamlPreview={setYamlPreview}/>
