@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Box, Grid, Button, Stack, Paper, Typography, Link, Breadcrumbs } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import clusterDetailsHeader from '../assets/cluster-details-header.png'
+
 
 const theme = createTheme({
   palette: {
@@ -110,8 +112,8 @@ const DeploymentPage = () => {
   ? deploymentStats.pods.map((pod, index) => (
       <Grid container spacing={2} key={index}>
 
-        <Grid item xs={12}>
-          <Typography><strong>Pod {index + 1}</strong></Typography>
+        <Grid container justifyContent="center" alignItems="center" item xs={12}>
+          <Typography className='pod-name'><strong>Pod {index + 1}</strong></Typography>
         </Grid>
 
         {Object.keys(pod).map((key, innerIndex) => (
@@ -139,41 +141,47 @@ const DeploymentPage = () => {
       </Breadcrumbs>
 
       <ThemeProvider theme={theme}>
-          <Grid justifyContent="center" alignItems="center">
-            <h3>My Cluster Status</h3>
+          <Grid id='cluster-detail-header'>
+          <img src={clusterDetailsHeader} id='cluster-detail-header-img' />
           </Grid>
 
-          <Grid container>
-            <Grid item xs={8} className='development-container-class'>
-              <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
+          <Grid container id='development-main-container'>
+            <Grid item xs={8}>
+              <Grid className='development-container-class' id='deployment-box' variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
                 <Stack justifyContent="center" alignItems="center">
-                  <Typography variant="h7">DEPLOYMENT</Typography>
-                  {deplInfoRender}
+                    <div className='development-stat-header'>
+                      <Typography className='development-stat-header-label' variant="h7">DEPLOYMENT</Typography>
+                    </div>
+                    {deplInfoRender}
                   </Stack>
-              </Paper>
+              </Grid>
             </Grid>
 
-            <Grid item xs={4} className='development-container-class'>
-              <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
+            <Grid item xs={4}>
+              <Grid className='development-container-class' id='replica-box' variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
                 <Stack justifyContent="center" alignItems="center">
-                  <Typography variant="h7">REPLICAS</Typography>
+                  <div className='development-stat-header'>
+                    <Typography className='development-stat-header-label' variant="h7">REPLICAS</Typography>
+                  </div>
                   {replicaInfoRender}
                 </Stack>
-              </Paper>
+              </Grid>
             </Grid>
             
             <Grid item xs={12} className='development-container-class'>
-              <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
+              <Grid variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
                 <Stack container direction="column" alignItems="center">
-                  <Typography variant="h7">PODS</Typography>
-                  {podsInfoRender}
+                  <div>
+                   {podsInfoRender}
+                  </div>
                 </Stack>
-              </Paper>
+              </Grid>
             </Grid>
-            
           </Grid>
 
+        <Grid container justifyContent='right'>
         <Button id='delete-button' variant='contained' size='large' color='purple' onClick={(e) => {handleDelete(e)}}>Delete Deployment</Button>
+        </Grid>      
       </ThemeProvider>
     </>
   )
