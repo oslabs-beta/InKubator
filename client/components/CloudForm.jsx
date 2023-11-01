@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Button, Stack, Fab, Typography, Checkbox, CircularProgress } from '@mui/material';
+import { Box, Chip, Grid, Button, Stack, Fab, Typography, CircularProgress, Tooltip, Paper } from '@mui/material';
 import { Link, animateScroll as scroll } from 'react-scroll';
+import { InfoOutlined } from "@mui/icons-material";
 import clustersHeader from '../assets/clusters-header.png'
 import Clusters from './Clusters'
 import Form from './Form';
+import Project from "./Project";
+
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+const theme = createTheme({
+  palette: {
+    purple: {
+      main: '#8870E0',
+      light: '#e2e5fa',
+      contrastText: '#fff'
+    },
+  },
+});
 
 const CloudForm = () => {
   const [clusters, setClusters] = useState();
@@ -12,6 +25,7 @@ const CloudForm = () => {
   const [status, setStatus] = useState(null);
   const [getCreds, setGetCreds] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [projects, setProjects] = useState();
 
   const fetchRequest = async (endpoint, method, card) => {
     // If no "method" is passed, it uses this default header
@@ -32,7 +46,13 @@ const CloudForm = () => {
     return result;
   }
 
-  // ?
+  // Get projects from Google Cloud, the user will select one
+  const handleGetProjects = async (e) => {
+    const allProjects = await (fetchRequest('/google/getProjects'))
+    await setProjects(allProjects)
+  }
+
+  // Get clusters from selected Google Cloud project
   const handleGetClusters = async (e) => {
     const allClusters = await (fetchRequest('/google/getClusters',{method: "POST"}));
     await setClusters(allClusters)
@@ -44,64 +64,109 @@ const CloudForm = () => {
     await setGetCreds(credsAreTied)
   }
 
-  // ??
+  // Displays the selected cluster's status
+  const statusChip = (status) => {
+    // If status = running, make chip green
+    // Anything else, make chip red
+    if (status === 'RUNNING') {
+      return <Chip label={status} variant='outlined' color='success' />
+    } else {
+      return <Chip label={status} variant='outlined' color='error' />
+    }
+  }
+
+  // Tying kubectl commands to something
   useEffect(() => {
     handleGetClusters()
+  }, [])
+
+  // Execute get projects
+  useEffect(() => {
+    handleGetProjects()
   }, [])
 
   // Set loading to false once the content renders
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 1000);
   }, clusters)
+
 
   return (
     <>
+    <ThemeProvider theme={theme}>
     <Grid container id='clusters-main-container' justifyContent="center" alignItems="center" >
       <Grid item id='clusters-header' xs={12}>
         <img src={clustersHeader} id='clusters-header-img' />
       </Grid>
-      <Grid id='clusters-container-B' item xs={12}>
-        {isLoading ? // if loading, render loading circle
-          <Grid className='clusters-container-A'>
-            <CircularProgress/> 
-          </Grid>
-          : // or render clusters
-          <Clusters
-            clusters={clusters}
-            clusterName={clusterName}
-            setClusterName={setClusterName}
-            setLocation={setLocation}
-            setStatus={setStatus}
-            handleGetClusters={handleGetClusters}
-          />}
+      <Grid id='projects-main-container'>
+        <Paper>hey mami</Paper>
+        {/* <div className='project-cards'>
+        <div className='cluster-labels'>
+          name
+        </div>                                                                   
+        <Typography><strong>Project ID: </strong> projectidgoeshere</Typography>
+        <Typography><strong>Project #: </strong> projectnumgoeshere</Typography>
+        <Button color='purple'>
+          select
+        </Button>
+        </div> */}
+        <Project
+          key={1}
+        />
+        {/* for each item in array, render a project */}
+        {/* projects.forEach((projectInfo) => {
+          <Project
+            projectInfo={projectInfo}
+            key={projectInfo.projectID}
+          />
+        }) */}
       </Grid>
-      <Grid item xs={12}>
-        {clusterName ? (
-          <Stack justifyContent="center" alignItems="center">
-            <Typography variant="h6" component="h6"> 
-              Current Cluster: {clusterName}
-            </Typography>
+      <Grid id='clusters-container-B' item xs={12}>
+        {isLoading ? // If loading, render loading circle
+        <Grid className='clusters-container-A'>
+          <CircularProgress/> 
+        </Grid>
+        : // Or render clusters
+        <Clusters
+          clusters={clusters}
+          clusterName={clusterName}
+          setClusterName={setClusterName}
+          setLocation={setLocation}
+          setStatus={setStatus}
+          handleGetClusters={handleGetClusters}
+        />}
+      </Grid>
+      <Grid container xs={5} id='selected-cluster-container' direction='row'>
+        <Grid xs={8}>
+          {clusterName ? (
+            <Stack justifyContent="center" alignItems="left" spacing={2}>
+              <Typography variant="h6" component="h6">{clusterName}</Typography>
+              
+              <Typography variant='h6' component='h6'>
+                Status: {statusChip(status)}
+                <Tooltip title='Status must be running to proceed' placement='right'>
+                  <InfoOutlined/>
+                </Tooltip>
+              </Typography>
 
-            <Typography>
-              Status: {status.toLowerCase()}
-            </Typography>
+            </Stack>
+          ) : null}
 
-          </Stack>
-        ) : null}
-        <Fab 
-          onClick={handleGetCredentials} color="primary" variant="extended"> 
-            Proceed 
-          <Link
-            to="form">
-          </Link>
-        </Fab> 
+        </Grid>
+        <Grid id='setup-form-continue-btn-container' xs={4}>
+          <Button onClick={handleGetCredentials} color="purple" variant="contained" size='large'> 
+              Continue 
+            <Link to="form"></Link>
+          </Button> 
+        </Grid>
       </Grid>
     </Grid>
-    <Box display="flex" justifyContent="center" alignItems="center">
+    <Grid className='form-main-container' >
       {getCreds ? (<Form/>) : null}
-    </Box>
+    </Grid>
+    </ThemeProvider>
     </>
   )
 }

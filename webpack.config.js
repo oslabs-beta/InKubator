@@ -40,6 +40,14 @@ module.exports = {
                 target: 'http://localhost:3001/',
                 secure: false,
               },
+              '/status/**': {
+                target: 'http://localhost:3000/',
+                secure: false,
+              },
+              '/google/**': {
+                target: 'http://localhost:3000/',
+                secure: false,
+              },
         },
         historyApiFallback: true,
     },
