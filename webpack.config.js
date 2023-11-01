@@ -6,7 +6,7 @@ module.exports = {
         './client/index.js'
      ], //this is where webpack looks for the root client/index.js
     output: {
-        path: path.resolve(__dirname, 'dist'), // dist is common practice
+        path: path.resolve(__dirname, 'build'), // dist is common practice
         publicPath: '/', // this means it starts at the simplest version of the url
         filename: 'bundle.js' // what the bundle file will be called
     },
@@ -21,9 +21,9 @@ module.exports = {
     mode: 'development',
     devServer: {
         host: 'localhost',
-        port: 8080,
+        port: process.env.FRONTEND_PORT || 8080,
         static: {
-            directory: path.join(__dirname, '/dist'),
+            directory: path.join(__dirname, '/build'),
             publicPath: '/build/bundle.js'
         },
         hot: true,

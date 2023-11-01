@@ -56,11 +56,11 @@ const DeploymentPage = () => {
   };
 
   const getStats = async () => {
-    const fetchDeployment = await fetch('http://localhost:3000/status/getDeployment');
+    const fetchDeployment = await fetch('status/getDeployment');
     const deploymentInfo = await fetchDeployment.json();
     helperDeploymentObject(deploymentInfo);
 
-    const fetchPods = await fetch('http://localhost:3000/status/getPods');
+    const fetchPods = await fetch('/status/getPods');
     const podsInfo = await fetchPods.json();
     helperPodsObject(podsInfo);
 
