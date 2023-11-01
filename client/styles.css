@@ -3,16 +3,19 @@
 /* GLOBAL FORMATTING */
 
 body {
-    /* display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; */
     font-family: 'Roboto', sans-serif;
     background-color: #e7f0fc;
-    color: #252929;
+    color: #30292F;
 }
 
+
+
 /* FORM */
+.form-main-container {
+    justify-content: center;
+    /* align-items: center; */
+}
+
 .formPage{
     align-items: center;
     justify-content: center;
@@ -24,6 +27,54 @@ body {
     flex-direction: column;
 }
 
+/* CLUSTERS */
+#clusters-main-container {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+    width: 95vw;
+    /* background-color: #64B5F6; */
+}
+
+#selected-cluster-container {
+    background-color: #d3d7f1;
+    border-radius: 30px;
+    margin: 1%;
+    padding: 2%;
+}
+
+.cluster-paper {
+    margin: 1%;
+    padding: 1%;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
+    background-color: white;
+}
+
+.cluster-labels-container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.cluster-labels {
+    text-align: center;
+    font-weight: 600;
+    font-size: large;
+    padding: 3%;
+    margin-top: 5%;
+    border-radius: 30px;
+    width: 85%;    
+    box-sizing: border-box;                           ;
+    background-color: #d3d7f1;
+}
+
+.cluster-content {
+    font-weight: 400;
+}
+
 #deployment-button {
     width: 100px;
     max-width: 50%;
@@ -31,7 +82,92 @@ body {
     align-items: right;
 }
 
-#test-form {
+
+#clusters-header {
+    width: 95vw;
+    height: 30vh;
+    margin: 1%;
+    overflow: hidden;
+    border-radius: 30px;
+}
+
+#clusters-header-img {
+    height: 100%;
+    width: 100%;
+    border-radius: 30px;
+    object-fit: cover;
+}
+
+.clusters-container-A {
+    background-color: #e2e5fa;
+    border-radius: 25px;
+    /* margin: 1%; */
+    /* margin: 50px; */
+    padding: 1%;
+    box-sizing: border-box; 
+    /* background-color: purple; */
+}
+
+#clusters-container-B {
+    padding: 1%;
+    box-sizing: border-box;
+}
+
+#user-clusters {
+    display: flex;
+    flex-direction: row;
+}
+
+#cluster-main-buttons {
+    padding: 1%;
+}
+
+.cluster-select-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* GOOGLE CLOUD PROJECTS */
+#projects-main-container {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+    width: 95vw;
+    background-color: #e2e5fa;
+    border-radius: 25px;
+    box-sizing: border-box; 
+    background-color: yellow;
+}
+
+.project-cards {
+    display: flex;
+    flex-direction: column;
+    margin: 1%;
+    padding: 1%;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
+    background-color: white;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spin {
+animation: spin 1s linear infinite;
+}
+
+
+
+#form {
     /* CSS GRID */
     display: grid;
     grid-template-columns: 0.5fr 1.5fr; 
@@ -46,7 +182,7 @@ body {
     margin-top: 20px;
     min-width: 500px;
     max-width: 700px;
-    border-radius: 5px;
+    border-radius: 30px;
     /* PRETTY COLOR THINGS */
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -54,10 +190,11 @@ body {
 
 .form-header { 
     grid-area: form-header; 
-    margin-top: 20px;
-    margin-bottom: 10px;
-    height: 30px;
-    padding: 10px;
+    height: auto;
+    padding: 1%;
+    margin: 1%;
+    font-weight: 600;
+    font-size: xx-large;
     justify-self: center;
 }
 
@@ -108,6 +245,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    justify-self: center;
+    align-self: center;
 }
 
 .landing {
@@ -119,11 +259,7 @@ body {
     margin: 10px;
     height: 92vh;
     width: 95vw;
-    /* background-color: #E57373; */
-    /* background-image: url(https://images.unsplash.com/photo-1618172193763-c511deb635ca?auto=format&fit=crop&q=80&w=2864&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); */
-    /* background-image: url(https://images.unsplash.com/photo-1620121692029-d088224ddc74?auto=format&fit=crop&q=80&w=2832&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); */
     background-image: url(https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&q=80&w=2874&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
-    /* background-image: url('./assets/milad-fakurian-background.jpg'); */
     background-size: cover;
     border-radius: 30px;
 }
@@ -181,17 +317,28 @@ body {
 }
 
 /* SETUP PAGE */
+#setup-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+}
+
 #cloud-setup-instructions {
-    height: 92vh;
     width: 95vw;
-    margin-top: 50px;
+    margin: 2%;
+    padding: 1%;
 }
 
 #minikube-setup-instructions {
-    height: 92vh;
     width: 95vw;
-    margin-top: 50px;
-    box-sizing: border-box;
+    margin: 2%;
+    padding: 1%;
+}
+
+.setup-img-container {
+    padding: 2%;
 }
 
 .setup-img {
@@ -207,6 +354,10 @@ body {
     justify-content: center;
 }
 
+.setup-requirements {
+    padding: 2%;
+}
+
 .setup-paper {
     background-color: rgb(253, 249, 249);
     border-radius: 30px;
@@ -215,8 +366,7 @@ body {
 }
 
 .setup-content {
-    margin: 30px;
-    padding: 30px;
+    padding: 1%;
 }
 
 .setup-footer {
@@ -224,6 +374,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: #64B5F6;
 }
 
 .code-snippet {
@@ -240,6 +391,17 @@ body {
     margin-right: 10px;
     width: auto;
     justify-content: space-between;
+}
+
+#setup-form-continue-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#ready-to-deploy {
+    font-weight: 700;
+    font-size: xx-large;
 }
 
 /* FORMATTING FOR NAVIGATION */
@@ -270,62 +432,4 @@ body {
 .section.active {
     transform: translateY(0);
   }
-
-/* GCLOUD CLUSTERS PAGE */
-#clusters-main-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1%;
-    width: 95vw;
-    /* background-color: #64B5F6; */
-}
-
-#clusters-header {
-    width: 95vw;
-    height: 30vh;
-    margin: 1%;
-    overflow: hidden;
-    border-radius: 30px;
-}
-
-#clusters-header-img {
-    height: 100%;
-    width: 100%;
-    border-radius: 30px;
-    object-fit: cover;
-}
-
-.clusters-container-A {
-    background-color: #ccdaeb;
-    border-radius: 25px;
-    margin: 1%;
-    padding: 1%;
-}
-
-#clusters-container-B {
-    /* background-color: red; */
-}
-
-#user-clusters {
-    display: flex;
-    flex-direction: row;
-}
-
-#cluster-main-buttons {
-    padding: 1%;
-}
-
-@keyframes spin {
-from {
-    transform: rotate(0deg);
-}
-to {
-    transform: rotate(360deg);
-}
-}
-
-.spin {
-animation: spin 1s linear infinite;
-}
 

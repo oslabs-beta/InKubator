@@ -11,7 +11,7 @@ const LandingPage = ({ handleEnvironmentChange }) => {
     <div className='landing'>
 
       <Box id='landing-header-container'>
-        <p id='landing-header-title'>Inkubator</p>
+        <p id='landing-header-title'>InKubator</p>
         <p id='landing-header-text'>Deployment made simple.</p>
       </Box>
 

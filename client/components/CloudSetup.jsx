@@ -2,11 +2,24 @@ import React, { useEffect, useState } from "react";
 import { Button, Chip, Grid, IconButton, Tooltip, Stack } from '@mui/material';
 import { ContentCopy, KeyboardArrowUp } from '@mui/icons-material';
 import { Element, Link, animateScroll as scroll } from 'react-scroll';
+import { Link as RouterLink } from 'react-router-dom';
+import googleCloudFloating from '../assets/google-cloud-floating.png'
 import Clusters from './Clusters'
 import Form from './Form';
-import googleCloudFloating from '../assets/google-cloud-floating.png'
 
-import { Link as RouterLink } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+const theme = createTheme({
+  palette: {
+    purple: {
+      main: '#8870E0',
+      light: '#e2e5fa',
+      contrastText: '#fff'
+    },
+  },
+  // shape: {
+  //   borderRadius: 30,
+  // }
+});
 
 const CloudSetup = () => {
   const [clusters, setClusters] = useState();
@@ -59,6 +72,7 @@ const CloudSetup = () => {
   };
 
   return (
+    <ThemeProvider theme={theme}>
     <Grid container className='cloud' id='cloud-setup-instructions'>
       {/* top of container */}
       <Grid item xs={12} className='setup-header'>
@@ -75,14 +89,14 @@ const CloudSetup = () => {
         </Link>
       </Grid>
 
-      <Grid item xs={5}>
+      <Grid item className='setup-img-container' xs={5}>
         <img src={googleCloudFloating} className='setup-img'/>
       </Grid>
 
       <Grid item xs={7} className='setup-content'>
-        <h1>Deployments with Google Cloud</h1>
         
-        <div class='setup-requirements'>
+        <div className='setup-requirements'>
+        <h1>Deployments with Google Cloud</h1>
           <h3>Before getting started, you'll need:</h3>
             <ol>
               <li>Google Cloud CLI installed on your computer</li>
@@ -121,9 +135,9 @@ const CloudSetup = () => {
 
       <Grid item xs={12} className='setup-footer'>
         <Stack justifyContent='center' alignItems='center'>
-          <h3> Ready to deploy?</h3>
+          <p id='ready-to-deploy'> Ready to deploy?</p>
           <RouterLink to='/form'>
-            <Button variant='contained'>
+            <Button variant='contained' color='purple' size='large'>
               Let's go!
             </Button>
           </RouterLink>
@@ -131,6 +145,7 @@ const CloudSetup = () => {
       </Grid>
 
     </Grid>
+    </ThemeProvider>
   );
 };
 
