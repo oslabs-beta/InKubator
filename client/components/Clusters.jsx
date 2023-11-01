@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Box, Chip, Grid, Button, Paper, Typography, Fab, Stack, Divider, Checkbox, FormControlLabel } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    purple: {
+      main: '#8870E0',
+      light: '#e2e5fa',
+      contrastText: '#fff'
+    },
+  },
+});
 
 const Clusters = (props) => {
   // All declared states and variables
@@ -11,14 +22,13 @@ const Clusters = (props) => {
   const handleSelectCluster = async (e) => props.setClusterName(e.target.id);
   const handleSpin = (e) => {
       setSpin(true);
-
       setTimeout(() => {setSpin(false)}, 1000);
   };
 
   // Buttons
-  const showMoreButton = <Button variant='contained' size='large' onClick={handleShowMore}> More info </Button>;
-  const showLessButton = <Button variant='contained' size='large' onClick={handleShowMore}> Less info </Button>;
-  const refreshButton = <Fab color="primary" onClick={handleSpin} className={spin ? "spin" : ""}> <RefreshIcon/> </Fab>;
+  const showMoreButton = <Button variant='contained' size='large' color='purple' onClick={handleShowMore}> More info </Button>;
+  const showLessButton = <Button variant='contained' size='large' color='purple' onClick={handleShowMore}> Less info </Button>;
+  const refreshButton = <Fab color="purple" onClick={handleSpin} className={spin ? "spin" : ""}> <RefreshIcon/> </Fab>;
 
   // If clusters are passed down via props, iterate over clusters, create a result array for all info, and another for partial info
   if (props.clusters) {
@@ -39,15 +49,16 @@ const Clusters = (props) => {
         if (keys === 'NAME') {
           partialArr.push(<div className='cluster-labels-container'>{formattedClusterName}</div>)
           fullArr.push(<div className='cluster-labels-container'>{formattedClusterName}</div>)
-          button =  <Fab 
-                      color="#8870E0" 
-                      variant="extended"
-                      onClick={handleSelectCluster}
-                      key={cluster[keys]} 
-                      id={cluster[keys]}
-                    >
+          button =  <div className='cluster-select-buttons'>
+                      <Button 
+                        color="purple" 
+                        onClick={handleSelectCluster}
+                        key={cluster[keys]} 
+                        id={cluster[keys]}
+                      >
                       Select 
-                    </Fab>
+                      </Button>
+                    </div>
         }
         else if (keys === 'LOCATION') {
             props.setLocation(cluster[keys])
@@ -100,6 +111,7 @@ const Clusters = (props) => {
   }
 
   return (
+    <ThemeProvider theme={theme}>
     <Grid container className='clusters-container-A' justifyContent="center" alignItems="center">
       
       <Grid item id='user-clusters' direction='row' justifyContent='left' xs={10}>
@@ -114,6 +126,7 @@ const Clusters = (props) => {
       </Grid>
       
     </Grid>
+    </ThemeProvider>
   )
 }
 

@@ -3,14 +3,12 @@
 /* GLOBAL FORMATTING */
 
 body {
-    /* display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; */
     font-family: 'Roboto', sans-serif;
     background-color: #e7f0fc;
     color: #30292F;
 }
+
+
 
 /* FORM */
 .formPage{
@@ -96,7 +94,7 @@ body {
 }
 
 .clusters-container-A {
-    background-color: #dfe2ef;
+    background-color: #e2e5fa;
     border-radius: 25px;
     /* margin: 1%; */
     /* margin: 50px; */
@@ -106,7 +104,6 @@ body {
 }
 
 #clusters-container-B {
-    /* background-color: red; */
     padding: 1%;
     box-sizing: border-box;
 }
@@ -120,6 +117,35 @@ body {
     padding: 1%;
 }
 
+.cluster-select-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* GOOGLE CLOUD PROJECTS */
+#projects-main-container {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+    width: 95vw;
+    background-color: #e2e5fa;
+    border-radius: 25px;
+    box-sizing: border-box; 
+    background-color: yellow;
+}
+
+.project-cards {
+    display: flex;
+    flex-direction: column;
+    margin: 1%;
+    padding: 1%;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
+    background-color: white;
+}
 
 @keyframes spin {
     from {
@@ -213,6 +239,9 @@ animation: spin 1s linear infinite;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    justify-self: center;
+    align-self: center;
 }
 
 .landing {
@@ -282,17 +311,28 @@ animation: spin 1s linear infinite;
 }
 
 /* SETUP PAGE */
+#setup-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+}
+
 #cloud-setup-instructions {
-    height: 92vh;
     width: 95vw;
-    margin-top: 50px;
+    margin: 2%;
+    padding: 1%;
 }
 
 #minikube-setup-instructions {
-    height: 92vh;
     width: 95vw;
-    margin-top: 50px;
-    box-sizing: border-box;
+    margin: 2%;
+    padding: 1%;
+}
+
+.setup-img-container {
+    padding: 2%;
 }
 
 .setup-img {
@@ -308,6 +348,10 @@ animation: spin 1s linear infinite;
     justify-content: center;
 }
 
+.setup-requirements {
+    padding: 2%;
+}
+
 .setup-paper {
     background-color: rgb(253, 249, 249);
     border-radius: 30px;
@@ -316,8 +360,7 @@ animation: spin 1s linear infinite;
 }
 
 .setup-content {
-    margin: 30px;
-    padding: 30px;
+    padding: 1%;
 }
 
 .setup-footer {
@@ -325,6 +368,7 @@ animation: spin 1s linear infinite;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: #64B5F6;
 }
 
 .code-snippet {
@@ -341,6 +385,17 @@ animation: spin 1s linear infinite;
     margin-right: 10px;
     width: auto;
     justify-content: space-between;
+}
+
+#setup-form-continue-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#ready-to-deploy {
+    font-weight: 700;
+    font-size: xx-large;
 }
 
 /* FORMATTING FOR NAVIGATION */

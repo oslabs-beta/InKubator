@@ -10,10 +10,16 @@ import Form from './Form';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
-    purple: '#8870E0'
-  }
-})
-
+    purple: {
+      main: '#8870E0',
+      light: '#e2e5fa',
+      contrastText: '#fff'
+    },
+  },
+  // shape: {
+  //   borderRadius: 30,
+  // }
+});
 
 const CloudSetup = () => {
   const [clusters, setClusters] = useState();
@@ -83,14 +89,14 @@ const CloudSetup = () => {
         </Link>
       </Grid>
 
-      <Grid item xs={5}>
+      <Grid item className='setup-img-container' xs={5}>
         <img src={googleCloudFloating} className='setup-img'/>
       </Grid>
 
       <Grid item xs={7} className='setup-content'>
-        <h1>Deployments with Google Cloud</h1>
         
-        <div class='setup-requirements'>
+        <div className='setup-requirements'>
+        <h1>Deployments with Google Cloud</h1>
           <h3>Before getting started, you'll need:</h3>
             <ol>
               <li>Google Cloud CLI installed on your computer</li>
@@ -129,9 +135,9 @@ const CloudSetup = () => {
 
       <Grid item xs={12} className='setup-footer'>
         <Stack justifyContent='center' alignItems='center'>
-          <h3> Ready to deploy?</h3>
+          <p id='ready-to-deploy'> Ready to deploy?</p>
           <RouterLink to='/form'>
-            <Button variant='contained'>
+            <Button variant='contained' color='purple' size='large'>
               Let's go!
             </Button>
           </RouterLink>
