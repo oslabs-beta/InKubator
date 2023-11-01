@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: to-do-app
+  name: deplname
   labels:
-    app: app
+    app: label
 spec:
   selector:
     matchLabels:
-      app: app
+      app: label
   template:
     metadata:
       labels:
-        app: app
+        app: label
     spec:
       containers:
         - ports:
             - containerPort: 3000
-          name: app
+          name: label
           image: margaritabizhan/getting-started
   replicas: 3
