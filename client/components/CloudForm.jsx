@@ -57,7 +57,11 @@ const CloudForm = () => {
   // Get clusters from selected Google Cloud project
   const handleGetClusters = async (e) => {
     const allClusters = await (fetchRequest('google/getClusters',{method: "POST"}));
-    await setClusters(allClusters)
+    if (typeof allClusters === 'string') {
+      return allClusters
+    } else {
+      await setClusters(allClusters)
+    }
   }
 
   // ??
