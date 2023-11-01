@@ -98,6 +98,7 @@ body {
     object-fit: cover;
 }
 
+
 .clusters-container-A {
     background-color: #e2e5fa;
     border-radius: 25px;
@@ -150,6 +151,72 @@ body {
     border-radius: 30px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
     background-color: white;
+}
+
+/*DEVELOPMENT STATS */
+
+#development-main-container {
+  background-color: #e2e5fa;
+  border-radius: 30px;
+  padding: 1%;
+  margin: 1%;
+  box-sizing: border-box;
+}
+
+.development-container-class {
+  background-color: white;
+  border-radius: 25px;
+  padding: 1%;
+  box-sizing: border-box; 
+}
+
+#deployment-box, #replica-box {
+  height: 20vh
+}
+
+.development-stat-header {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.development-stat-header-label {
+  text-align: center;
+  font-weight: 600;
+  font-size: large;
+  padding: 6%;
+  margin-top: 10%;
+  border-radius: 30px;
+  width: 200%;    
+  box-sizing: border-box;                           ;
+  background-color: #d3d7f1;
+}
+
+.pod-name {
+  text-align: center;
+  font-weight: 600;
+  font-size: large;
+  padding: 1%;
+  margin-top: 10%;
+  border-radius: 30px;
+  width: 200%;    
+  box-sizing: border-box;                           ;
+  background-color: #e2e5fa;
+}
+
+#cluster-detail-header {
+  width: 99vw;
+  height: 30vh;
+  margin: 1%;
+  overflow: hidden;
+  border-radius: 30px;
+}
+
+#cluster-detail-header-img {
+  height: 100%;
+  width: 100%;
+  border-radius: 30px;
+  object-fit: cover;
 }
 
 @keyframes spin {
