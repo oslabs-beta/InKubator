@@ -51,7 +51,13 @@ const Form = () => {
   const [buttonFeedback, setButtonFeedback] = useState({
     feedbackMessage: "",
     feedbackStatus: "not pressed"
-  })
+  });
+
+  const [yamlPreview, setYamlPreview] = useState({
+    portNumber: {value: ''},
+    replicas: {value: ''},
+    dockerImage: {value: ''},
+  });
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -62,7 +68,12 @@ const Form = () => {
       }
     })
 
-    console.log(formValues);
+    setYamlPreview({
+      ...yamlPreview,
+      [name]:{
+        ...yamlPreview[name], value
+      }
+    })
   };
 
   // put the state inside a use effect
@@ -208,7 +219,8 @@ const Form = () => {
   };
 
   return (
-    <Box id='test-form' className='form'>
+    <Grid container spacing={2}>
+    <Grid xs={8} id='test-form' className='form'>
 
     {/* HEADER */}
     <div className='form-header'>
@@ -330,7 +342,7 @@ const Form = () => {
           }}>
             {buttonFeedback.feedbackMessage}</p>
         </div>
-  
+
       {/* FOOTER */}
       <div className='form-footer'>
         <Button id='yaml-button' variant='outlined' onClick={(e) => {handlePostYaml(e)}}>Generate YAML</Button>
@@ -343,9 +355,12 @@ const Form = () => {
       <Alert severity="warning">This is a warning alert — check it out!</Alert>
       <Alert severity="info">This is an info alert — check it out!</Alert>
       <Alert severity="success">This is a success alert — check it out!</Alert> */}
-
       <Button><RouterLink to='/deploymentlist'>See Deployments</RouterLink></Button>
-    </Box>
+    </Grid>
+    <Grid xs={3}>
+      <YamlGenerator id='yaml-preview' formValues={formValues} setFormValues={setFormValues} yamlPreview={yamlPreview} setYamlPreview={setYamlPreview}/>
+    </Grid>
+  </Grid>
   )
 }
 

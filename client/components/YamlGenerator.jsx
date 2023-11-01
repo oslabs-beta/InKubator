@@ -1,39 +1,41 @@
 import React, { useState } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { anOldHope } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 
-const YamlGenerator = () => {
+const YamlGenerator = ({ formValues, setFormValues, yamlPreview, setYamlPreview }) => {
+  console.log('Values are ', formValues.deploymentName.value);
 
-  // set state for original yaml file
-  // js to yaml
 
-  const codeString = `apiVersion: apps/v1
+
+
+  const codeString = `
+  apiVersion: apps/v1
   kind: Deployment
   metadata:
-    name: 
+    name: ${formValues.deploymentName.value}
     labels:
-      app: 
+      app: ${formValues.labelNames.value}
   spec:
     selector:
       matchLabels:
-        app: 
+        app: ${formValues.labelNames.value}
     template:
       metadata:
         labels:
-          app: 
+          app: ${formValues.labelNames.value}
       spec:
         containers:
           - ports:
-              - containerPort: 3000
+              - containerPort: ${yamlPreview.portNumber.value}
             name: 
-            image: 
-    replicas: 3
+            image: ${yamlPreview.dockerImage.value}
+    replicas: ${yamlPreview.replicas.value}
   `;
 
   return (
-    <SyntaxHighlighter id='the-code-block' language="javascript" style={dracula}>
+    <SyntaxHighlighter id='the-code-block' language="yaml" style={anOldHope}>
       {codeString}
     </SyntaxHighlighter>
   );
