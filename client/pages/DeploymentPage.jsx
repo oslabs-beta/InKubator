@@ -1,5 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Box, Grid, Button, Stack, Paper, Typography, Link, Breadcrumbs } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    purple: {
+      main: '#8870E0',
+      light: '#e2e5fa',
+      contrastText: '#fff'
+    },
+  },
+});
+
 
 const DeploymentPage = () => {
   const [deploymentStats, setDeploymentStats] = useState({});
@@ -86,12 +98,12 @@ const DeploymentPage = () => {
 
   let deplInfoRender = [];
   for (let keyDepl in deploymentStats.deployment) {
-    deplInfoRender.push(<Typography variant="body1" xs={10} m={1} key={keyDepl}>{keyDepl.toUpperCase()}: {deploymentStats.deployment[keyDepl]}</Typography>);
+    deplInfoRender.push(<Typography xs={10} m={1} key={keyDepl}><strong>{keyDepl.toUpperCase()}: </strong>{deploymentStats.deployment[keyDepl]}</Typography>);
   };
 
   let replicaInfoRender = [];
   for (let keyRepl in deploymentStats.replicas){
-    replicaInfoRender.push(<Typography variant="body1" xs={10} m={1} key={keyRepl}>{keyRepl.toUpperCase()}: {deploymentStats.deployment[keyRepl]}</Typography>);
+    replicaInfoRender.push(<Typography xs={10} m={1} key={keyRepl}><strong>{keyRepl.toUpperCase()}: </strong>{deploymentStats.deployment[keyRepl]}</Typography>);
   };
 
   let podsInfoRender = deploymentStats.pods && Array.isArray(deploymentStats.pods)
@@ -99,13 +111,13 @@ const DeploymentPage = () => {
       <Grid container spacing={2} key={index}>
 
         <Grid item xs={12}>
-          <Typography variant="h7">Pod {index + 1}</Typography>
+          <Typography><strong>Pod {index + 1}</strong></Typography>
         </Grid>
 
         {Object.keys(pod).map((key, innerIndex) => (
           <Grid item xs={3} key={innerIndex}>
-            <Typography variant="body1">
-              {key.toUpperCase()}: {pod[key]}
+            <Typography><strong>
+              {key.toUpperCase()}: </strong>{pod[key]}
             </Typography>
         </Grid>
         ))}
@@ -126,34 +138,43 @@ const DeploymentPage = () => {
         <Typography> Deployment Page </Typography>
       </Breadcrumbs>
 
-      <Box display="flex" justifyContent="center" alignItems="center">
-        <h3>Cluster Status</h3>
-      </Box>
+      <ThemeProvider theme={theme}>
+          <Grid justifyContent="center" alignItems="center">
+            <h3>My Cluster Status</h3>
+          </Grid>
 
-      <Grid container display="flex" justifyContent="center" alignItems="center">
+          <Grid container>
+            <Grid item xs={8} className='development-container-class'>
+              <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
+                <Stack justifyContent="center" alignItems="center">
+                  <Typography variant="h7">DEPLOYMENT</Typography>
+                  {deplInfoRender}
+                  </Stack>
+              </Paper>
+            </Grid>
 
-        <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
-          <Stack justifyContent="center" alignItems="center">
-            <Typography variant="h7">DEPLOYMENT</Typography>
-            {deplInfoRender}
-            </Stack>
-        </Paper>
+            <Grid item xs={4} className='development-container-class'>
+              <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
+                <Stack justifyContent="center" alignItems="center">
+                  <Typography variant="h7">REPLICAS</Typography>
+                  {replicaInfoRender}
+                </Stack>
+              </Paper>
+            </Grid>
+            
+            <Grid item xs={12} className='development-container-class'>
+              <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
+                <Stack container direction="column" alignItems="center">
+                  <Typography variant="h7">PODS</Typography>
+                  {podsInfoRender}
+                </Stack>
+              </Paper>
+            </Grid>
+            
+          </Grid>
 
-        <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
-          <Stack justifyContent="center" alignItems="center">
-            <Typography variant="h7">REPLICAS</Typography>
-            {replicaInfoRender}
-            </Stack>
-        </Paper>
-
-        <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
-          <Stack container direction="column" alignItems="center">
-            <Typography variant="h7">PODS</Typography>
-            {podsInfoRender}
-          </Stack>
-        </Paper>
-        <Button id='delete-button' variant='contained' onClick={(e) => {handleDelete(e)}}>Delete Deployment</Button>
-      </Grid>
+        <Button id='delete-button' variant='contained' size='large' color='purple' onClick={(e) => {handleDelete(e)}}>Delete Deployment</Button>
+      </ThemeProvider>
     </>
   )
 };
