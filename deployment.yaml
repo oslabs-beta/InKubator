@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hihihi
+  labels:
+    app: hehehehe
+spec:
+  selector:
+    matchLabels:
+      app: hehehehe
+  template:
+    metadata:
+      labels:
+        app: hehehehe
+    spec:
+      containers:
+        - ports:
+            - containerPort: 8080
+          name: hehehehe
+          image: registry.k8s.io/e2e-test-images/agnhost:2.39
+  replicas: 1

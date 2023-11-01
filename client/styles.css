@@ -1,0 +1,435 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* GLOBAL FORMATTING */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #e7f0fc;
+    color: #30292F;
+}
+
+
+
+/* FORM */
+.form-main-container {
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.formPage{
+    align-items: center;
+    justify-content: center;
+}
+
+.form-questions {
+    display: flex;
+    /* padding: 40px; */
+    flex-direction: column;
+}
+
+/* CLUSTERS */
+#clusters-main-container {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+    width: 95vw;
+    /* background-color: #64B5F6; */
+}
+
+#selected-cluster-container {
+    background-color: #d3d7f1;
+    border-radius: 30px;
+    margin: 1%;
+    padding: 2%;
+}
+
+.cluster-paper {
+    margin: 1%;
+    padding: 1%;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
+    background-color: white;
+}
+
+.cluster-labels-container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.cluster-labels {
+    text-align: center;
+    font-weight: 600;
+    font-size: large;
+    padding: 3%;
+    margin-top: 5%;
+    border-radius: 30px;
+    width: 85%;    
+    box-sizing: border-box;                           ;
+    background-color: #d3d7f1;
+}
+
+.cluster-content {
+    font-weight: 400;
+}
+
+#deployment-button {
+    width: 100px;
+    max-width: 50%;
+    justify-content: right;
+    align-items: right;
+}
+
+
+#clusters-header {
+    width: 95vw;
+    height: 30vh;
+    margin: 1%;
+    overflow: hidden;
+    border-radius: 30px;
+}
+
+#clusters-header-img {
+    height: 100%;
+    width: 100%;
+    border-radius: 30px;
+    object-fit: cover;
+}
+
+.clusters-container-A {
+    background-color: #e2e5fa;
+    border-radius: 25px;
+    /* margin: 1%; */
+    /* margin: 50px; */
+    padding: 1%;
+    box-sizing: border-box; 
+    /* background-color: purple; */
+}
+
+#clusters-container-B {
+    padding: 1%;
+    box-sizing: border-box;
+}
+
+#user-clusters {
+    display: flex;
+    flex-direction: row;
+}
+
+#cluster-main-buttons {
+    padding: 1%;
+}
+
+.cluster-select-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* GOOGLE CLOUD PROJECTS */
+#projects-main-container {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+    width: 95vw;
+    background-color: #e2e5fa;
+    border-radius: 25px;
+    box-sizing: border-box; 
+    background-color: yellow;
+}
+
+.project-cards {
+    display: flex;
+    flex-direction: column;
+    margin: 1%;
+    padding: 1%;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
+    background-color: white;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spin {
+animation: spin 1s linear infinite;
+}
+
+
+
+#form {
+    /* CSS GRID */
+    display: grid;
+    grid-template-columns: 0.5fr 1.5fr; 
+    grid-template-rows: 0.1fr 0.8fr 0.8fr 0.1fr; 
+    grid-template-areas: 
+        "form-header form-header ."
+        "form-div1 form-div2 ."
+        "form-div3 form-div4 ."
+        "form-footer form-footer .";
+    /* LAYOUT */
+    padding: 20px;
+    margin-top: 20px;
+    min-width: 500px;
+    max-width: 700px;
+    border-radius: 30px;
+    /* PRETTY COLOR THINGS */
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.form-header { 
+    grid-area: form-header; 
+    height: auto;
+    padding: 1%;
+    margin: 1%;
+    font-weight: 600;
+    font-size: xx-large;
+    justify-self: center;
+}
+
+.form-section-header {
+    padding: 20px;
+}
+
+/* FORM SECTION HEADERS BY ID */
+#form-div1 { grid-area: form-div1; margin-top: 8px;}
+#form-div3 { grid-area: form-div3; margin-top: 8px;}
+
+/* FORM QUESTION SECTIONS BY ID */
+.form-div2 { grid-area: form-div2; margin-right: 30px; padding: 10px;}
+.form-div4 { grid-area: form-div4; margin-right: 30px; padding: 10px;}
+
+.form-footer { 
+    grid-area: form-footer; 
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 20px;
+    justify-self: center;
+}
+
+#minikube-form {
+    display: grid; 
+    grid-template-columns: 0.7fr 1.3fr; 
+    grid-template-rows: 1fr 1fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+        "form-header1 form-questions1"
+        "form-header2 form-questions2"; 
+    min-width: 700px;
+    max-width: 900px;
+    padding: 30px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#the-code-block {
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+/* LANDING PAGE */
+#homepage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    align-self: center;
+}
+
+.landing {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 10px;
+    height: 92vh;
+    width: 95vw;
+    background-image: url(https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&q=80&w=2874&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+    background-size: cover;
+    border-radius: 30px;
+}
+
+#landing-header-container {
+    margin-bottom: 40px;
+}
+
+#landing-header-title {
+    font-weight: 500;
+    font-size: 80px;
+    margin: 0;
+    padding: 10px;
+}
+
+#landing-header-text {
+    font-weight: 400;
+    font-size: 33px;
+    margin: 0;
+    padding: 0;
+}
+
+#landing-page-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+#landing-body-text {
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.landing-page-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing-page-button {
+    background-color: #e2e5fa;
+    border: 0;
+    border-radius: 30px;
+    width: 420px;
+    height: 20vh;
+    box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.25);
+    transition: all .2s ease-in-out; 
+}
+
+.landing-page-button:hover {
+    transform: scale(1.1);
+}
+
+/* SETUP PAGE */
+#setup-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+}
+
+#cloud-setup-instructions {
+    width: 95vw;
+    margin: 2%;
+    padding: 1%;
+}
+
+#minikube-setup-instructions {
+    width: 95vw;
+    margin: 2%;
+    padding: 1%;
+}
+
+.setup-img-container {
+    padding: 2%;
+}
+
+.setup-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 30px;
+}
+
+.setup-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.setup-requirements {
+    padding: 2%;
+}
+
+.setup-paper {
+    background-color: rgb(253, 249, 249);
+    border-radius: 30px;
+    padding: 1px 5px 5px 5px;
+    margin: 5px;
+}
+
+.setup-content {
+    padding: 1%;
+}
+
+.setup-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #64B5F6;
+}
+
+.code-snippet {
+    display: flex;
+    flex-direction: row;
+    color: #272a36;
+    /* background-color: #272a36; */
+    background-color: #d3d7f1;
+    border: solid #ededed 1px;
+    border-radius: 30px;
+    padding-left: 30px;
+    padding-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: auto;
+    justify-content: space-between;
+}
+
+#setup-form-continue-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#ready-to-deploy {
+    font-weight: 700;
+    font-size: xx-large;
+}
+
+/* FORMATTING FOR NAVIGATION */
+.nav-button {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.section {
+    transition: transform 0.5s ease-in-out;
+    transform: translateY(100%);
+}
+
+.section.cloud {
+    background-color: #E57373;
+}
+  
+.section.setup {
+    background-color: greenyellow;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+  
+.section.form {
+    background-color: #64B5F6;
+}
+
+.section.active {
+    transform: translateY(0);
+  }
+
