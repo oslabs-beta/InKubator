@@ -39,7 +39,7 @@ body {
 }
 
 #selected-cluster-container {
-    background-color: #d3d7f1;
+    background-color: #e2e5fa;
     border-radius: 30px;
     margin: 1%;
     padding: 2%;
@@ -61,14 +61,15 @@ body {
 
 .cluster-labels {
     text-align: center;
+    align-self: center;
     font-weight: 600;
     font-size: large;
     padding: 3%;
-    margin-top: 5%;
+    margin: 1%;
     border-radius: 30px;
     width: 85%;    
     box-sizing: border-box;                           ;
-    background-color: #d3d7f1;
+    background-color: #d0c4f7;
 }
 
 .cluster-content {
@@ -134,22 +135,26 @@ body {
     align-self: center;
     align-items: center;
     justify-content: center;
+    margin: 1%;
     padding: 1%;
     width: 95vw;
     background-color: #e2e5fa;
     border-radius: 25px;
     box-sizing: border-box; 
-    background-color: yellow;
 }
 
 .project-cards {
     display: flex;
     flex-direction: column;
-    margin: 1%;
     padding: 1%;
+    margin: 1%;
     border-radius: 30px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
     background-color: white;
+}
+
+.project-content {
+    padding: 2%;
 }
 
 @keyframes spin {
@@ -374,7 +379,7 @@ animation: spin 1s linear infinite;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #64B5F6;
+    /* background-color: #64B5F6; */
 }
 
 .code-snippet {

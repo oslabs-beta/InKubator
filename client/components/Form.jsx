@@ -226,7 +226,7 @@ const Form = () => {
 
   return (
     <ThemeProvider theme={theme}>
-    <Grid container className='form-main-container' spacing={2}>
+    <Grid container id='minikube-scroll-here' className='form-main-container' spacing={2}>
     <Grid item xs={8} id='form' >
       <div className='form-header'>
         <strong>Launch Kubernetes with InKubator!</strong>
