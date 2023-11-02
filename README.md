@@ -14,12 +14,13 @@
   Kubernetes, also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications. Kubernetes enhances reliability and minimizes the time and resources required for daily operations. Kubernetes also offers storage provisions, load balancing, autoscaling and self-healing.
 </p>
 <p>
-  The fundamental elements of Kubernetes architecture are clusters. Each cluster is composed of nodes, each of which represents a single compute host (virtual or physical machine). Each cluster comprises a master node (also known as control plane) which makes global decisions about the entire cluster, along with multiple worker nodes that handle containerized applications. Here is an illustration of a simplified version of Kubernetes components.
+  The fundamental elements of Kubernetes architecture are clusters. Each cluster is composed of nodes, each of which represents a single compute host (virtual or physical machine). Each cluster comprises a master node (also known as control plane) which makes global decisions about the entire cluster, along with multiple worker nodes that handle containerized applications. Here is an illustration of a simplified version of Kubernetes components.</p>
   <img width="500" alt="Screenshot 2023-10-30 at 2 52 31 PM" src="https://github.com/oslabs-beta/InKubator/assets/140859521/f8d3b5d5-5d6e-4baf-90a7-2be2aab65b7b">
-</p>
 <p>
-  However, both the master node and worker node are considerably more complex systems, each incorporating multiple components and processes that operate within them. The components of the master node include the API server, etcd, kube-scheduler, kube-controller-manager, and kube-cloud-manager. Each worker node encompasses a variety of components: kubelet, kube-proxy, container runtime. Additionally, various addons, such as container resource monitoring, network plugins, and web user interfaces, further enhance the capabilities of Kubernetes.
+  However, both the master node and worker node are considerably more complex systems, each incorporating multiple components and processes that operate within them. The components of the master node include the API server, etcd, kube-scheduler, kube-controller-manager, and kube-cloud-manager. Each worker node encompasses a variety of components: kubelet, kube-proxy, container runtime. Additionally, various addons, such as container resource monitoring, network plugins, and web user interfaces, further enhance the capabilities of Kubernetes. </p>
+  
 <img width="600" alt="Screenshot 2023-10-30 at 2 48 52 PM" src="https://github.com/oslabs-beta/InKubator/assets/140859521/0eafbd00-7859-4613-9c02-13f50105cf39">
+  <p>
   When user creates an object in Kubernetes, they must provide the object spec that describes its desired state, as well as some basic information about the object. Most often this information is provided to Kubernetes CLI in the file know as deployment manifrst. YAML is a language used to provide configuration for Kubernetes. 
 </p>
 
@@ -39,7 +40,7 @@ sudo install minikube-darwin-amd64 /usr/local/bin/minikube
 <p>
 Once installed, start minikube in your terminal:
 <code>minikube start</code>
-and navigate to <a href="https://inkubator.app">InKubator</a>.
+and navigate to <a href="https://splash.inkubator.app/">InKubator</a>.
 InKubator enables you to deploy your containerized app effortlessly, requiring only your public image. Alternatively, you can utilize a sample app provided by InKubator to test Kubernetes deployment.
 </p>
 <h4>Cloud Deployment</h4>
