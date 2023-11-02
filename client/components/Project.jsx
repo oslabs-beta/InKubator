@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, Grid, Stack, Typography } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -28,12 +28,14 @@ const Project = ({ projectData, setSelectedProject }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className='project-cards'>
-        {NAME}
-        <Typography><strong>Project ID: </strong>{PROJECT_ID}</Typography>
-        <Typography><strong>Project Number: </strong>{PROJECT_NUMBER}</Typography>
-        <Button color='purple' id={PROJECT_ID} onClick={handleSelectProject}>Select</Button>
-      </div>
+      <Grid className='project-cards' direction='column'>
+        <div className='cluster-labels'>{NAME}</div>
+        <Stack className='project-content' spacing={0.5}>
+          <Typography><strong>Project ID: </strong>{PROJECT_ID}</Typography>
+          <Typography><strong>Project Number: </strong>{PROJECT_NUMBER}</Typography>
+          <Button color='purple' id={PROJECT_ID} onClick={handleSelectProject}>Select</Button>
+        </Stack>
+      </Grid>
     </ThemeProvider>
   )
 }

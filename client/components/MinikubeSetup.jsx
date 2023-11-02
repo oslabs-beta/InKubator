@@ -2,10 +2,24 @@ import React, { useState } from 'react';
 import { Button, Chip, Grid, IconButton, Tooltip, Stack } from '@mui/material';
 import { ContentCopy, InfoOutlined, KeyboardArrowUp } from '@mui/icons-material';
 import { Element, Link, animateScroll as scroll } from 'react-scroll';
+import { Link as RouterLink } from 'react-router-dom';
 import minikubeBlock from '../assets/mkube-floating.png';
 
 
-import { Link as RouterLink } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+const theme = createTheme({
+  palette: {
+    purple: {
+      main: '#8870E0',
+      light: '#e2e5fa',
+      contrastText: '#fff'
+    },
+  },
+  // shape: {
+  //   borderRadius: 30,
+  // }
+});
+
 
 const MinikubeSetup = () => {
   const [isCopied, setIsCopied] = useState(false);
@@ -23,6 +37,7 @@ const MinikubeSetup = () => {
   };
 
   return (
+    <ThemeProvider theme={theme}>
     <Grid container spacing={2} className='minikube' id='minikube-setup-instructions'>
 
       {/* Scroll to landing page button */}
@@ -39,12 +54,12 @@ const MinikubeSetup = () => {
         </Link>
       </Grid>
       
-      <Grid item md={5} >
+      <Grid item md={5} className='setup-img-container'>
         <img src={minikubeBlock} className='setup-img'/>
       </Grid>
 
       <Grid item md={7} className='setup-content'>
-        <h1>Deploy Kubernetes cluster with Minikube</h1>
+        <h1>Kubernetes deployments with Minikube</h1>
 
         <p>Before getting started, you'll need:</p>
         <ol>
@@ -78,9 +93,9 @@ const MinikubeSetup = () => {
 
       <Grid xs={12} className='setup-footer'>
         <Stack justifyContent='center' alignItems='center'>
-          <h3> Ready to deploy?</h3>
+          <h1> Ready to deploy?</h1>
           <RouterLink to='/form'>
-            <Button variant='contained'>
+            <Button variant='contained' color='purple' size='large'>
               Let's go!
             </Button>
           </RouterLink>
@@ -88,6 +103,7 @@ const MinikubeSetup = () => {
       </Grid>
 
     </Grid>
+    </ThemeProvider>
   )
 };
 
