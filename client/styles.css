@@ -152,6 +152,7 @@ body {
     display: flex;
     align-self: center;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: center;
     flex-wrap: wrap;
     margin: 1%;
