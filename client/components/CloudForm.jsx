@@ -57,7 +57,7 @@ const CloudForm = () => {
   }
 
   const handleGetCredentials = async (e) => {
-    const credsAreTied = await (fetchRequest('/google/getCredentials', {method: "POST"}, {"clusterName": clusterName, "location": location}))
+    const credsAreTied = await (fetchRequest('google/getCredentials', {method: "POST"}, {"clusterName": clusterName, "location": location}))
     await setGetCreds(credsAreTied)
   }
 
