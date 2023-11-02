@@ -206,7 +206,7 @@ const DeploymentPage = () => {
         </Grid>    
 
         <Grid container justifyContent='right'>
-        <Button id='get-endpoint' variant='outlined' size='large' color='purple' onClick={(e) => {handleGetEndPoint(e)}}>Maybe this button get endpoint, maybe not, most likely it will though</Button>
+        <Button id='get-endpoint' variant='outlined' size='large' color='purple' onClick={(e) => {handleGetEndPoint(e)}}>Click Here To Access Your App</Button>
         </Grid>   
         </Grid>   
       </ThemeProvider>

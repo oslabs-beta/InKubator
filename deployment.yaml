@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: test123
+  name: ttt
   labels:
-    app: label
+    app: lll
 spec:
   selector:
     matchLabels:
-      app: label
+      app: lll
   template:
     metadata:
       labels:
-        app: label
+        app: lll
     spec:
       containers:
         - ports:
             - containerPort: 3000
-          name: label
+          name: lll
           image: margaritabizhan/getting-started
-  replicas: 2
+  replicas: 3
