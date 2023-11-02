@@ -103,7 +103,7 @@ const Clusters = (props) => {
       }
       fullResArr.push(
         <div className='cluster-paper'>
-          <Stack justifyContent="left" alignItems="left">
+          <Stack justifyContent="center" alignItems="center">
             {fullArr} 
             {button}
           </Stack>
@@ -111,8 +111,10 @@ const Clusters = (props) => {
       )
       partialResArr.push(
         <div className='cluster-paper'>
+          <Stack justifyContent='center' alignItems='center'>
             {partialArr}
             {button}
+          </Stack>
         </div>
       )
     })
@@ -127,7 +129,7 @@ const Clusters = (props) => {
       </Grid>
 
       <Grid item id='cluster-main-buttons' xs={2}>
-        <Stack spacing={2} divider={<Divider/>}>
+        <Stack spacing={2} divider={<Divider/>} justifyContent='right'>
          {props.clusters ? (showMore ?  showLessButton : showMoreButton) : null}
          {props.clusters ? refreshButton : null}
         </Stack>
