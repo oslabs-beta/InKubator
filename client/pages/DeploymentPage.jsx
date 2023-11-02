@@ -197,13 +197,11 @@ const DeploymentPage = () => {
           </Grid>
         </Grid>
 
-        <Grid container justifyContent='right'>
-        <Button id='delete-button' variant='contained' size='large' color='purple' onClick={(e) => {handleDelete(e)}}>Delete Deployment</Button>
+        <Grid container id='deployment-button-container' justifyContent='right'>
+          <Button id='delete-button' variant='outlined' size='large' color='purple' onClick={(e) => {handleDelete(e)}}>Delete Deployment</Button>
+          <Button id='get-endpoint' variant='contained' size='large' color='purple' onClick={(e) => {handleGetEndPoint(e)}}>Launch app</Button>
         </Grid>    
 
-        <Grid container justifyContent='right'>
-        <Button id='get-endpoint' variant='outlined' size='large' color='purple' onClick={(e) => {handleGetEndPoint(e)}}>Click Here To Access Your App</Button>
-        </Grid>   
         </Grid>   
       </ThemeProvider>
     </>
