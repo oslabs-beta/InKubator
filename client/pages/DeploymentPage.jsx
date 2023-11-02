@@ -162,43 +162,44 @@ const DeploymentPage = () => {
       </Breadcrumbs>
 
       <ThemeProvider theme={theme}>
-          <Grid id='cluster-detail-header'>
+        <Grid id='deployment-page-main-container'>
+        <Grid id='deployment-detail-header'>
           <img src={clusterDetailsHeader} id='cluster-detail-header-img' />
-          </Grid>
+        </Grid>
 
-          <Grid container id='development-main-container'>
-            <Grid item xs={8}>
-              <Grid className='development-container-class' id='deployment-box' variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
-                <Stack justifyContent="center" alignItems="center">
-                    <div className='development-stat-header'>
-                      <Typography className='development-stat-header-label' variant="h7">DEPLOYMENT</Typography>
-                    </div>
-                    {deplInfoRender}
-                  </Stack>
-              </Grid>
-            </Grid>
-
-            <Grid item xs={4}>
-              <Grid className='development-container-class' id='replica-box' variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
-                <Stack justifyContent="center" alignItems="center">
+        <Grid container id='development-main-container'>
+          <Grid item xs={8}>
+            <Grid className='development-container-class' id='deployment-box' variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
+              <Stack justifyContent="center" alignItems="center">
                   <div className='development-stat-header'>
-                    <Typography className='development-stat-header-label' variant="h7">REPLICAS</Typography>
+                    <Typography className='development-stat-header-label' variant="h7">DEPLOYMENT</Typography>
                   </div>
-                  {replicaInfoRender}
+                  {deplInfoRender}
                 </Stack>
-              </Grid>
-            </Grid>
-            
-            <Grid item xs={12} className='development-container-class'>
-              <Grid variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
-                <Stack container direction="column" alignItems="center">
-                  <div>
-                   {podsInfoRender}
-                  </div>
-                </Stack>
-              </Grid>
             </Grid>
           </Grid>
+
+          <Grid item xs={4}>
+            <Grid className='development-container-class' id='replica-box' variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
+              <Stack justifyContent="center" alignItems="center">
+                <div className='development-stat-header'>
+                  <Typography className='development-stat-header-label' variant="h7">REPLICAS</Typography>
+                </div>
+                {replicaInfoRender}
+              </Stack>
+            </Grid>
+          </Grid>
+            
+          <Grid item xs={12} className='development-container-class'>
+            <Grid variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
+              <Stack container direction="column" alignItems="center">
+                <div>
+                  {podsInfoRender}
+                </div>
+              </Stack>
+            </Grid>
+          </Grid>
+        </Grid>
 
         <Grid container justifyContent='right'>
         <Button id='delete-button' variant='contained' size='large' color='purple' onClick={(e) => {handleDelete(e)}}>Delete Deployment</Button>

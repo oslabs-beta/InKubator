@@ -128,10 +128,8 @@ googleController.getProjects = (req, res, next) => {
 };
 
 googleController.selectProject = (req, res, next) => {
-    console.log('MADE IT TO SELECT PROJECTS')
-
-    console.log('REQ BODY', req.body)
-
+    // console.log('MADE IT TO SELECT PROJECTS')
+    // console.log('REQ BODY', req.body)
     const { projectID } = req.body;
 
     exec(`gcloud config set project ${projectID}`, (err, stdout, stderr) => {
