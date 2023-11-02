@@ -1,7 +1,19 @@
 import React, { useState } from 'react';
-import { Alert, Box, Grid, Button, MenuItem, IconButton, Fab, TextField, Typography } from '@mui/material';
+import { Alert, Box, Grid, Button, MenuItem, IconButton, Fab, TextField, Tooltip, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import { InfoOutlined } from "@mui/icons-material";
 import YamlGenerator from './YamlGenerator';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    purple: {
+      main: '#8870E0',
+      light: '#e2e5fa',
+      contrastText: '#fff'
+    },
+  },
+});
 
 const deploymentKinds = [
   {
@@ -150,10 +162,10 @@ const Form = () => {
             // if successful YAML generation from a endpoint
             // set rendered feedback message => YAML file generated successfully
             if(postYaml.status === 200) {
-              prevState.feedbackMessage = "YAML file generated successfully" 
+              prevState.feedbackMessage = <Alert severity="success">YAML file generated successfully!</Alert>
               prevState.feedbackStatus = "success"
             } else {
-              prevState.feedbackMessage = "YAML file NOT generated"
+              prevState.feedbackMessage = <Alert severity="error">YAML failed to generate T.T</Alert>
               prevState.feedbackStatus = "failure"
             };
             // console.log(prevState)
@@ -180,10 +192,10 @@ const Form = () => {
           // use setButtonPressed
           // set button + buttonFeedback string
         if(deployYaml.status === 200) {
-          prevState.feedbackMessage = "Cluster Deployed Successfully!"
+          prevState.feedbackMessage = <Alert severity="success">Deployment successful!</Alert>
           prevState.feedbackStatus = "success"
         } else {
-          prevState.feedbackMessage = "Failed Cluster Deployment"
+          prevState.feedbackMessage = <Alert severity="error">Deployment failed.</Alert>
           prevState.feedbackStatus = "failure"
         };
         // console.log(prevState)
@@ -205,10 +217,10 @@ const Form = () => {
           // use setButtonPressed
           // set button + buttonFeedback string
         if(exposeYaml.status === 200) {
-          prevState.feedbackMessage = "Cluster Exposed Successfully!"
+          prevState.feedbackMessage = <Alert severity="success">Cluster exposed successfully!</Alert>
           prevState.feedbackStatus = "success"
         } else {
-          prevState.feedbackMessage = "Failed Cluster Exposure"
+          prevState.feedbackMessage = <Alert severity="error">Failed to expose cluster.</Alert>
           prevState.feedbackStatus = "failure"
         };
         // console.log(prevState)
@@ -245,8 +257,7 @@ const Form = () => {
         ))}
       </TextField>
   
-      <p>Deployment name</p>
-      <p>Each Deployment resource requires a unique Deployment Name. Kubernetes resources are identified by their names.</p>     
+      <p>Deployment name <Tooltip placement='right' title='Each Deployment resource requires a unique Deployment Name. Kubernetes resources are identified by their names.'><InfoOutlined/></Tooltip></p>
           <TextField 
             id='deploymentName' 
             label='Deployment name' 
@@ -260,8 +271,7 @@ const Form = () => {
             // onChange={(e) => handleInputChange(e, setDeploymentName)}
           />
           
-          <p>Labels</p>
-          <p>Labels are custom key/value pairs that are assigned to Kubernetes resources. The labels defined in the Deployment section are applied to the Deployment, Pod, Service, Ingress, ConfigMap and Secret resources.</p> 
+          <p>Labels <Tooltip placement='right' title='Labels are custom key/value pairs that are assigned to Kubernetes resources. The labels defined in the Deployment section are applied to the Deployment, Pod, Service, Ingress, ConfigMap and Secret resources.'><InfoOutlined/></Tooltip></p>
           <TextField 
             id='deploymentName' 
             label='Label'
@@ -280,8 +290,7 @@ const Form = () => {
         </div>
         
         <div className='form-div4'>
-          <p>Docker image</p>
-          <p>If you don't have a containerized app, let us deploy a sample app for you. You can leave this field empty.</p>
+        <p>Docker image <Tooltip placement='right' title='If you do not have a containerized app, let us deploy a sample app for you. You can leave this field empty.'><InfoOutlined/></Tooltip></p>
           <TextField 
             id='dockerImage'
             label='Docker image' 
@@ -295,8 +304,7 @@ const Form = () => {
             // onChange={(e) => handleInputChange(e, setDockerImage)}
             />
           
-          <p>Port number</p>
-          <p>The port number must be a number between 1 and 65535. NOTE: The port MUST match the port defined in your Docker image. If you don't have a Docker image leave this field empty. Port number will default to 8080 if left blank.</p>
+          <p>Port number <Tooltip placement='right' title='The port number must be a number between 1 and 65535. NOTE: The port MUST match the port defined in your Docker image. If you do not have a Docker image leave this field empty. Port number will default to 8080 if left blank.'><InfoOutlined/></Tooltip></p>
           <TextField
             id='containerPort'
             label='Port Number'
@@ -315,8 +323,7 @@ const Form = () => {
             // onChange={(e) => handleInputChange(e, setContainerPort, true)}
           />
   
-          <p>Number of replicas</p>
-          <p>The desired number of Pod resources is set in the Replicas field.</p>
+          <p>Number of replicas <Tooltip placement='right' title='The desired number of Pod resources is set in the Replicas field.'><InfoOutlined/></Tooltip></p>
           <TextField
             id='numReplicas' 
             label='Number of replicas'
@@ -344,23 +351,17 @@ const Form = () => {
 
       {/* FOOTER */}
       <div className='form-footer'>
-        <Button id='yaml-button' variant='outlined' onClick={(e) => {handlePostYaml(e)}}>Generate YAML</Button>
-        <Button id='expose-button' variant='outlined' onClick={(e) => {handleExpose(e)}}>Expose</Button>
-        <Button id='deploy-button' variant='contained' onClick={(e) => {handleDeploy(e)}}>Deploy</Button>
-        <Button variant='contained'><RouterLink to='/deploymentlist'>See Deployments</RouterLink></Button>
+        <Button id='yaml-button' color='purple' variant='outlined' onClick={(e) => {handlePostYaml(e)}}>Generate YAML</Button>
+        <Button id='expose-button' color='purple' variant='outlined' onClick={(e) => {handleExpose(e)}}>Expose</Button>
+        <Button id='deploy-button' color='purple' variant='contained' onClick={(e) => {handleDeploy(e)}}>Deploy</Button>
+        <RouterLink to='/deploymentlist'><Button color='purple' variant='contained'>See deployments</Button></RouterLink>
       </div>
-
-      {/* <Alert severity="error">This is an error alert — check it out!</Alert>
-      {/* <Alert severity="error">This is an error alert — check it out!</Alert>
-      <Alert severity="warning">This is a warning alert — check it out!</Alert>
-      <Alert severity="info">This is an info alert — check it out!</Alert>
-      <Alert severity="success">This is a success alert — check it out!</Alert> */}
-      
     </Grid>
     <Grid xs={3}>
       <YamlGenerator id='yaml-preview' formValues={formValues} setFormValues={setFormValues} yamlPreview={yamlPreview} setYamlPreview={setYamlPreview}/>
     </Grid>
   </Grid>
+  </ThemeProvider>
   )
 }
 
