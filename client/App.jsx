@@ -12,17 +12,13 @@ const App = () => {
     <>
     <DeploymentProvider>
       <Routes>
-          <Route path='/' element={<HomePage />}/>
-          <Route path='/form' element={<FormPage />}/>
-          <Route path='/deploymentlist' element={<DeploymentPage />}/>
+        <Route path='/' element={<HomePage />}/>
+        <Route path='/form' element={<FormPage />}/>
+        <Route path='/deploymentlist' element={<DeploymentPage />}/>
       </Routes>
     </DeploymentProvider>
     </>
   );
-
-  // return (
-  //   <Form />
-  // )
 };
 
 export default App;

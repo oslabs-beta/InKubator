@@ -122,10 +122,6 @@ const CloudForm = () => {
           </Grid>
 
           <Grid id='projects-main-container'>
-            <Paper>hey mami</Paper>
-            {/* <Project
-              key={1}       
-            /> */}
             <Button onClick={handleGetProjects}> GET PROJECTS </Button>
             {!projects ? null : 
               projects.map((projectData) => {

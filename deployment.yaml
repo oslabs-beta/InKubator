@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: test123
+  name: sadsad
   labels:
-    app: my-label
+    app: asdsad
 spec:
   selector:
     matchLabels:
-      app: my-label
+      app: asdsad
   template:
     metadata:
       labels:
-        app: my-label
+        app: asdsad
     spec:
       containers:
         - ports:
-            - containerPort: 3000
-          name: my-label
-          image: margaritabizhan/getting-started
-  replicas: 2
+            - containerPort: 8080
+          name: asdsad
+          image: registry.k8s.io/e2e-test-images/agnhost:2.39
+  replicas: 1
