@@ -128,18 +128,22 @@ googleController.getProjects = (req, res, next) => {
 };
 
 googleController.selectProject = (req, res, next) => {
-    console.log('MADE IT TO SELECT PROJECTS')
-
+    // console.log('MADE IT TO SELECT PROJECTS')
+    // console.log('REQ BODY', req.body)
     const { projectID } = req.body;
 
     exec(`gcloud config set project ${projectID}`, (err, stdout, stderr) => {
+        console.log('STDOUT', stdout)
+        console.log('stderr', stderr)
+        console.log('STDOUT', err)
+
         if (err) {
             return next({
                 log: 'Couldn\'t Select Project',
                 message: { err: 'Error occurred in googleController.selectProject ' + err },
             });
         } else {
-            res.locals.googleSelectProject = stdout;
+            res.locals.googleSelectProject = stderr;
         }
         return next();
     });
@@ -166,10 +170,6 @@ googleController.getClusters = (req, res, next) => {
     console.log('made it to get clusters')
 
     exec(`gcloud container clusters list`, (err, stdout, stderr) => {
-        console.log('STDOUT', stdout)
-        console.log('stderr', stderr)
-        console.log('STDOUT', err)
-
         if (err) {
             return next({
                 log: 'Couldn\'t get clusters',
@@ -227,17 +227,37 @@ googleController.deploy = (req, res, next) => {
     });
 };
 
+googleController.getEndpoint = async (req, res, next) => {
+  const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
+  const clusterName = doc.metadata.name;
+  exec(`kubectl get services ${clusterName} -o jsonpath='{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}'`, (err, stdout, stderr) => {
+    console.log('STDOUT', stdout)
+    console.log('stderr', stderr)
+    console.log('STDOUT', err)
+    if (err) {
+      return next({
+        log: 'Error in getEndpoint func',
+        message: { err: 'Error occurred in googleController.getEndpoint ' + err },
+      });
+    } else {
+      // console.log('STDOUT GET ENDPOINT', stdout)
+      res.locals.endpoint = stdout;
+    };
+    return next();
+  });
+};
+
 googleController.testFunc = (req, res, next) => {
     exec(`gcloud --flags-file=deployment.yaml`, (err, stdout, stderr) => {
-        if (err) {
-            return next({
-                log: 'Error in test func',
-                message: { err: 'Error occurred in googleController.testFunc ' + err },
-            });
-        } else {
-            res.locals.test = stdout;
-        };
-        return next();
+      if (err) {
+        return next({
+          log: 'Error in test func',
+          message: { err: 'Error occurred in googleController.testFunc ' + err },
+        });
+      } else {
+        res.locals.test = stdout;
+      };
+      return next();
     });
 };
 

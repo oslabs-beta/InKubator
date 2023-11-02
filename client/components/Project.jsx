@@ -1,5 +1,5 @@
-import React from 'react'
-import { Button, Grid } from '@mui/material';
+import React, { useState } from 'react'
+import { Button, Grid, Stack, Typography } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -12,27 +12,30 @@ const theme = createTheme({
   },
 });
 
-const Project = (projectInfo) => {
+const Project = ({ projectData, setSelectedProject }) => {
+  // console.log('FUNCTION', props.setSelectedProject)
+  // console.log('DECONSTRUCTED', PROJECT_ID, NAME, PROJECT_NUMBER)
+  // console.log('projectData IN PROJECT/JSX', projectData.projectData)
+  // console.log("Inside of individual project", projectData);
 
-  // const {projectID, name, projectNumber} = projectInfo;
+  const {PROJECT_ID, NAME, PROJECT_NUMBER} = projectData;
 
-  const handleSelectProject = async (e) => {
-    // console.log(e.target.id);
-    // setProject state??
-    console.log('hey this is the selected project')
-  }
+  const handleSelectProject = async () => {
+    // console.log('e.target', e.target.id)
+    // console.log(NAME, "SELECTED INSIDE OF PROJECT COMPONENT")
+    setSelectedProject(PROJECT_ID);
+  };
 
   return (
     <ThemeProvider theme={theme}>
-      <div>hey</div>
-    {/* <div className='project-cards'>
-      Name
-      <strong>Project ID:</strong> projectID
-      <strong>Project Number:</strong> projectNumber
-      <Button id='cristina' theme='purple' onClick={handleSelectProject}>
-        Select
-      </Button>
-    </div> */}
+      <Grid className='project-cards' direction='column'>
+        <div className='cluster-labels'>{NAME}</div>
+        <Stack className='project-content' spacing={0.5}>
+          <Typography><strong>Project ID: </strong>{PROJECT_ID}</Typography>
+          <Typography><strong>Project Number: </strong>{PROJECT_NUMBER}</Typography>
+          <Button color='purple' id={PROJECT_ID} onClick={handleSelectProject}>Select</Button>
+        </Stack>
+      </Grid>
     </ThemeProvider>
   )
 }

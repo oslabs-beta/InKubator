@@ -5,10 +5,6 @@ import { anOldHope } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 
 const YamlGenerator = ({ formValues, setFormValues, yamlPreview, setYamlPreview }) => {
-  console.log('Values are ', formValues.deploymentName.value);
-
-
-
 
   const codeString = `
   apiVersion: apps/v1

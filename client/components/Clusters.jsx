@@ -26,6 +26,13 @@ const Clusters = (props) => {
       setTimeout(() => {setSpin(false)}, 1000);
   };
 
+  useEffect(() => {
+
+    console.log("CLUSTERS", props.clusters)
+    console.log("CLUSTER LENGTH", props.clusters.length)
+
+  },[])
+
   // Buttons
   const showMoreButton = <Button variant='contained' size='large' color='purple' onClick={handleShowMore}> More info </Button>;
   const showLessButton = <Button variant='contained' size='large' color='purple' onClick={handleShowMore}> Less info </Button>;
