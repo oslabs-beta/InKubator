@@ -116,17 +116,19 @@ const CloudForm = () => {
           <Grid id='projects-main-container' justifyContent='left'>
             {projects.length > 0 ? projects.map((project) => {
               return <Project projectData={project} setSelectedProject={handleSelectProject}/>
-            }): <></>}
+            }): <><Grid className='clusters-container-A'>
+            <CircularProgress/> 
+          </Grid></>}
           </Grid>
 
           <Grid id='clusters-container-B' item xs={12} justifyContent='left'>
             
-            {/* {isLoading || !clusters.length? // If loading, render loading circle
+            {isLoading || !clusters.length ? // If loading, render loading circle
             <Grid className='clusters-container-A'>
               <CircularProgress/> 
             </Grid>
-            : // Or render clusters
-            } */}
+            : null
+            }
 
             {clusters.length > 0 ? <Clusters
               clusters={clusters}
