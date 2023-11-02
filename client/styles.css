@@ -39,7 +39,7 @@ body {
 }
 
 #selected-cluster-container {
-    background-color: #d3d7f1;
+    background-color: #e2e5fa;
     border-radius: 30px;
     margin: 1%;
     padding: 2%;
@@ -55,24 +55,49 @@ body {
 
 .cluster-labels-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-content: center;
+    padding: 1%;
+    margin: 1%;
+    width: 100%;
+    /* background-color: red; */
 }
 
 .cluster-labels {
     text-align: center;
+    align-self: center;
     font-weight: 600;
     font-size: large;
+    border-radius: 30px;   
+    box-sizing: border-box;                           ;
+    background-color: #d0c4f7;
     padding: 3%;
     margin-top: 5%;
     border-radius: 30px;
-    width: 85%;    
-    box-sizing: border-box;                           ;
-    background-color: #d3d7f1;
+    width: 100%;
+}
+
+.replicas-labels {
+    text-align: center;
+    background-color: #d0c4f7;
+    font-weight: 600;
+    font-size: large;
+    border-radius: 30px;
+    padding: 3%;
+    margin: 3%;
+    width: 55%;
 }
 
 .cluster-content {
     font-weight: 400;
+}
+
+#deployment-button-container {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    gap: 10px;
 }
 
 #deployment-button {
@@ -133,24 +158,145 @@ body {
     display: flex;
     align-self: center;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: center;
+    flex-wrap: wrap;
+    margin: 1%;
     padding: 1%;
     width: 95vw;
     background-color: #e2e5fa;
     border-radius: 25px;
     box-sizing: border-box; 
-    background-color: yellow;
 }
 
 .project-cards {
     display: flex;
     flex-direction: column;
-    margin: 1%;
     padding: 1%;
+    margin: 1%;
     border-radius: 30px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
     background-color: white;
 }
+
+.project-content {
+    padding: 2%;
+}
+
+
+/*DEVELOPMENT STATS */
+#deployment-page-main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+    width: 98vw;
+}
+
+#development-main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e2e5fa;
+    border-radius: 30px;
+    padding: 1%;
+    margin: 1%;
+    box-sizing: border-box;
+  }
+  
+  .development-container-class {
+    background-color: white;
+    border-radius: 25px;
+    padding: 2%;
+    box-sizing: border-box; 
+  }
+  
+  #deployment-box, #replica-box {
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .development-stat-header {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding: 2%;
+    width: 100%;
+    background-color: green ;
+    box-sizing: border-box;
+  }
+  
+  .development-stat-header-label {
+    text-align: center;
+    font-weight: 600;
+    font-size: large;
+    padding: 6%;
+    border-radius: 30px;
+    background-color: #d3d7f1;
+    background-color: aqua;
+  }
+
+  #total-pods-formatted {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: 600;
+    font-size: xx-large;
+    padding: 2%;
+    margin: 2%;
+  }
+
+  #deployment-parent-container {
+    justify-content: center;
+    align-items: center;
+  }
+
+  #pods-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
+    margin: 1%;
+  }
+
+  #replicas-count-box {
+    height: 100%;
+    width: 100%;
+  }
+  
+  .pod-name {
+    text-align: center;
+    font-weight: 600;
+    font-size: large;
+    padding: 1%;
+    border-radius: 30px;
+    background-color: #e2e5fa;
+  }
+  
+  #deployment-detail-header {
+    width: 100%;
+    height: 30vh;
+    margin: 1%;
+    overflow: hidden;
+    border-radius: 30px;
+  }
+
+  #deployment-info-div {
+    /* background-color: yellowgreen; */
+  }
+  
+  #cluster-detail-header-img {
+    height: 100%;
+    width: 100%;
+    border-radius: 30px;
+    object-fit: cover;
+  }
 
 @keyframes spin {
     from {
@@ -374,7 +520,7 @@ animation: spin 1s linear infinite;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #64B5F6;
+    /* background-color: #64B5F6; */
 }
 
 .code-snippet {

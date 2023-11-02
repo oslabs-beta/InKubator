@@ -96,7 +96,7 @@ const CloudSetup = () => {
       <Grid item xs={7} className='setup-content'>
         
         <div className='setup-requirements'>
-        <h1>Deployments with Google Cloud</h1>
+        <h1>Kubernetes deployments with Google Cloud</h1>
           <h3>Before getting started, you'll need:</h3>
             <ol>
               <li>Google Cloud CLI installed on your computer</li>

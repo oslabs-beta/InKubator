@@ -1,5 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Box, Grid, Button, Stack, Paper, Typography, Link, Breadcrumbs } from '@mui/material';
+import { ThemeProvider, createTheme, keyframes } from '@mui/material/styles';
+import clusterDetailsHeader from '../assets/cluster-details-header.png'
+
+
+const theme = createTheme({
+  palette: {
+    purple: {
+      main: '#8870E0',
+      light: '#e2e5fa',
+      contrastText: '#fff'
+    },
+  },
+});
+
 
 const DeploymentPage = () => {
   const [deploymentStats, setDeploymentStats] = useState({});
@@ -7,42 +21,50 @@ const DeploymentPage = () => {
   //Default deployment object
   let deplObjConstruct = {
     deployment: {
-      name: 'name',
-      pods: '0/0',
-      image: 'image',
+      name: '',
+      pods: '',
+      image: '',
     },
     replicas: {
-      name: 'name',
-      pods: '0/0',
+      name: '',
+      pods: '',
     },
     pods: [],
   };
 
-  //Helper function that converts output string to object for DEPLOYMENT
+  // Helper function that converts output string to object for DEPLOYMENT
   const helperDeploymentObject = (str) => {
-    //Convert to array and remove spaces and empty strings
+    // Convert to array and remove spaces and empty strings
     let strToArr = str.split(/(\s+)/).filter((el) => !el.includes(' ') && el !== '');
-    //Remove auto-generated fields
+    // Remove auto-generated fields
     strToArr = strToArr.slice(strToArr.indexOf('\n') + 1);
+    console.log('array is ', strToArr);
 
-    //Assuming this function receives only one deployment at a time
-    deplObjConstruct.deployment.name = strToArr[0];
-    deplObjConstruct.deployment.pods = strToArr[1];
-    deplObjConstruct.deployment.image = strToArr[6];
-    deplObjConstruct.replicas.pods = strToArr[1];
+    // Assuming this function receives only one deployment at a time
+    if (strToArr.length > 2) {
+      deplObjConstruct.deployment.name = strToArr[0];
+      deplObjConstruct.deployment.pods = strToArr[1];
+      deplObjConstruct.deployment.image = strToArr[6];
+      deplObjConstruct.replicas.pods = strToArr[1];
+    } else {
+      deplObjConstruct.deployment.name = null;
+      deplObjConstruct.deployment.pods = null;
+      deplObjConstruct.deployment.image = null;
+      deplObjConstruct.replicas.pods = null;
+    }
   };
 
-  //Helper function that converts output string to object for PODS
+  // Helper function that converts output string to object for PODS
   const helperPodsObject = (str) => {
-    //Convert to array, remove spaces and empty strings, remove non-applicable fields
+    // Convert to array, remove spaces and empty strings, remove non-applicable fields
     let strToArr = str.split(/(\s+)/).filter((el) => !el.includes(' ') && el !== '');
     strToArr = strToArr.slice(strToArr.indexOf('\n') + 1);
-    
-    //Get replica name
+
+    // Get replica name
     let replicaName = strToArr[0].split('-').slice(0, 2).join('-');
     deplObjConstruct.replicas.name = replicaName;
     
-    //Iterate to store pod information in pods array of objects
+    // Iterate to store pod information in pods array of objects
     while (strToArr.length > 1) {
       let pod = {
         name : strToArr[0],
@@ -56,7 +78,7 @@ const DeploymentPage = () => {
   };
 
   const getStats = async () => {
-    const fetchDeployment = await fetch('status/getDeployment');
+    const fetchDeployment = await fetch('/status/getDeployment');
     const deploymentInfo = await fetchDeployment.json();
     helperDeploymentObject(deploymentInfo);
 
@@ -71,30 +93,45 @@ const DeploymentPage = () => {
     getStats();
   }, [])
 
+  const handleDelete = async () => {
+    try {
+      const deleteReq = await fetch('/status/deleteDeployment');
+      const deleteRes = await deleteReq.json();
+      console.log('Delete status ', deleteReq.status);
+    
+    } catch(err) {
+      console.log(`ERROR: ${err}`);
+    };
+    getStats();
+  }
+
   console.log('DEPLOYMENT STATS: ', deploymentStats);
 
   let deplInfoRender = [];
   for (let keyDepl in deploymentStats.deployment) {
-    deplInfoRender.push(<Typography variant="body1" xs={10} m={1} key={keyDepl}>{keyDepl.toUpperCase()}: {deploymentStats.deployment[keyDepl]}</Typography>);
+    if (keyDepl !== 'pods') {
+      deplInfoRender.push(<Typography xs={10} m={1} key={keyDepl}><strong>{keyDepl.toUpperCase()}: </strong>{deploymentStats.deployment[keyDepl]}</Typography>);                                                                    
+    }
   };
 
   let replicaInfoRender = [];
-  for (let keyRepl in deploymentStats.replicas){
-    replicaInfoRender.push(<Typography variant="body1" xs={10} m={1} key={keyRepl}>{keyRepl.toUpperCase()}: {deploymentStats.deployment[keyRepl]}</Typography>);
+  for (let keyRepl in deploymentStats.replicas) {
+    if (keyRepl === 'pods') {
+      replicaInfoRender.push(<div id='total-pods-formatted'>{deploymentStats.replicas.pods}</div>)
+    }
   };
 
   let podsInfoRender = deploymentStats.pods && Array.isArray(deploymentStats.pods)
   ? deploymentStats.pods.map((pod, index) => (
-      <Grid container spacing={2} key={index}>
-
-        <Grid item xs={12}>
-          <Typography variant="h7">Pod {index + 1}</Typography>
+      <Grid container id='deployment-parent-container' spacing={2} key={index} direction='row'>
+        <Grid justifyContent="center" alignItems="center" item xs={12}>
+          <Typography className='pod-name'><strong>Pod {index + 1}</strong></Typography>
         </Grid>
 
         {Object.keys(pod).map((key, innerIndex) => (
-          <Grid item xs={3} key={innerIndex}>
-            <Typography variant="body1">
-              {key.toUpperCase()}: {pod[key]}
+        <Grid item xs={3} key={innerIndex}>
+            <Typography><strong>
+              {key.toUpperCase()}: </strong>{pod[key]}
             </Typography>
         </Grid>
         ))}
@@ -102,6 +139,18 @@ const DeploymentPage = () => {
       </Grid>
     ))
   : null;
+
+  //Get external endpoint to access app
+  const handleGetEndPoint = async () => {
+    try {
+      const reqEndPoint = await fetch('/google/getEndpoint');
+      const endPoint = await reqEndPoint.json();
+      console.log(endPoint);
+      window.open(`http://${endPoint}`)
+    } catch(err) {
+      console.log(`ERROR at getEndPoint: ${err}`);
+    };
+  };
 
   return (
     <>
@@ -115,36 +164,48 @@ const DeploymentPage = () => {
         <Typography> Deployment Page </Typography>
       </Breadcrumbs>
 
-      <Box display="flex" justifyContent="center" alignItems="center">
-        <h3>Cluster Status</h3>
-      </Box>
+      <ThemeProvider theme={theme}>
+        <Grid id='deployment-page-main-container'>
+        <Grid id='deployment-detail-header'>
+          <img src={clusterDetailsHeader} id='cluster-detail-header-img' />
+        </Grid>
 
-      <Grid container display="flex" justifyContent="center" alignItems="center">
+        <Grid container id='development-main-container'>
 
-        <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
-          <Stack justifyContent="center" alignItems="center">
-            <Typography variant="h7">DEPLOYMENT</Typography>
-            {deplInfoRender}
-            </Stack>
-        </Paper>
+          <Grid item xs={8}>
+            <Grid className='development-container-class' id='deployment-box' variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
+              <Stack justifyContent="center" alignItems="center">
+                <div className='cluster-labels-container'>
+                  <Typography className='cluster-labels' variant="h7">DEPLOYMENT</Typography>
+                </div>
+                <div id='deployment-info-div'>
+                  {deplInfoRender}
+                </div>
+              </Stack>
+            </Grid>
+          </Grid>
 
-        <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
-          <Stack justifyContent="center" alignItems="center">
-            <Typography variant="h7">REPLICAS</Typography>
-            {replicaInfoRender}
-            </Stack>
-        </Paper>
-
-        <Paper variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
-          <Stack container direction="column" alignItems="center">
-            <Typography variant="h7">PODS</Typography>
+          <Grid item xs={4}>
+            <Grid className='development-container-class' id='replica-box' variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
+              <Typography className='replicas-labels' variant="h7">REPLICAS</Typography>
+              {replicaInfoRender}
+            </Grid>
+          </Grid>
+            
+          <Grid item xs={12} id='pods-info-container' className='development-container-class'>
             {podsInfoRender}
-          </Stack>
-        </Paper>
-          
-      </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid container id='deployment-button-container' justifyContent='right'>
+          <Button id='delete-button' variant='outlined' size='large' color='purple' onClick={(e) => {handleDelete(e)}}>Delete Deployment</Button>
+          <Button id='get-endpoint' variant='contained' size='large' color='purple' onClick={(e) => {handleGetEndPoint(e)}}>Launch app</Button>
+        </Grid>    
+
+        </Grid>   
+      </ThemeProvider>
     </>
   )
-}
+};
 
 export default DeploymentPage;

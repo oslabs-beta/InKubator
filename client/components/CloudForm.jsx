@@ -19,13 +19,13 @@ const theme = createTheme({
 });
 
 const CloudForm = () => {
-  const [clusters, setClusters] = useState();
-  const [clusterName, setClusterName] = useState(null);
+  const [clusters, setClusters] = useState([]);
+  const [clusterName, setClusterName] = useState('');
   const [location, setLocation] = useState(null);
   const [status, setStatus] = useState(null);
   const [getCreds, setGetCreds] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [projects, setProjects] = useState();
+  const [projects, setProjects] = useState([]);
   const [projectsLoaded, setProjectsLoaded] = useState(false);
   const [selectedProject, setSelectedProject] = useState();
 
@@ -48,49 +48,49 @@ const CloudForm = () => {
     return result;
   }
 
-  // Get projects from Google Cloud, the user will select one
-  const handleGetProjects = async (e) => {
-    const allProjects = await (fetchRequest('/google/getProjects', {method: "POST"}))
-    await setProjects(allProjects)
-  }
-
   // Get clusters from selected Google Cloud project
   const handleGetClusters = async (e) => {
-    const allClusters = await (fetchRequest('google/getClusters',{method: "POST"}));
-    if (typeof allClusters === 'string') {
-      return allClusters
-    } else {
-      await setClusters(allClusters)
-    }
+    const allClusters = await (fetchRequest('/google/getClusters', {method: "POST"}));
+    console.log(allClusters)
+    await setClusters(allClusters)
+    setIsLoading(prevState => !prevState) // toggle isLoading true/false
   }
 
-  // ??
   const handleGetCredentials = async (e) => {
     const credsAreTied = await (fetchRequest('google/getCredentials', {method: "POST"}, {"clusterName": clusterName, "location": location}))
     await setGetCreds(credsAreTied)
   }
 
-  const handleSelectProject = async (e) => {
-    const projectSetter = await (fetchRequest('/google/selectProject', {method: "POST"}, {"projectID": selectedProject}))
-    await console.log(projectSetter)
+  const handleSelectProject = async (projectID) => {
+    async function selectProject() {
+      const res = await fetch('/google/selectProject', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ "projectID": projectID })
+      })
+      const data = await res.json()
+      // console.log("RESPONSE BACK", data)
+      // reset all things back to default when you choose a new project to work off of
+      handleGetClusters() // call getClusters everytime AFTER you select a project
+      setGetCreds(false)
+      setClusterName('')
+      setStatus(null)
+    }
+    selectProject()
   }
 
-  // Tying kubectl commands to Gcloud
+  // useEffect to get projects on initial component loading
   useEffect(() => {
-    handleGetClusters()
+    async function getProjects() {
+      const res = await fetch('/google/getProjects')
+      const data = await res.json()
+      console.log("Projects", data)
+      setProjects(data)
+    }
+    getProjects()
   }, [])
-  
-  useEffect(() => {
-    console.log('projects are here baby', projects, 'SET PROJECTS LOADED', projectsLoaded)
-    renderProjects()
-  }, [projectsLoaded])
-  
-  // Set loading to false once the content renders
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  }, clusters)
   
   // Displays the selected cluster's status
   const statusChip = (status) => {
@@ -100,18 +100,6 @@ const CloudForm = () => {
       return <Chip label={status} variant='outlined' color='success' />
     } else {
       return <Chip label={status} variant='outlined' color='error' />
-    }
-  }
-  const renderedProjectsArray = [];
-  
-  const renderProjects = () => {
-    console.log('PROJECTS RENDERED')
-    if (projects) {
-      for (let i = 0; i < projects.length; i++) {
-        const project = projects[i];
-        console.log('project', project)
-        // render a project component
-      }
     }
   }
 
@@ -126,39 +114,28 @@ const CloudForm = () => {
           </Grid>
 
           <Grid id='projects-main-container'>
-            <Paper>hey mami</Paper>
-            {/* <Project
-              key={1}       
-            /> */}
-            <Button onClick={handleGetProjects}> GET PROJECTS </Button>
-            {!projects ? null : 
-              projects.map((projectData) => {
-                renderedProjectsArray.push(
-                <Project projectData={projectData} setSelectedProject={setSelectedProject} />
-                )
-              })
-            }
-            {renderedProjectsArray}
-
-            <Button onClick={handleSelectProject}> Select Project </Button>
+            {projects.length > 0 ? projects.map((project) => {
+              return <Project projectData={project} setSelectedProject={handleSelectProject}/>
+            }): <></>}
           </Grid>
 
           <Grid id='clusters-container-B' item xs={12}>
-            {isLoading ? // If loading, render loading circle
-
+            
+            {/* {isLoading || !clusters.length? // If loading, render loading circle
             <Grid className='clusters-container-A'>
               <CircularProgress/> 
             </Grid>
-
             : // Or render clusters
-            <Clusters
+            } */}
+
+            {clusters.length > 0 ? <Clusters
               clusters={clusters}
               clusterName={clusterName}
               setClusterName={setClusterName}
               setLocation={setLocation}
               setStatus={setStatus}
               handleGetClusters={handleGetClusters}
-            />}
+            /> : <></> }
 
           </Grid>
 
@@ -189,7 +166,7 @@ const CloudForm = () => {
               <Button onClick={handleGetCredentials} color="purple" variant="contained" size='large'> 
                   Continue 
                 <Link to="form"></Link>
-              </Button> 
+              </Button>
             </Grid>
 
           </Grid>
@@ -206,3 +183,49 @@ const CloudForm = () => {
 }
 
 export default CloudForm;
+
+
+
+
+// All the code that I deleted LOOOL:
+
+
+
+
+
+// Tying kubectl commands to Gcloud
+  // useEffect(() => {
+  //   // handleGetProjects()
+  //   // handleGetClusters()
+  // }, [])
+  
+  // useEffect(() => {
+  //   // console.log('projects are here baby', projects, 'SET PROJECTS LOADED', projectsLoaded)
+  //   renderProjects()
+  // }, [projectsLoaded])
+  
+  // Set loading to false once the content renders
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 1000);
+  // }, clusters)
+
+  // const renderedProjectsArray = [];
+  
+  // const renderProjects = () => {
+  //   console.log('PROJECTS RENDERED')
+  //   if (projects) {
+  //     for (let i = 0; i < projects.length; i++) {
+  //       const project = projects[i];
+  //       console.log('project', project)
+  //       // render a project component
+  //     }
+  //   }
+  // }
+
+  // Get projects from Google Cloud, the user will select one
+  // const handleGetProjects = async (e) => {
+  //   const allProjects = await (fetchRequest('/google/getProjects', {method: "POST"}))
+  //   await setProjects(allProjects)
+  // }
