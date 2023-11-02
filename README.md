@@ -47,8 +47,11 @@ InKubator enables you to deploy your containerized app effortlessly, requiring o
 <p>Before deploying on Google Cloud, ensure that the <a href="https://cloud.google.com/sdk/docs/install">gloud CLI</a> is installed on your machine. Additionally, you will need to manage authentication between the client and Google Kubernetes Engine. Run <code>gke-gcloud-auth-plugin</code> or click <a href="https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke">here</a> for more information.
 </p>
 <h2>Features</h2>
+ <img width="1000" src=https://github.com/oslabs-beta/InKubator/assets/140859521/9074e417-c80c-43d7-ac05-7e5e29a745a3"
+
 <p>Let InKubator guide you through YAML configuration process. Just fill out a straightforward form, and it will generate the YAML manifest for you. Moreover, you can conveniently preview the YAML file before applying it. If you're considering deploying to Google Cloud, InKubator offers the option to either create a new cluster or utilize an existing one. Keep in mind that setting up a new cluster may take up to 10 minutes. Additionally, you have the flexibility to expose your application to external IP requests. Lastly, InKubator provides additional information on the clusters you just deployed, including the deployment name, image, replicas, pods, and pods health.
   </p>
+  <img width="1000" src="https://github.com/oslabs-beta/InKubator/assets/140859521/87e40d34-7948-4f6c-b781-06023e843d06">
   <p>
 InKubator is currently offers a beta version. Our team is actively expanding InKubator, incorporating features such as multiple node deployment, visualization, and advanced monitoring capabilities. Stay tuned for the latest updates and developments!
 </p>
