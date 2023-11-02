@@ -231,12 +231,16 @@ googleController.getEndpoint = async (req, res, next) => {
   const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
   const clusterName = doc.metadata.name;
   exec(`kubectl get services ${clusterName} -o jsonpath='{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}'`, (err, stdout, stderr) => {
+    console.log('STDOUT', stdout)
+    console.log('stderr', stderr)
+    console.log('STDOUT', err)
     if (err) {
       return next({
         log: 'Error in getEndpoint func',
         message: { err: 'Error occurred in googleController.getEndpoint ' + err },
       });
     } else {
+      // console.log('STDOUT GET ENDPOINT', stdout)
       res.locals.endpoint = stdout;
     };
     return next();
