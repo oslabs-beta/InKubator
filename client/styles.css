@@ -55,8 +55,13 @@ body {
 
 .cluster-labels-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-content: center;
+    padding: 1%;
+    margin: 1%;
+    width: 100%;
+    /* background-color: red; */
 }
 
 .cluster-labels {
@@ -64,12 +69,25 @@ body {
     align-self: center;
     font-weight: 600;
     font-size: large;
-    padding: 3%;
-    margin: 1%;
-    border-radius: 30px;
-    width: 85%;    
+    border-radius: 30px;   
     box-sizing: border-box;                           ;
     background-color: #d0c4f7;
+    padding: 3%;
+    margin-top: 5%;
+    border-radius: 30px;
+    width: 85%;
+}
+
+.replicas-labels {
+    text-align: center;
+    background-color: #d0c4f7;
+    font-weight: 600;
+    font-size: large;
+    border-radius: 30px;
+    padding: 3%;
+    /* margin-top: 3%; */
+    margin: 3%;
+    width: 55%;
 }
 
 .cluster-content {
@@ -136,6 +154,7 @@ body {
     align-items: center;
     flex-wrap: wrap;
     justify-content: center;
+    flex-wrap: wrap;
     margin: 1%;
     padding: 1%;
     width: 95vw;
@@ -164,11 +183,15 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding: 1%;
     width: 98vw;
 }
 
 #development-main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #e2e5fa;
     border-radius: 30px;
     padding: 1%;
@@ -179,18 +202,26 @@ body {
   .development-container-class {
     background-color: white;
     border-radius: 25px;
-    padding: 1%;
+    padding: 2%;
     box-sizing: border-box; 
   }
   
   #deployment-box, #replica-box {
-    height: 20vh
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   
   .development-stat-header {
     display: flex;
     justify-content: center;
     align-content: center;
+    padding: 2%;
+    width: 100%;
+    background-color: green ;
+    box-sizing: border-box;
   }
   
   .development-stat-header-label {
@@ -198,11 +229,38 @@ body {
     font-weight: 600;
     font-size: large;
     padding: 6%;
-    margin-top: 10%;
     border-radius: 30px;
-    width: 200%;    
-    box-sizing: border-box;                           ;
     background-color: #d3d7f1;
+    background-color: aqua;
+  }
+
+  #total-pods-formatted {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: 600;
+    font-size: xx-large;
+    padding: 2%;
+    margin: 2%;
+  }
+
+  #deployment-parent-container {
+    justify-content: center;
+    align-items: center;
+  }
+
+  #pods-info-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
+    margin: 1%;
+  }
+
+  #replicas-count-box {
+    height: 100%;
+    width: 100%;
   }
   
   .pod-name {
@@ -210,10 +268,7 @@ body {
     font-weight: 600;
     font-size: large;
     padding: 1%;
-    margin-top: 10%;
     border-radius: 30px;
-    width: 200%;    
-    box-sizing: border-box;                           ;
     background-color: #e2e5fa;
   }
   
@@ -223,6 +278,10 @@ body {
     margin: 1%;
     overflow: hidden;
     border-radius: 30px;
+  }
+
+  #deployment-info-div {
+    /* background-color: yellowgreen; */
   }
   
   #cluster-detail-header-img {

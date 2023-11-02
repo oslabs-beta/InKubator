@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Grid, Button, Stack, Paper, Typography, Link, Breadcrumbs } from '@mui/material';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme, keyframes } from '@mui/material/styles';
 import clusterDetailsHeader from '../assets/cluster-details-header.png'
 
 
@@ -32,15 +32,15 @@ const DeploymentPage = () => {
     pods: [],
   };
 
-  //Helper function that converts output string to object for DEPLOYMENT
+  // Helper function that converts output string to object for DEPLOYMENT
   const helperDeploymentObject = (str) => {
-    //Convert to array and remove spaces and empty strings
+    // Convert to array and remove spaces and empty strings
     let strToArr = str.split(/(\s+)/).filter((el) => !el.includes(' ') && el !== '');
-    //Remove auto-generated fields
+    // Remove auto-generated fields
     strToArr = strToArr.slice(strToArr.indexOf('\n') + 1);
     console.log('array is ', strToArr);
 
-    //Assuming this function receives only one deployment at a time
+    // Assuming this function receives only one deployment at a time
     if (strToArr.length > 2) {
       deplObjConstruct.deployment.name = strToArr[0];
       deplObjConstruct.deployment.pods = strToArr[1];
@@ -54,17 +54,17 @@ const DeploymentPage = () => {
     }
   };
 
-  //Helper function that converts output string to object for PODS
+  // Helper function that converts output string to object for PODS
   const helperPodsObject = (str) => {
-    //Convert to array, remove spaces and empty strings, remove non-applicable fields
+    // Convert to array, remove spaces and empty strings, remove non-applicable fields
     let strToArr = str.split(/(\s+)/).filter((el) => !el.includes(' ') && el !== '');
     strToArr = strToArr.slice(strToArr.indexOf('\n') + 1);
 
-    //Get replica name
+    // Get replica name
     let replicaName = strToArr[0].split('-').slice(0, 2).join('-');
     deplObjConstruct.replicas.name = replicaName;
     
-    //Iterate to store pod information in pods array of objects
+    // Iterate to store pod information in pods array of objects
     while (strToArr.length > 1) {
       let pod = {
         name : strToArr[0],
@@ -109,24 +109,27 @@ const DeploymentPage = () => {
 
   let deplInfoRender = [];
   for (let keyDepl in deploymentStats.deployment) {
-    deplInfoRender.push(<Typography xs={10} m={1} key={keyDepl}><strong>{keyDepl.toUpperCase()}: </strong>{deploymentStats.deployment[keyDepl]}</Typography>);
+    if (keyDepl !== 'pods') {
+      deplInfoRender.push(<Typography xs={10} m={1} key={keyDepl}><strong>{keyDepl.toUpperCase()}: </strong>{deploymentStats.deployment[keyDepl]}</Typography>);                                                                    
+    }
   };
 
   let replicaInfoRender = [];
-  for (let keyRepl in deploymentStats.replicas){
-    replicaInfoRender.push(<Typography xs={10} m={1} key={keyRepl}><strong>{keyRepl.toUpperCase()}: </strong>{deploymentStats.deployment[keyRepl]}</Typography>);
+  for (let keyRepl in deploymentStats.replicas) {
+    if (keyRepl === 'pods') {
+      replicaInfoRender.push(<div id='total-pods-formatted'>{deploymentStats.replicas.pods}</div>)
+    }
   };
 
   let podsInfoRender = deploymentStats.pods && Array.isArray(deploymentStats.pods)
   ? deploymentStats.pods.map((pod, index) => (
-      <Grid container spacing={2} key={index}>
-
-        <Grid container justifyContent="center" alignItems="center" item xs={12}>
+      <Grid container id='deployment-parent-container' spacing={2} key={index} direction='row'>
+        <Grid justifyContent="center" alignItems="center" item xs={12}>
           <Typography className='pod-name'><strong>Pod {index + 1}</strong></Typography>
         </Grid>
 
         {Object.keys(pod).map((key, innerIndex) => (
-          <Grid item xs={3} key={innerIndex}>
+        <Grid item xs={3} key={innerIndex}>
             <Typography><strong>
               {key.toUpperCase()}: </strong>{pod[key]}
             </Typography>
@@ -168,36 +171,29 @@ const DeploymentPage = () => {
         </Grid>
 
         <Grid container id='development-main-container'>
+
           <Grid item xs={8}>
             <Grid className='development-container-class' id='deployment-box' variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
               <Stack justifyContent="center" alignItems="center">
-                  <div className='development-stat-header'>
-                    <Typography className='development-stat-header-label' variant="h7">DEPLOYMENT</Typography>
-                  </div>
+                <div className='cluster-labels-container'>
+                  <Typography className='cluster-labels' variant="h7">DEPLOYMENT</Typography>
+                </div>
+                <div id='deployment-info-div'>
                   {deplInfoRender}
-                </Stack>
+                </div>
+              </Stack>
             </Grid>
           </Grid>
 
           <Grid item xs={4}>
             <Grid className='development-container-class' id='replica-box' variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
-              <Stack justifyContent="center" alignItems="center">
-                <div className='development-stat-header'>
-                  <Typography className='development-stat-header-label' variant="h7">REPLICAS</Typography>
-                </div>
-                {replicaInfoRender}
-              </Stack>
+              <Typography className='replicas-labels' variant="h7">REPLICAS</Typography>
+              {replicaInfoRender}
             </Grid>
           </Grid>
             
-          <Grid item xs={12} className='development-container-class'>
-            <Grid variant="outlined" style={{ margin: '10px' }} elevation={5} square={false}>
-              <Stack container direction="column" alignItems="center">
-                <div>
-                  {podsInfoRender}
-                </div>
-              </Stack>
-            </Grid>
+          <Grid item xs={12} id='pods-info-container' className='development-container-class'>
+            {podsInfoRender}
           </Grid>
         </Grid>
 
