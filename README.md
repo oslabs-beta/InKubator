@@ -60,16 +60,24 @@ Read our Medium article <a href="">here</a>.
 <h2>About the team</h2>
 <table>
   <tr>
-    <th>Pic</th>
-    <th>Pic</th> 
-    <th>Pic</th>
-    <th>Pic</th>
+    <th>
+      <img width="300" alt="Tarik Bensalem" src="https://github.com/oslabs-beta/InKubator/assets/140859521/0ba83b6a-9882-432b-b0f3-6dfa2c80c666">
+    </th>
+    <th>
+      <img width="300" alt="Rita Bizhan" src="https://github.com/oslabs-beta/InKubator/assets/140859521/5e7867c1-b39d-477f-94d5-8eb434fb5175">
+    </th> 
+    <th>
+       <img width="300" alt="Jeff Chan" src="https://github.com/oslabs-beta/InKubator/assets/140859521/db69e14a-759d-4357-b0f8-0dd1f32b8ad7">
+    </th>
+    <th>
+      <img width="300" alt="Christina Flores" src="https://github.com/oslabs-beta/InKubator/assets/140859521/3e1f633a-0fa5-4c39-80f1-25d757a880af">
+    </th>
   </tr>
   <tr>
-    <td>Tarik Bensalem</td>
-    <td>Rita Bizhan</td> 
-    <td>Jeff Chan</td>
-    <td>Cristina Flores</td>
+    <td align="center">Tarik Bensalem</td>
+    <td align="center">Rita Bizhan</td> 
+    <td align="center">Jeff Chan</td>
+    <td align="center">Cristina Flores</td>
   </tr>
   <tr>
     <td align="center"><a href="https://www.linkedin.com/in/tarik-bensalem/">
