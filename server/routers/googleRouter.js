@@ -32,6 +32,11 @@ googleRouter.use('/deploy', googleController.deploy, (req, res, next) => {
     return res.status(200);
 });
 
+googleRouter.use('/getEndpoint', googleController.getEndpoint, (req, res) => {
+    // console.log('Made it past test middleware');
+    return res.status(200).json(res.locals.endpoint);
+});
+
 googleRouter.use('/test', googleController.testFunc, (req, res, next) => {
     // console.log('Made it past test middleware');
     return res.status(200).json(res.locals.test);

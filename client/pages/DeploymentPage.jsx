@@ -137,6 +137,18 @@ const DeploymentPage = () => {
     ))
   : null;
 
+  //Get external endpoint to access app
+  const handleGetEndPoint = async () => {
+    try {
+      const reqEndPoint = await fetch('/google/getEndpoint');
+      const endPoint = await reqEndPoint.json();
+      console.log(endPoint);
+      window.open(`http://${endPoint}`)
+    } catch(err) {
+      console.log(`ERROR at getEndPoint: ${err}`);
+    };
+  };
+
   return (
     <>
       <Breadcrumbs aria-label="breadcrumb" style={{paddingBottom:'12px'}}>
@@ -190,9 +202,13 @@ const DeploymentPage = () => {
         </Grid>
 
         <Grid container justifyContent='right'>
-          <Button id='delete-button' variant='contained' size='large' color='purple' onClick={(e) => {handleDelete(e)}}>Delete Deployment</Button>
-        </Grid>      
-        </Grid>
+        <Button id='delete-button' variant='contained' size='large' color='purple' onClick={(e) => {handleDelete(e)}}>Delete Deployment</Button>
+        </Grid>    
+
+        <Grid container justifyContent='right'>
+        <Button id='get-endpoint' variant='outlined' size='large' color='purple' onClick={(e) => {handleGetEndPoint(e)}}>Click Here To Access Your App</Button>
+        </Grid>   
+        </Grid>   
       </ThemeProvider>
     </>
   )
