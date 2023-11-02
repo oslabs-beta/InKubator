@@ -85,13 +85,19 @@ body {
     font-size: large;
     border-radius: 30px;
     padding: 3%;
-    /* margin-top: 3%; */
     margin: 3%;
     width: 55%;
 }
 
 .cluster-content {
     font-weight: 400;
+}
+
+#deployment-button-container {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    gap: 10px;
 }
 
 #deployment-button {
@@ -252,6 +258,7 @@ body {
 
   #pods-info-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 5%;
