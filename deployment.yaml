@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hihihi
+  name: boba
   labels:
-    app: hehehehe
+    app: boba
 spec:
   selector:
     matchLabels:
-      app: hehehehe
+      app: boba
   template:
     metadata:
       labels:
-        app: hehehehe
+        app: boba
     spec:
       containers:
         - ports:
             - containerPort: 8080
-          name: hehehehe
+          name: boba
           image: registry.k8s.io/e2e-test-images/agnhost:2.39
-  replicas: 1
+  replicas: 3

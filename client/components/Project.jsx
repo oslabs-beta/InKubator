@@ -12,17 +12,18 @@ const theme = createTheme({
   },
 });
 
-const Project = (props) => {
-  console.log('FUNCTION', props.setSelectedProject)
-
+const Project = ({ projectData, setSelectedProject }) => {
+  // console.log('FUNCTION', props.setSelectedProject)
+  // console.log('DECONSTRUCTED', PROJECT_ID, NAME, PROJECT_NUMBER)
   // console.log('projectData IN PROJECT/JSX', projectData.projectData)
-  const {PROJECT_ID, NAME, PROJECT_NUMBER} = props.projectData;
+  // console.log("Inside of individual project", projectData);
 
-  console.log('DECONSTRUCTED', PROJECT_ID, NAME, PROJECT_NUMBER)
+  const {PROJECT_ID, NAME, PROJECT_NUMBER} = projectData;
 
-  const handleSelectProject = async (e) => {
-    console.log('e.target', e.target.id)
-    props.setSelectedProject(e.target.id)
+  const handleSelectProject = async () => {
+    // console.log('e.target', e.target.id)
+    // console.log(NAME, "SELECTED INSIDE OF PROJECT COMPONENT")
+    setSelectedProject(PROJECT_ID);
   };
 
   return (
