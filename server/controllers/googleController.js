@@ -229,17 +229,33 @@ googleController.deploy = (req, res, next) => {
     });
 };
 
+googleController.getEndpoint = async (req, res, next) => {
+  const doc = await yaml.load(fs.readFileSync('./deployment.yaml', 'utf8'));
+  const clusterName = doc.metadata.name;
+  exec(`kubectl get services ${clusterName} -o jsonpath='{.status.loadBalancer.ingress[0].ip}:{.spec.ports[0].port}'`, (err, stdout, stderr) => {
+    if (err) {
+      return next({
+        log: 'Error in getEndpoint func',
+        message: { err: 'Error occurred in googleController.getEndpoint ' + err },
+      });
+    } else {
+      res.locals.endpoint = stdout;
+    };
+    return next();
+  });
+};
+
 googleController.testFunc = (req, res, next) => {
     exec(`gcloud --flags-file=deployment.yaml`, (err, stdout, stderr) => {
-        if (err) {
-            return next({
-                log: 'Error in test func',
-                message: { err: 'Error occurred in googleController.testFunc ' + err },
-            });
-        } else {
-            res.locals.test = stdout;
-        };
-        return next();
+      if (err) {
+        return next({
+          log: 'Error in test func',
+          message: { err: 'Error occurred in googleController.testFunc ' + err },
+        });
+      } else {
+        res.locals.test = stdout;
+      };
+      return next();
     });
 };
 
