@@ -51,6 +51,7 @@ body {
     border-radius: 30px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
     background-color: white;
+    /* background-color: pink; */
 }
 
 .cluster-labels-container {
@@ -73,7 +74,7 @@ body {
     box-sizing: border-box;                           ;
     background-color: #d0c4f7;
     padding: 3%;
-    margin-top: 5%;
+    margin: 2%;
     border-radius: 30px;
     width: 100%;
 }
@@ -129,8 +130,9 @@ body {
     /* margin: 1%; */
     /* margin: 50px; */
     padding: 1%;
-    box-sizing: border-box; 
-    /* background-color: purple; */
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
 }
 
 #clusters-container-B {
@@ -145,6 +147,8 @@ body {
 
 #cluster-main-buttons {
     padding: 1%;
+    align-items: right;
+    justify-content: right;
 }
 
 .cluster-select-buttons {
@@ -157,9 +161,9 @@ body {
 #projects-main-container {
     display: flex;
     align-self: center;
-    align-items: center;
+    align-items: left;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: left;
     flex-wrap: wrap;
     margin: 1%;
     padding: 1%;
