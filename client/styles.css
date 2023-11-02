@@ -134,6 +134,7 @@ body {
     display: flex;
     align-self: center;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: center;
     margin: 1%;
     padding: 1%;
