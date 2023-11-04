@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Chip, Grid, IconButton, Tooltip, Stack } from '@mui/material';
+import { Button, Chip, Grid, IconButton, Tooltip, Stack, Fab, Box } from '@mui/material';
 import { ContentCopy, KeyboardArrowUp } from '@mui/icons-material';
 import { Element, Link, animateScroll as scroll } from 'react-scroll';
 import { Link as RouterLink } from 'react-router-dom';
@@ -22,11 +22,8 @@ const theme = createTheme({
 });
 
 const CloudSetup = () => {
-  const [clusters, setClusters] = useState();
-  const [clusterName, setClusterName] = useState(null);
-  const [clusterStatus, setClusterStatus] = useState();
-  const [getCreds, setGetCreds] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false)
 
   // Reusable fetch request function
   const fetchRequest = async (endpoint, method, card) => {
@@ -49,16 +46,11 @@ const CloudSetup = () => {
   }
 
   // Handle clicks for getting clusters, and tying credentials to KubeCTL
-  const handleGetClusters = async (e) => {
-    const allClusters = await (fetchRequest('google/getClusters', {method: "POST"}));
-    await console.log('allClusters', allClusters)
-    await setClusters(allClusters)
+  const handleAuth = async (e) => {
+    await (fetchRequest('google/test', {method: "POST"}));
+    await setLoggedIn(true);
   }
 
-  const handleGetCredentials = async (e) => {
-  const credsAreTied = await (fetchRequest('google/getCredentials', {method: "POST"}, {"clusterName": clusterName}))
-  await setGetCreds(credsAreTied)
-  }
   // Handle copy to clipboard 
   const cloudStartCode = 'gcloud components install gke-gcloud-auth-plugin';
   const copyToClipboard = () => {
@@ -122,6 +114,14 @@ const CloudSetup = () => {
               </Tooltip>
             </div>
             <p>Learn more about this command <a href='https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke'>here</a>!</p>
+        </Grid>
+
+        <Grid className="setup-paper">
+          <Box justifyContent={"center"}>
+            <Fab variant="extended" onClick={handleAuth}>
+              Authenticate!
+            </Fab>
+          </Box>
         </Grid>
 
         <Grid className='setup-paper'>

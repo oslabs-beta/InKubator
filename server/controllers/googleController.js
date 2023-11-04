@@ -248,7 +248,11 @@ googleController.getEndpoint = async (req, res, next) => {
 };
 
 googleController.testFunc = (req, res, next) => {
-    exec(`gcloud --flags-file=deployment.yaml`, (err, stdout, stderr) => {
+    exec(`gcloud auth login`, (err, stdout, stderr) => {
+        console.log('STDOUT', stdout)
+        console.log('stderr', stderr)
+        console.log('STDOUT', err)
+        
       if (err) {
         return next({
           log: 'Error in test func',
