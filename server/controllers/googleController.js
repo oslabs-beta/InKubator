@@ -252,7 +252,7 @@ googleController.testFunc = (req, res, next) => {
         console.log('STDOUT', stdout)
         console.log('stderr', stderr)
         console.log('STDOUT', err)
-        
+
       if (err) {
         return next({
           log: 'Error in test func',
