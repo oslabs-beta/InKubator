@@ -42,4 +42,9 @@ googleRouter.use('/test', googleController.testFunc, (req, res, next) => {
     return res.status(200).json(res.locals.test);
 });
 
+googleRouter.use('/inputAnything', googleController.inputAnything, (req, res, next) => {
+    // console.log('Made it past inputAnything middleware');
+    return res.status(200).json(res.locals.inputAnything);
+});
+
 module.exports = googleRouter;

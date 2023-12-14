@@ -42,8 +42,10 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 3001;
 
-app.listen(PORT, () => {
-    console.log(`App is listening on`, PORT);
-});
+const startServer = () => {
+    app.listen(PORT, () => {
+        console.log(`App is listening on`, PORT);
+    });
+}
 
-module.exports = app;
+module.exports = {app, startServer};

@@ -57,7 +57,7 @@ const CloudForm = () => {
   }
 
   const handleGetCredentials = async (e) => {
-    const credsAreTied = await (fetchRequest('/google/getCredentials', {method: "POST"}, {"clusterName": clusterName, "location": location}))
+    const credsAreTied = await (fetchRequest('google/getCredentials', {method: "POST"}, {"clusterName": clusterName, "location": location}))
     await setGetCreds(credsAreTied)
   }
 
@@ -113,20 +113,22 @@ const CloudForm = () => {
             <img src={clustersHeader} id='clusters-header-img' />
           </Grid>
 
-          <Grid id='projects-main-container'>
+          <Grid id='projects-main-container' justifyContent='left'>
             {projects.length > 0 ? projects.map((project) => {
               return <Project projectData={project} setSelectedProject={handleSelectProject}/>
-            }): <></>}
+            }): <><Grid className='clusters-container-A'>
+            <CircularProgress/> 
+          </Grid></>}
           </Grid>
 
-          <Grid id='clusters-container-B' item xs={12}>
+          <Grid id='clusters-container-B' item xs={12} justifyContent='left'>
             
-            {/* {isLoading || !clusters.length? // If loading, render loading circle
+            {isLoading || !clusters.length ? // If loading, render loading circle
             <Grid className='clusters-container-A'>
               <CircularProgress/> 
             </Grid>
-            : // Or render clusters
-            } */}
+            : null
+            }
 
             {clusters.length > 0 ? <Clusters
               clusters={clusters}

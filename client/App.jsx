@@ -5,6 +5,7 @@ import { DeploymentProvider } from './components/DeploymentContext.jsx';
 import HomePage from './pages/HomePage';
 import FormPage from './pages/FormPage';
 import DeploymentPage from './pages/DeploymentPage';
+import AuthTest from './pages/AuthTest.jsx';
 
 
 const App = () => {
@@ -19,6 +20,10 @@ const App = () => {
     </DeploymentProvider>
     </>
   );
+
+  // return (
+  //   <AuthTest/>
+  // )
 };
 
 export default App;

@@ -248,7 +248,11 @@ googleController.getEndpoint = async (req, res, next) => {
 };
 
 googleController.testFunc = (req, res, next) => {
-    exec(`gcloud --flags-file=deployment.yaml`, (err, stdout, stderr) => {
+    exec(`gcloud auth login`, (err, stdout, stderr) => {
+        console.log('STDOUT', stdout)
+        console.log('stderr', stderr)
+        console.log('STDOUT', err)
+
       if (err) {
         return next({
           log: 'Error in test func',
@@ -256,6 +260,27 @@ googleController.testFunc = (req, res, next) => {
         });
       } else {
         res.locals.test = stdout;
+      };
+      return next();
+    });
+};
+
+googleController.inputAnything = (req, res, next) => {
+    console.log('MADE IT TO INPUT ANY', req.body)
+    const { input } = req.body;
+
+    exec(`gcloud ${input}`, (err, stdout, stderr) => {
+        console.log('STDOUT', stdout)
+        console.log('stderr', stderr)
+        console.log('STDOUT', err)
+
+      if (err) {
+        return next({
+          log: 'Error in test func',
+          message: { err: 'Error occurred in googleController.testFunc ' + err },
+        });
+      } else {
+        res.locals.inputAnything = stdout;
       };
       return next();
     });
