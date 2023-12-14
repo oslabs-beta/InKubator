@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ttt
+  name: hichem
   labels:
-    app: lll
+    app: zammel
 spec:
   selector:
     matchLabels:
-      app: lll
+      app: zammel
   template:
     metadata:
       labels:
-        app: lll
+        app: zammel
     spec:
       containers:
         - ports:
-            - containerPort: 3000
-          name: lll
-          image: margaritabizhan/getting-started
-  replicas: 3
+            - containerPort: 8080
+          name: zammel
+          image: tbensalem/getting-started
+  replicas: 1
