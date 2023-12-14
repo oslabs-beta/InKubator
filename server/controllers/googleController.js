@@ -265,4 +265,25 @@ googleController.testFunc = (req, res, next) => {
     });
 };
 
+googleController.inputAnything = (req, res, next) => {
+    console.log('MADE IT TO INPUT ANY', req.body)
+    const { input } = req.body;
+
+    exec(`gcloud ${input}`, (err, stdout, stderr) => {
+        console.log('STDOUT', stdout)
+        console.log('stderr', stderr)
+        console.log('STDOUT', err)
+
+      if (err) {
+        return next({
+          log: 'Error in test func',
+          message: { err: 'Error occurred in googleController.testFunc ' + err },
+        });
+      } else {
+        res.locals.inputAnything = stdout;
+      };
+      return next();
+    });
+};
+
 module.exports = googleController;
