@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import FormPage from './pages/FormPage';
 import DeploymentPage from './pages/DeploymentPage';
 import AuthTest from './pages/AuthTest.jsx';
+import Page2 from './pages/Page2.jsx';
 
 
 const App = () => {
@@ -14,7 +15,7 @@ const App = () => {
     <DeploymentProvider>
       <Routes>
         <Route path='/' element={<HomePage />}/>
-        <Route path='/form' element={<FormPage />}/>
+        <Route path='/form' element={<Page2 />}/>
         <Route path='/deploymentlist' element={<DeploymentPage />}/>
       </Routes>
     </DeploymentProvider>

@@ -173,16 +173,6 @@ body {
     box-sizing: border-box; 
 }
 
-.project-cards {
-    display: flex;
-    flex-direction: column;
-    padding: 1%;
-    margin: 1%;
-    border-radius: 30px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
-    background-color: white;
-}
-
 .project-content {
     padding: 2%;
 }
@@ -583,3 +573,94 @@ animation: spin 1s linear infinite;
     transform: translateY(0);
   }
 
+/* NEW CRISTINA EDITS 12/30/23 */
+
+.projects-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin: 1%;
+    padding: 1%;
+    width: 95vw;
+    height: 16vh;
+    /* background-color: #e2e5fa; */
+    border-radius: 25px;
+}
+
+/* OLD */
+.project-cards {
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    margin: 1%;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
+    background-color: white;
+}
+
+/* NEW */
+.project-card {
+    display: flex;
+    justify-content: center;
+    padding: 1%;
+    margin: 1%;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
+    /* set a specific size  - max/min height? */
+    /* flex-direction: column; */
+    height: 125px;
+    width: 225px;
+}
+
+.project-card:hover {
+    background-color: #4c537c;
+    color: white;
+}
+
+.project-card:active {
+    /* how to make on click = active */
+    background-color: #E57373;
+}
+
+.cluster-card {
+    display: flex;
+    justify-content: center;
+    margin: 1%;
+    padding: 1%;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
+    background-color: #8b96d2;
+    /* PLS EDIT THESE TO BE RESPONSIVE */
+    height: 125px;
+    width: 175px;
+}
+
+.cluster-wrapper {
+    background-color: #e2e5fa;
+    padding: 0.5%;
+    border-radius: 10px;
+}
+
+.deployment-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1%;
+    padding: 1%;
+    background-color: white;
+    border-radius: 20px;
+    height: 125px;
+    width: 175px;
+}
+
+#google-deployments-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin: 1%;
+    padding: 3%;
+    width: 95vw;
+    height: 16vh;
+    background-color: #e2e5fa;
+    border-radius: 25px;
+}
