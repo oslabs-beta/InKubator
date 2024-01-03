@@ -3,9 +3,11 @@
 /* GLOBAL FORMATTING */
 
 body {
+    display: flex;
     font-family: 'Roboto', sans-serif;
     background-color: #e7f0fc;
     color: #30292F;
+    justify-content: center;
 }
 
 
@@ -611,28 +613,34 @@ animation: spin 1s linear infinite;
 }
 
 /* NEW */
-.project-card {
+.project {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 1.5%;
-    margin: 2%;
+    padding: 1.2%;
+    margin: 1.5%;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
     background-color: white;
+    transition: background-color 0.1s ease-in-out;
     /* set a specific size  - max/min height? */
     min-height: 5vh;
     height: 100%;
 }
 
-.project-card:hover {
+.selected {
     background-color: #4c537c;
     color: white;
 }
 
-.project-card:active {
+.project:hover {
+    background-color: #f5f7ff;
+    color: black;
+}
+
+.project:active {
     /* how to make on click = active */
-    background-color: #E57373;
+    background-color: #4c537c;
 }
 
 .cluster-card {

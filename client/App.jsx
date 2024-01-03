@@ -7,6 +7,7 @@ import FormPage from './pages/FormPage';
 import DeploymentPage from './pages/DeploymentPage';
 import AuthTest from './pages/AuthTest.jsx';
 import Page2 from './pages/Page2.jsx';
+import CloudForm from './components/CloudForm.jsx';
 
 
 const App = () => {
