@@ -15,11 +15,14 @@
     // on project select create wrap around container
     // Make header responsive
 
-import React, { useEffect } from 'react';
-import { Button, Grid, Stack, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Button, Grid, IconButton, Stack, Typography } from '@mui/material';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Project from '../components/Project';
 
 const Page2 = () => {
+
+  const [selectedProject, setSelectedProject] = useState();
 
     // THEME - this is for aesthetic purposes only
 
@@ -30,6 +33,11 @@ const Page2 = () => {
         // Show loading spinner while waiting
         // Display error if failed
     // 3. Handle user selecting a project
+    const handleSelectProject = (e) => {
+      // When a user clicks on a project, make that the active project
+      // Change the background color of active project
+      console.log(e)
+    }
 
     // CLUSTERS
     // 1. Get clusters from GCloud based on selected project
@@ -48,43 +56,48 @@ const Page2 = () => {
   return (
     <>
       <div id='page2-header-container'>
+        HEADER WILL GO HERE
         {/* make a container that has a fill background of an image */}
         {/* should say: Deploy with InKubator, start by selecting a project and cluster */}
       </div>
-      <div id='google-projects-container' class='projects-container'> 
+
+      <div id='google-projects-container' className='projects-container'> 
         {/* 1. all projects should populate on Load
         2. [DONE] on hover, they should change hues
         3. on click, they should change colors AND load clusters 
         4. each project will need an id */}
-        <Grid className='project-card' direction='column'>
+        {/* <Project/> */}
+        <div id='sampleproject1' className='project-card' onClick={handleSelectProject}>
           <b>PROJECT</b>
           <Stack spacing={0.5}>
             <p>ID: sample-project-id</p>
             <p>Number: 09987652a89</p>
           </Stack>
-        </Grid>
-        <Grid className='project-card' direction='column'>
+        </div>
+        {/* when this card's id is selected, change it's color, when it's not selected, let it's color be regular */}
+        {/* whichever project is selected will have the background color */}
+        <div id='sampleproject2' className='project-card'>
           <b>PROJECT</b>
           <Stack spacing={0.5}>
             <p>ID: sample-project-id</p>
             <p>Number: 09987652a89</p>
           </Stack>
-        </Grid>
-        <Grid className='project-card' direction='column'>
+        </div>
+        <div id='sampleproject3' className='project-card'>
           <b>PROJECT</b>
           <Stack spacing={0.5}>
             <p>ID: sample-project-id</p>
             <p>Number: 09987652a89</p>
           </Stack>
-        </Grid>
+        </div>
       </div>
-      <div id='google-clusters-container' class='projects-container'> 
+      <div id='google-clusters-container'> 
         {/* CLUSTERS HEHE 
         each cluster will need an id
         1. empty until a project is selected, on select, load All
         2. on click (of select button), query deployments */}
-        <div className='cluster-wrapper'>
-          <Grid className='cluster-card' direction='column'>
+        <div className='cluster-card-wrapper'> 
+          <div className='cluster-card'>
             <b>CLUSTER NAME</b>
             <Stack spacing={0.5}>
               <p>location: midwest</p>
@@ -92,10 +105,22 @@ const Page2 = () => {
               {/* Button needs a hover status? */}
               <Button className='select-cluster-button'>select</Button>
             </Stack>
-          </Grid>
+          </div>
+        </div>
+        <div className='cluster-card-wrapperb'> 
+          <div className='cluster-card'>
+            <b>CLUSTER NAME</b>
+            <Stack spacing={0.5}>
+              <p>location: midwest</p>
+              <p>Status: running</p>
+              {/* Button needs a hover status? */}
+              <Button className='select-cluster-button'>select</Button>
+            </Stack>
+          </div>
         </div>
       </div>
       <div id='google-deployments-container'>
+        <div id='google-loaded-deployments-container'>
         <div className='deployment-card'>
           DEPLOYMENT
         </div>
@@ -108,11 +133,12 @@ const Page2 = () => {
         <div className='deployment-card'>
           DEPLOYMENT
         </div>
-        <div className='deployment-card'>
-          DEPLOYMENT
+        </div>
+        <div id='google-deployments-add-button-container'>
+          <IconButton><AddCircleIcon fontSize='large'/></IconButton>
         </div>
       </div>
-      <div id='google-form-container' class='projects-container'>
+      <div id='google-form-container' className='projects-container'>
         {/* Load form */}
         {/* Load yaml generator */}
         FORM HERE

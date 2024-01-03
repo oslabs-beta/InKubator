@@ -574,16 +574,28 @@ animation: spin 1s linear infinite;
   }
 
 /* NEW CRISTINA EDITS 12/30/23 */
+#page2-header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95vw;
+    height: 15vh;
+    background-color: #4c537c;
+    color: white;
+    /* margin: 1%; */
+    border-radius: 25px;
+}
 
 .projects-container {
     display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
     justify-content: left;
     align-items: center;
-    margin: 1%;
-    padding: 1%;
+    /* margin: 1%; */
     width: 95vw;
-    height: 16vh;
-    /* background-color: #e2e5fa; */
+    /* height: 16vh; */
+    background-color: #e2e5fa;
     border-radius: 25px;
 }
 
@@ -592,7 +604,7 @@ animation: spin 1s linear infinite;
     display: flex;
     flex-direction: column;
     padding: 1%;
-    margin: 1%;
+    margin: 2%;
     border-radius: 30px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
     background-color: white;
@@ -601,15 +613,16 @@ animation: spin 1s linear infinite;
 /* NEW */
 .project-card {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    padding: 1%;
-    margin: 1%;
+    padding: 1.5%;
+    margin: 2%;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
+    background-color: white;
     /* set a specific size  - max/min height? */
-    /* flex-direction: column; */
-    height: 125px;
-    width: 225px;
+    min-height: 5vh;
+    height: 100%;
 }
 
 .project-card:hover {
@@ -624,28 +637,32 @@ animation: spin 1s linear infinite;
 
 .cluster-card {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    margin: 1%;
-    padding: 1%;
-    border-radius: 10px;
+    align-items: center;
+    padding: 2%;
+    border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
-    background-color: #8b96d2;
-    /* PLS EDIT THESE TO BE RESPONSIVE */
-    height: 125px;
-    width: 175px;
+    background-color: white;
 }
 
-.cluster-wrapper {
-    background-color: #e2e5fa;
-    padding: 0.5%;
-    border-radius: 10px;
+.cluster-card-wrapper {
+    padding: 2%;
+    border-radius: 20px 20px 0 0;
+    background-color: #4c537c;
+}
+
+.cluster-card-wrapperb {
+    padding: 2%;
+    border-radius: 20px;
 }
 
 .deployment-card {
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    align-items: left;
     justify-content: center;
-    margin: 1%;
+    margin: 0 1% 0 1%;
     padding: 1%;
     background-color: white;
     border-radius: 20px;
@@ -657,10 +674,28 @@ animation: spin 1s linear infinite;
     display: flex;
     justify-content: left;
     align-items: center;
-    margin: 1%;
-    padding: 3%;
+    /* margin: 1%; */
+    padding: 2%;
+    max-width: 100%;
+    min-height: 16vh;
+    /* height: 16vh; */
+    background-color: #4c537c;
+    border-radius: 0 25px 25px 25px;
+}
+
+#google-loaded-deployments-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    overflow-x: scroll;
+}
+
+#google-clusters-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    /* margin: 1%; */
     width: 95vw;
-    height: 16vh;
     background-color: #e2e5fa;
     border-radius: 25px;
 }
