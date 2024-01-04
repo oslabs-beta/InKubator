@@ -26,6 +26,8 @@ const Page2 = () => {
     projects: [{id: 1}, {id: 2}, {id: 3}]
   });
 
+  const [selectedCluster, setSelectedCluster] = useState(null);
+
     // FETCH REQUEST TEMPLATE 
     const fetchRequest = async (endpoint, method, card) => {
       
@@ -68,35 +70,40 @@ const Page2 = () => {
         // Show loading spinner while waiting
         // Display error if failed
     // 3. Handle user selecting a project
-    const setSelectedProject = (index) => {
+
+    const handleSelectProject = (index) => {
       setProjectState({...projectState, selectedProject: projectState.projects[index]});
-      // Display a loading message to prevent the user from going crazy w clicks
-      // Throttle?
-      // Call the function that loads clusters
+      // NEXT STEPS:
+        // Display a loading message to prevent the user from going crazy w clicks
+        // Add throttle to minimize too many calls to GCloud
+        // Call the function that loads clusters
     };
   
-    const setSelectedProjectStyles = (index) => {
+    const handleSelectProjectStyles = (index) => {
       return projectState.projects[index] === projectState.selectedProject ? 'project selected' : 'project'; 
     };
 
-    const handleSelectProject = (projectId) => {
-      // When a user clicks on a project, make that the active project
-      // Change the background color of active project
-      console.log('you clicked button');
-      console.log('id is', projectId)
-      setSelectedProject(projectId);
-    }
-
     // CLUSTERS
-    // 1. Get clusters from GCloud based on selected project
-        // Show loading spinner while waiting
-        // Display error if failed
-    // 2. Handle select cluster
-      // either have a handleclick function OR
-        // could activate "halo" element
-        // change cluster-wrapper with that id's background color?
-      // change the appearance on active
-        // give it a halo on active
+    // 1. [ASK TARIK] Get clusters from GCloud based on selected project
+      // Show loading spinner while waiting
+      // Display error if failed
+    // 2. [DONE] Visually handle select cluster
+    // 3. Call a function to get corresponding deployments
+
+    const sampleClusters = [{}, {}];
+    
+    const handleSelectCluster = (index) => {
+      setSelectedCluster(index);
+    };
+
+    const handleSelectClusterStyles = (index) => {
+      return index === selectedCluster ? 'cluster-wrapper selected' : 'cluster-wrapper'; 
+    };
+
+    // DEPLOYMENTS
+    // 1. Get existing deployments from Google Cloud
+    // 2. Show loading spinner when first rendered, when received show deployments?
+    // 
 
     // FORM
     // Handle submit
@@ -110,18 +117,18 @@ const Page2 = () => {
       </div>
 
       <div id='google-projects-container' className='projects-container'> 
-        {/* 1. all projects should populate on Load
+        {/* 1. [ASK TARIK] all projects should populate on Load
         2. [DONE] on hover, they should change hues
-        3. on click, they should change colors AND load clusters 
-        4. each project will need an id */}
-        {/* <Project/> */}
-        {/* projects should be buttons! */}
+        3. [DONE] on click, they should change colors 
+            AND load clusters 
 
+        {/* ITERATE OVER THE ARRAY THAT COMES BACK FROM GCLOUD */}
+        {/* Might need to do some prop drilling */}
         {projectState.projects.map((elements, index) => (
           <div 
             key={index} 
-            className={setSelectedProjectStyles(index)} 
-            onClick={() => {setSelectedProject(index)}}
+            className={handleSelectProjectStyles(index)} 
+            onClick={() => {handleSelectProject(index)}}
           >
             <b>PROJECT</b>
             <Stack spacing={0.5}>
@@ -131,46 +138,46 @@ const Page2 = () => {
           </div>
         ))}
       </div>
+
       <div id='google-clusters-container'> 
         {/* CLUSTERS HEHE 
+        each one will have a button
+        on select, that click will trigger the wrapper style to update
         each cluster will need an id
         1. empty until a project is selected, on select, load All
         2. on click (of select button), query deployments */}
-        <div className='cluster-card-wrapper'> 
-          <div className='cluster-card'>
-            <b>CLUSTER NAME</b>
-            <Stack spacing={0.5}>
-              <p>location: midwest</p>
-              <p>Status: running</p>
-              {/* Button needs a hover status? */}
-              <Button className='select-cluster-button'>select</Button>
-            </Stack>
+        {sampleClusters.map((elements, index) => (
+          <div 
+            className={handleSelectClusterStyles(index)}
+            key={index}
+          > 
+            <div className='cluster'>
+              <b>CLUSTER NAME</b>
+              <Stack spacing={0.5}>
+                <p>location: midwest</p>
+                <p>Status: running</p>
+                <Button 
+                  className='select-cluster-button'
+                  onClick={() => {handleSelectCluster(index)}}
+                >view</Button>
+              </Stack>
+            </div>
           </div>
-        </div>
-        <div className='cluster-card-wrapperb'> 
-          <div className='cluster-card'>
-            <b>CLUSTER NAME</b>
-            <Stack spacing={0.5}>
-              <p>location: midwest</p>
-              <p>Status: running</p>
-              {/* Button needs a hover status? */}
-              <Button className='select-cluster-button'>select</Button>
-            </Stack>
-          </div>
-        </div>
+        ))}
+        
       </div>
-      <div id='google-deployments-container'>
+      <div id='google-deployments-main-container'>
         <div id='google-loaded-deployments-container'>
-        <div className='deployment-card'>
+        <div className='deployment'>
           DEPLOYMENT
         </div>
-        <div className='deployment-card'>
+        <div className='deployment'>
           DEPLOYMENT
         </div>
-        <div className='deployment-card'>
+        <div className='deployment'>
           DEPLOYMENT
         </div>
-        <div className='deployment-card'>
+        <div className='deployment'>
           DEPLOYMENT
         </div>
         </div>
@@ -181,8 +188,8 @@ const Page2 = () => {
       <div id='google-form-container' className='projects-container'>
         {/* Load form */}
         {/* Load yaml generator */}
-        FORM HERE
-        YAML HERE
+        <div>FORM HERE</div>
+        <div>YAML HERE</div>
       </div>
     </>
   )

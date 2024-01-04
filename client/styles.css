@@ -583,9 +583,13 @@ animation: spin 1s linear infinite;
     width: 95vw;
     height: 15vh;
     background-color: #4c537c;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-image: url('build/assets/page2header.png'); */
     color: white;
     /* margin: 1%; */
-    border-radius: 25px;
+    border-radius: 20px;
 }
 
 .projects-container {
@@ -628,22 +632,28 @@ animation: spin 1s linear infinite;
     height: 100%;
 }
 
-.selected {
-    background-color: #4c537c;
-    color: white;
-}
-
 .project:hover {
-    background-color: #f5f7ff;
+    background-color: #eaedf9;
     color: black;
 }
 
-.project:active {
-    /* how to make on click = active */
+.selected {
     background-color: #4c537c;
+    color: white;
+    transition: background-color 0.1s ease-in-out;
 }
 
-.cluster-card {
+#google-clusters-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    /* margin: 1%; */
+    width: 95vw;
+    background-color: #e2e5fa;
+    border-radius: 25px;
+}
+
+.cluster {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -652,20 +662,17 @@ animation: spin 1s linear infinite;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
     background-color: white;
+    color: #30292F;
 }
 
-.cluster-card-wrapper {
+.cluster-wrapper {
     padding: 2%;
     border-radius: 20px 20px 0 0;
-    background-color: #4c537c;
+    /* background-color: #4c537c; */
+    transition: background-color 0.1s ease-in-out;
 }
 
-.cluster-card-wrapperb {
-    padding: 2%;
-    border-radius: 20px;
-}
-
-.deployment-card {
+.deployment {
     display: flex;
     flex-direction: row;
     align-items: left;
@@ -678,7 +685,7 @@ animation: spin 1s linear infinite;
     width: 175px;
 }
 
-#google-deployments-container {
+#google-deployments-main-container {
     display: flex;
     justify-content: left;
     align-items: center;
@@ -688,7 +695,7 @@ animation: spin 1s linear infinite;
     min-height: 16vh;
     /* height: 16vh; */
     background-color: #4c537c;
-    border-radius: 0 25px 25px 25px;
+    border-radius: 25px;
 }
 
 #google-loaded-deployments-container {
@@ -698,12 +705,8 @@ animation: spin 1s linear infinite;
     overflow-x: scroll;
 }
 
-#google-clusters-container {
+
+#google-form-container {
     display: flex;
-    justify-content: left;
-    align-items: center;
-    /* margin: 1%; */
-    width: 95vw;
-    background-color: #e2e5fa;
-    border-radius: 25px;
+    flex-direction: row;
 }
