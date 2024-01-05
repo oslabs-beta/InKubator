@@ -98,12 +98,12 @@ const CloudSetup = () => {
         </div>
 
         <Grid className='setup-paper'>
-          <h3><Chip label='1' />  Installing the Google Cloud CLI on your machine</h3>
+          <h3>1. Installing the Google Cloud CLI on your machine</h3>
           <p>Visit the Google Cloud <a href='https://cloud.google.com/sdk/docs/install'>documentation</a> for installation instructions.</p>
         </Grid>
 
         <Grid className='setup-paper'>
-          <h3><Chip label='2' />  Installing the Kubectl authentication plugin</h3>
+          <h3>2. Installing the Kubectl authentication plugin</h3>
             <p>Run this command in your terminal to get started:</p>
             <div class='code-snippet'>
               <pre>{cloudStartCode}</pre>
@@ -125,7 +125,7 @@ const CloudSetup = () => {
         </Grid>
 
         <Grid className='setup-paper'>
-          <h3><Chip label='3' /> Setting up your containerized application</h3>
+          <h3>3. Setting up your containerized application</h3>
           <p>Have the link to your containerized application ready</p>
           <p>We support Dockerhub, Google Container Registry, etc.</p>
           <p>To containerize your application, you can use something like <a href='https://docs.docker.com/get-docker/'> Docker </a></p>

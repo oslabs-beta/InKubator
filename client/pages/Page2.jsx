@@ -16,9 +16,11 @@
     // Make header responsive
 
 import React, { useEffect, useState } from 'react';
-import { Button, Grid, IconButton, Stack, Typography } from '@mui/material';
+import { Button, Grid, IconButton, Paper, Stack, Tooltip, Typography } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Project from '../components/Project';
+import Form from '../components/Form';
+import YamlGenerator from '../components/YamlGenerator';
 
 const Page2 = () => {
   const [projectState, setProjectState] = useState({
@@ -27,6 +29,7 @@ const Page2 = () => {
   });
 
   const [selectedCluster, setSelectedCluster] = useState(null);
+  let sampleClusters = [1,2,3];
 
     // FETCH REQUEST TEMPLATE 
     const fetchRequest = async (endpoint, method, card) => {
@@ -73,6 +76,7 @@ const Page2 = () => {
 
     const handleSelectProject = (index) => {
       setProjectState({...projectState, selectedProject: projectState.projects[index]});
+      getClusters();
       // NEXT STEPS:
         // Display a loading message to prevent the user from going crazy w clicks
         // Add throttle to minimize too many calls to GCloud
@@ -80,7 +84,7 @@ const Page2 = () => {
     };
   
     const handleSelectProjectStyles = (index) => {
-      return projectState.projects[index] === projectState.selectedProject ? 'project selected' : 'project'; 
+      return projectState.projects[index] === projectState.selectedProject ? 'project selected-project' : 'project'; 
     };
 
     // CLUSTERS
@@ -90,20 +94,31 @@ const Page2 = () => {
     // 2. [DONE] Visually handle select cluster
     // 3. Call a function to get corresponding deployments
 
-    const sampleClusters = [{}, {}];
+    const getClusters = (projectData) => {
+      // Make req to backend for clusters based on selected project
+      console.log('Loading clusters...');
+    };
     
     const handleSelectCluster = (index) => {
       setSelectedCluster(index);
+      getDeployments();
     };
 
     const handleSelectClusterStyles = (index) => {
-      return index === selectedCluster ? 'cluster-wrapper selected' : 'cluster-wrapper'; 
+      return index === selectedCluster ? 'cluster-wrapper selected-cluster' : 'cluster-wrapper'; 
     };
 
     // DEPLOYMENTS
     // 1. Get existing deployments from Google Cloud
     // 2. Show loading spinner when first rendered, when received show deployments?
-    // 
+    const getDeployments = (clusterData) => {
+      // Make req to backend for deployments based on selected cluster
+      console.log('Loading deployments...');
+    }
+
+    const loadForm = () => {
+      console.log('The form will load now :)');
+    };
 
     // FORM
     // Handle submit
@@ -117,45 +132,34 @@ const Page2 = () => {
       </div>
 
       <div id='google-projects-container' className='projects-container'> 
-        {/* 1. [ASK TARIK] all projects should populate on Load
-        2. [DONE] on hover, they should change hues
-        3. [DONE] on click, they should change colors 
-            AND load clusters 
-
-        {/* ITERATE OVER THE ARRAY THAT COMES BACK FROM GCLOUD */}
-        {/* Might need to do some prop drilling */}
         {projectState.projects.map((elements, index) => (
           <div 
             key={index} 
             className={handleSelectProjectStyles(index)} 
             onClick={() => {handleSelectProject(index)}}
-          >
-            <b>PROJECT</b>
-            <Stack spacing={0.5}>
-              <p>ID: sample-project-id</p>
-              <p>Number: 09987652a89</p>
+          > 
+            <b className='project-header'>PROJECT</b>
+            {/* <b>PROJECT</b> */}
+            <Stack className='details' spacing={0.5}>
+              <p><b>Name: </b>lustrious-vector-567</p>
+              <p><b>ID: </b>sample-project-id</p>
+              <p><b>Number: </b>09987652a89</p>
             </Stack>
           </div>
         ))}
       </div>
 
       <div id='google-clusters-container'> 
-        {/* CLUSTERS HEHE 
-        each one will have a button
-        on select, that click will trigger the wrapper style to update
-        each cluster will need an id
-        1. empty until a project is selected, on select, load All
-        2. on click (of select button), query deployments */}
         {sampleClusters.map((elements, index) => (
           <div 
             className={handleSelectClusterStyles(index)}
             key={index}
           > 
             <div className='cluster'>
-              <b>CLUSTER NAME</b>
-              <Stack spacing={0.5}>
-                <p>location: midwest</p>
-                <p>Status: running</p>
+              <b >CLUSTER NAME</b>
+              <Stack spacing={0.5} className='details'>
+                <p><b>Location: </b>Midwest-central</p>
+                <p><b>Status: </b>Running</p>
                 <Button 
                   className='select-cluster-button'
                   onClick={() => {handleSelectCluster(index)}}
@@ -168,6 +172,9 @@ const Page2 = () => {
       </div>
       <div id='google-deployments-main-container'>
         <div id='google-loaded-deployments-container'>
+        <Button>
+          <Paper>DEPLOYMENT</Paper>
+        </Button>
         <div className='deployment'>
           DEPLOYMENT
         </div>
@@ -182,12 +189,14 @@ const Page2 = () => {
         </div>
         </div>
         <div id='google-deployments-add-button-container'>
-          <IconButton><AddCircleIcon fontSize='large'/></IconButton>
+          <Tooltip title="New">
+            <IconButton onClick={loadForm}>
+              <AddCircleIcon fontSize='large'/>
+            </IconButton>
+          </Tooltip>
         </div>
       </div>
       <div id='google-form-container' className='projects-container'>
-        {/* Load form */}
-        {/* Load yaml generator */}
         <div>FORM HERE</div>
         <div>YAML HERE</div>
       </div>
