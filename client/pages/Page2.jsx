@@ -1,127 +1,166 @@
 // Refactoring page2 only focused on GCloud - Cristina xx
-// Meant to replace CloudForm
-
-// Will render these components...
-    // Projects
-    // Clusters
-    // Form
-    // YamlGenerator
 
 // Priorities...
-    // [DONE] Get this page to render
-    // [DONE] Build containers
-    // Refactor project component to fill into container
-    // Refactor clusters component to fill into container
-    // on project select create wrap around container
-    // Make header responsive
+// [WAITING] Make header responsive
+// [WAITING] Get projects from GCloud
+// [WAITING] Get clusters from GCloud
+// [WAITING] Get deployments from GCloud
+// [DONE] Get this page to render
+// [DONE] Build containers
+// [DONE] on project select create wrap around container
+// [DONE] Refactor project component to fill into container
+// [DONE] Refactor clusters component to fill into container
 
-import React, { useEffect, useState } from 'react';
-import { Button, Grid, IconButton, Paper, Stack, Tooltip, Typography } from '@mui/material';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import Project from '../components/Project';
-import Form from '../components/Form';
-import YamlGenerator from '../components/YamlGenerator';
+import React, { useState } from 'react';
+import { Button, CircularProgress, IconButton, Stack, Box } from '@mui/material';
+import { AddCircle, Refresh, InfoOutlined } from '@mui/icons-material';
+import { Link, animateScroll as scroll} from 'react-scroll';
+import Form2 from '../components/Form2.jsx';
+import YamlGenerator from '../components/YamlGenerator.jsx';
 
 const Page2 = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [projectState, setProjectState] = useState({
     selectedProject: null,
     projects: [{id: 1}, {id: 2}, {id: 3}]
   });
-
+  const [clusters, setClusters] = useState(null);
   const [selectedCluster, setSelectedCluster] = useState(null);
-  let sampleClusters = [1,2,3];
+  const [deployments, setDeployments] = useState(null);
+  const [selectedDeployment, setSelectedDeployment] = useState(null);
+  
+  // Hard coded - for testing purposes only
+  const sampleClusters = [1,2,3];
+  const sampleDeployments = [1,2,3,4,5];
 
-    // FETCH REQUEST TEMPLATE 
-    const fetchRequest = async (endpoint, method, card) => {
+  // FETCH REQUEST TEMPLATE 
+  const fetchRequest = async (endpoint, method, card) => {
+    
+    const defaultHeader = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(card)
+    };
+
+    // If a method is is passed, it updates the default header
+    let header = method ? { ...defaultHeader, method} : defaultHeader;
+
+    try {
+      const response = await fetch(endpoint, header);
       
-      const defaultHeader = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(card)
+      // Check for network or HTTP errors
+      if (!response.ok) {
+        throw new Error(`HTTP error. Status: ${response.status}`);
       };
 
-      // If a method is is passed, it updates the default header
-      let header = method ? { ...defaultHeader, method} : defaultHeader;
+      // Otherwise, log the result!
+      const result = response.json();
+      console.log("Successful fetch request:", result);
 
-      try {
-        const response = await fetch(endpoint, header);
-        
-        // Check for network or HTTP errors
-        if (!response.ok) {
-          throw new Error(`HTTP error. Status: ${response.status}`);
-        };
-
-        // Otherwise, log the result!
-        const result = response.json();
-        console.log("Successful fetch request:", result);
-
-      } catch (error) {
-        // Log the error so that devs can see it
-        console.error("Error with fetch request:", error);
-        // Throw the error so that the calling function can see it and deal with it accordingly
-        throw error;
-      }
-
+    } catch (error) {
+      // Log the error so that devs can see it
+      console.error("Error with fetch request:", error);
+      // Throw the error so that the calling function can see it and deal with it accordingly
+      throw error;
     }
 
-    // PROJECTS
-    // 1. Get projects from GCloud
-      // useEffect to get projects on initial component loading
-    // 2. Get projects on load
-        // Show loading spinner while waiting
-        // Display error if failed
-    // 3. Handle user selecting a project
+  }
 
-    const handleSelectProject = (index) => {
-      setProjectState({...projectState, selectedProject: projectState.projects[index]});
-      getClusters();
-      // NEXT STEPS:
-        // Display a loading message to prevent the user from going crazy w clicks
-        // Add throttle to minimize too many calls to GCloud
-        // Call the function that loads clusters
-    };
+  // PROJECTS
+  // Get projects from GCloud
+    // useEffect to get projects on initial component loading
+    // Show loading spinner while waiting
+    // Display error if failed
+
+  const handleSelectProject = (index) => {
+    setProjectState({...projectState, selectedProject: projectState.projects[index]});
+    getClusters();
+    // NEXT STEPS:
+      // Display a loading message to prevent the user from going crazy w clicks
+      // Add throttle to minimize too many calls to GCloud
+      // Call the function that loads clusters
+  };
   
-    const handleSelectProjectStyles = (index) => {
-      return projectState.projects[index] === projectState.selectedProject ? 'project selected-project' : 'project'; 
-    };
+  const handleSelectProjectStyles = (index) => {
+    return projectState.projects[index] === projectState.selectedProject ? 'project selected-project' : 'project'; 
+  };
 
-    // CLUSTERS
-    // 1. [ASK TARIK] Get clusters from GCloud based on selected project
-      // Show loading spinner while waiting
-      // Display error if failed
-    // 2. [DONE] Visually handle select cluster
-    // 3. Call a function to get corresponding deployments
+  // CLUSTERS
+  // [ASK TARIK] Get clusters from GCloud based on selected project
+  // Display error if failed
 
-    const getClusters = (projectData) => {
-      // Make req to backend for clusters based on selected project
+  const getClusters = (projectData) => {
+    // Make req to backend for clusters based on selected project
+    try {
+      // Begin loading state
+      setIsLoading(true);
       console.log('Loading clusters...');
-    };
-    
-    const handleSelectCluster = (index) => {
-      setSelectedCluster(index);
-      getDeployments();
-    };
 
-    const handleSelectClusterStyles = (index) => {
-      return index === selectedCluster ? 'cluster-wrapper selected-cluster' : 'cluster-wrapper'; 
-    };
+      // Insert fetch request here!
 
-    // DEPLOYMENTS
-    // 1. Get existing deployments from Google Cloud
-    // 2. Show loading spinner when first rendered, when received show deployments?
-    const getDeployments = (clusterData) => {
-      // Make req to backend for deployments based on selected cluster
-      console.log('Loading deployments...');
+      // Update cluster state with returned data
+      setClusters(sampleClusters);
+      console.log('Done loading clusters');
+
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    } finally {
+      // Reset loading state 
+      setIsLoading(false);
     }
+  };
+  
+  const handleSelectCluster = (index) => {
+    setSelectedCluster(index);
+    getDeployments();
+  };
 
-    const loadForm = () => {
-      console.log('The form will load now :)');
-    };
+  const handleSelectClusterStyles = (index) => {
+    return index === selectedCluster ? 'cluster-wrapper selected-cluster' : 'cluster-wrapper'; 
+  };
 
-    // FORM
-    // Handle submit
+  // DEPLOYMENTS
+  // Get existing deployments from Google Cloud
+  // Refresh deployments
+  const getDeployments = (clusterData) => {
+    // Make req to backend for deployments based on selected cluster
+    try {
+      setIsLoading(true);
+      console.log('Loading deployments...');
+      // Do the fetch request
+      // Update deployment state with returned data
+      setDeployments('a');
+      console.log('Done loading deployments.');
+    } catch (error) {
+      console.log(`Error: ${error}`);
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSelectDeployment = (index) => {
+    setSelectedDeployment('Sample deployment');
+    console.log('You selected a deployment');
+  };
+
+  const refreshDeployments = () => {
+    console.log('Refreshing deployments!');
+  };
+
+  // FORM
+  const loadForm = () => {
+    console.log('The form will load now :)');
+  };
+
+  const [yamlPreview, setYamlPreview] = useState({
+    portNumber: {value: ''},
+    replicas: {value: ''},
+    dockerImage: {value: ''},
+  });
 
   return (
     <>
@@ -132,7 +171,7 @@ const Page2 = () => {
       </div>
 
       <div id='google-projects-container' className='projects-container'> 
-        {projectState.projects.map((elements, index) => (
+        {projectState.projects.map((_, index) => (
           <div 
             key={index} 
             className={handleSelectProjectStyles(index)} 
@@ -145,60 +184,65 @@ const Page2 = () => {
               <p><b>ID: </b>sample-project-id</p>
               <p><b>Number: </b>09987652a89</p>
             </Stack>
-          </div>
-        ))}
+          </div>))}
       </div>
 
       <div id='google-clusters-container'> 
-        {sampleClusters.map((elements, index) => (
+        {isLoading && <Box sx={{ display: 'flex' }}><CircularProgress /></Box>}
+        {clusters === null ? false : sampleClusters.map((_, index) => (
           <div 
             className={handleSelectClusterStyles(index)}
-            key={index}
-          > 
+            key={index}> 
             <div className='cluster'>
               <b >CLUSTER NAME</b>
               <Stack spacing={0.5} className='details'>
                 <p><b>Location: </b>Midwest-central</p>
                 <p><b>Status: </b>Running</p>
                 <Button 
+                  variant='contained'
                   className='select-cluster-button'
                   onClick={() => {handleSelectCluster(index)}}
                 >view</Button>
               </Stack>
             </div>
-          </div>
-        ))}
-        
+          </div>))}
       </div>
       <div id='google-deployments-main-container'>
         <div id='google-loaded-deployments-container'>
-        <Button>
-          <Paper>DEPLOYMENT</Paper>
-        </Button>
-        <div className='deployment'>
-          DEPLOYMENT
+          {deployments === null ? false : 
+            sampleDeployments.map((_, index) => (
+              <div 
+                key={index} 
+                className='deployment'
+                onClick={() => {handleSelectDeployment(index)}}
+              >
+                DEPLOYMENT
+                each one will have a link to the next section
+              </div>))}
         </div>
-        <div className='deployment'>
-          DEPLOYMENT
-        </div>
-        <div className='deployment'>
-          DEPLOYMENT
-        </div>
-        <div className='deployment'>
-          DEPLOYMENT
-        </div>
-        </div>
-        <div id='google-deployments-add-button-container'>
-          <Tooltip title="New">
-            <IconButton onClick={loadForm}>
-              <AddCircleIcon fontSize='large'/>
+        {deployments === null ? false : 
+          <div id='google-deployments-button-container'>
+            <Link 
+              to='google-form-container'
+              activeClass="active"
+              spy={true}
+              smooth={true}
+              duration={900}
+            >
+              <IconButton onClick={loadForm}>
+                <AddCircle fontSize='medium'/>
+              </IconButton>
+            </Link>
+            <IconButton onClick={refreshDeployments}>
+              <Refresh fontSize='medium'/>
             </IconButton>
-          </Tooltip>
-        </div>
+            <IconButton onClick={loadForm}>
+              <InfoOutlined fontSize='medium'/>
+            </IconButton>
+          </div>}
       </div>
-      <div id='google-form-container' className='projects-container'>
-        <div>FORM HERE</div>
-        <div>YAML HERE</div>
+      <div id='google-form-container'>
+        <Form2 selectedCluster={selectedCluster}/>
       </div>
     </>
   )

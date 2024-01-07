@@ -13,11 +13,6 @@ body {
 
 
 /* FORM */
-.form-main-container {
-    justify-content: center;
-    /* align-items: center; */
-}
-
 .formPage{
     align-items: center;
     justify-content: center;
@@ -309,26 +304,26 @@ animation: spin 1s linear infinite;
 
 
 
-#form {
+/* #form { */
     /* CSS GRID */
-    display: grid;
-    grid-template-columns: 0.5fr 1.5fr; 
-    grid-template-rows: 0.1fr 0.8fr 0.8fr 0.1fr; 
-    grid-template-areas: 
-        "form-header form-header ."
-        "form-div1 form-div2 ."
-        "form-div3 form-div4 ."
-        "form-footer form-footer .";
+    /* display: grid; */
+    /* grid-template-columns: 0.5fr 1.5fr;  */
+    /* grid-template-rows: 0.1fr 0.8fr 0.8fr 0.1fr;  */
+    /* grid-template-areas:  */
+        /* "form-header form-header ." */
+        /* "form-div1 form-div2 ." */
+        /* "form-div3 form-div4 ." */
+        /* "form-footer form-footer ."; */
     /* LAYOUT */
-    padding: 20px;
-    margin-top: 20px;
-    min-width: 500px;
-    max-width: 700px;
-    border-radius: 30px;
+    /* padding: 20px; */
+    /* margin-top: 20px; */
+    /* min-width: 500px; */
+    /* max-width: 700px; */
+    /* border-radius: 30px; */
     /* PRETTY COLOR THINGS */
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
+    /* background-color: white; */
+    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+/* } */
 
 .form-header { 
     grid-area: form-header; 
@@ -581,7 +576,7 @@ animation: spin 1s linear infinite;
     justify-content: center;
     align-items: center;
     width: 95vw;
-    height: 15vh;
+    height: 18vh;
     background-color: #4c537c;
     background-position: center;
     background-repeat: no-repeat;
@@ -598,11 +593,9 @@ animation: spin 1s linear infinite;
     overflow-x: scroll;
     justify-content: left;
     align-items: center;
-    /* margin: 1%; */
-    width: 95vw;
-    /* height: 16vh; */
-    /* background-color: #e2e5fa; */
     border-radius: 25px;
+    width: 95vw;
+    height: 20vh;
 }
 
 /* OLD */
@@ -621,31 +614,26 @@ animation: spin 1s linear infinite;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 1.2%;
-    margin: 1.5%;
+    padding: 1%;
+    margin: 2%;
     border-radius: 20px;
-    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px; */
-    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
     box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
     background-color: white;
-    /* background-color: #e2e5fa; */
     transition: background-color 0.1s ease-in-out;
-    transition: box-shadow 0.1s ease-in-out;
-    min-height: 5vh;
-    height: 100%;
     width: 175px;
 }
 
 .project:hover {
     background-color: #eaedf9;
     color: #30292F;
+    transition: background-color 0.1s ease-in-out;
 }
 
 .project-header {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: large;
+    font-size: medium;
 }
 
 .details {
@@ -657,8 +645,8 @@ animation: spin 1s linear infinite;
     background-color: #4c537c;
     color: white;
     transition: background-color 0.1s ease-in-out;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
-    box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+    /* box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px; */
+    /* box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px; */
     /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; */
 }
 
@@ -666,20 +654,20 @@ animation: spin 1s linear infinite;
     display: flex;
     justify-content: left;
     align-items: center;
-    /* margin: 1%; */
-    width: 95vw;
-    /* background-color: #e2e5fa; */
     border-radius: 25px;
+    width: 95vw;
+    height: 30vh;
 }
 
 .cluster {
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
+    border-radius: 10px;
     padding: 10px;
     min-width: 50px;
     width: 175px;
     height: 150px;
-    border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 5px;
     /* box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px; */
     background-color: white;
@@ -687,16 +675,41 @@ animation: spin 1s linear infinite;
 }
 
 .cluster-wrapper {
-    padding: 1%;
-    margin: 1%;
+    padding: 10px;
+    margin: 10px;
     border-radius: 20px 20px 0 0;
-    transition: background-color 0.1s ease-in-out;
 }
 
 .selected-cluster {
     background-color: #e2e5fa;
     color: white;
     transition: background-color 0.1s ease-in-out;
+}
+
+#google-deployments-main-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    /* margin: 1%; */
+    padding: 2%;
+    max-width: 80%;
+    min-height: 20vh;
+    /* max-height: 25vh; */
+    /* height: 16vh; */
+    background-color: #e2e5fa;
+    border-radius: 20px;
+}
+
+#google-loaded-deployments-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    overflow-x: scroll;
+}
+
+#google-deployments-button-container {
+    display: flex;
+    flex-direction: column;
 }
 
 .deployment {
@@ -713,26 +726,6 @@ animation: spin 1s linear infinite;
     width: 150px;
 }
 
-#google-deployments-main-container {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    /* margin: 1%; */
-    padding: 2%;
-    max-width: 80%;
-    min-height: 16vh;
-    /* height: 16vh; */
-    background-color: #e2e5fa;
-    border-radius: 20px;
-}
-
-#google-loaded-deployments-container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    overflow-x: scroll;
-}
-
 .deployment:hover {
     background-color: #eaedf9;
     color: #30292F;
@@ -741,4 +734,24 @@ animation: spin 1s linear infinite;
 #google-form-container {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    padding: 2%;
+    background-color: pink;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 60%;
+}
+
+.form-sections-paper {
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
 }
